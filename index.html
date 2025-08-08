@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Matcha in Paris</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <!-- Leaflet (free OpenStreetMap library) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="" crossorigin=""></script>
 </head>
 <body>
-  <h1>Matcha in Paris</h1>
-  <p>Coming soon: all the best matchas in Paris!</p>
+  <header>
+    <h1>Matcha in Paris</h1>
+    <p>All the matcha spots in Paris — my ratings, map, and quick links.</p>
+  </header>
+
+  <div class="container">
+    <div class="grid">
+      <!-- Left: list & controls -->
+      <div>
+        <div class="card">
+          <div class="controls">
+            <input id="search" type="search" placeholder="Search name, area, tag…"/>
+            <button id="topToggle" class="btn" type="button">Top picks</button>
+          </div>
+          <div id="list" class="list"></div>
+        </div>
+      </div>
+
+      <!-- Right: map -->
+      <div>
+        <div id="map" class="map"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ and a whisk.</footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
