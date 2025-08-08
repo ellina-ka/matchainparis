@@ -70,7 +70,7 @@ function renderList(items) {
       <div style="margin:6px 0">${(c.tags||[]).map(t=>`<span class="badge">${t}</span>`).join('')}</div>
       <div class="row">
         <div>My rating: <strong>${starText(c.my_rating)}</strong></div>
-        <a class="btn" href="${c.google_url}" target="_blank" rel="noreferrer">Open in Google Maps</a>
+        <a class="btn" href="https://www.google.com/maps?q=${c.lat},${c.lng}" target="_blank" rel="noreferrer">Open in Google Maps</a>
       </div>
       ${c.notes ? `<div style="margin-top:6px;color:#4b5563">${c.notes}</div>` : ''}
     `;
