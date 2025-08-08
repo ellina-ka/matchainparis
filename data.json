@@ -2,18 +2,18 @@
   {
     "name": "LIV Coffee Shop",
     "address": "44 Boulevard Henri IV, 75004 Paris",
-    "lat": null,
-    "lng": null,
+    "lat": 8.85265963581207,
+    "lng": 2.367575857517732,
     "my_rating": 5,
     "price": "€€",
     "tags": ["matcha", "coffee"],
-    "notes": "most refreshing matcha, work-friendly"
+    "notes": "Most refreshing matcha, work-friendly"
   },
   {
     "name": "Kura-ge (Marais)",
     "address": "2 Rue du Roi de Sicile, 75004 Paris",
-    "lat": null,
-    "lng": null,
+    "lat": 48.85565155310542,
+    "lng": 2.3608607172818097,
     "my_rating": 4.6,
     "price": "€€€",
     "tags": ["matcha", "ceremonial"],
