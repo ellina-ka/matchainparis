@@ -95,4 +95,42 @@ function renderList(items) {
 function applyFilters() {
   const q = el.search.value.trim().toLowerCase();
   state.filtered = state.cafes.filter(c => {
-    if (state.topOnly && (c.my_rating ?? 0) < 4.6) return fals_
+    if (state.topOnly && (c.my_rating ?? 0) < 4.6) return false;
+    if (!q) return true;
+    return (
+      c.name.toLowerCase().includes(q) ||
+      c.address.toLowerCase().includes(q) ||
+      (c.tags||[]).some(t => t.toLowerCase().includes(q))
+    );
+  });
+  renderList(state.filtered);
+  renderMarkers(state.filtered);
+}
+
+async function boot() {
+  document.getElementById('year').textContent = new Date().getFullYear();
+  el.list = document.getElementById('list');
+  el.search = document.getElementById('search');
+  el.topToggle = document.getElementById('topToggle');
+
+  initMap();
+
+  try {
+    const res = await fetch('data.json', { cache: 'no-store' });
+    state.cafes = await res.json();
+  } catch (e) {
+    console.error('Failed to load data.json', e);
+    state.cafes = [];
+  }
+
+  el.search.addEventListener('input', applyFilters);
+  el.topToggle.addEventListener('click', () => {
+    state.topOnly = !state.topOnly;
+    el.topToggle.textContent = state.topOnly ? 'Top picks: ON' : 'Top picks';
+    applyFilters();
+  });
+
+  applyFilters();
+}
+
+boot();
