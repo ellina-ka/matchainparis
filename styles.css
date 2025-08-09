@@ -49,3 +49,11 @@ footer{max-width:960px;margin:16px auto 40px;padding:0 16px;color:var(--muted);f
 .navbar a.active {
   color: var(--accent);
 }
+
+.page-title {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--accent);
+}
+
