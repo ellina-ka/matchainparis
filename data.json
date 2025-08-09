@@ -4,17 +4,17 @@
     "address": "44 Boulevard Henri IV, 75004 Paris",
     "lat": null,
     "lng": null,
-    "my_rating": null,
+    "my_rating": 4.9,
     "price": "€€",
-    "tags": ["matcha", "coffee", "to-go", "4e"],
-    "notes": "New Marais-side spot. Add your tasting notes."
+    "tags": ["matcha", "coffee", "work-friendly", "4e"],
+    "notes": "New Marais-side spot. Most refreshing matcha."
   },
   {
     "name": "Kura-ge (Marais)",
     "address": "2 Rue du Roi de Sicile, 75004 Paris",
     "lat": null,
     "lng": null,
-    "my_rating": null,
+    "my_rating": 4.4,
     "price": "€€",
     "tags": ["matcha", "ceremonial", "to-go", "4e"],
     "notes": "Specialty matcha-focused café."
@@ -22,18 +22,19 @@
 {
     "name": "Saint Pearl",
     "address": "38 Rue des Saints-Pères, 75007 Paris",
-    "lat": null,
-    "lng": null,
+    "lat": 48.85508933264042,
+  "lng": 2.3305255711303987,
     "my_rating": 4.8,
     "price": null,
     "tags": ["matcha", "no-laptops", "7e"],
-    "notes": "Hot matcha latte recommended. Ask for extra strong (free). No laptops."
+    "notes": "Hot matcha latte recommended. Ask for extra strong matcha (free). No laptops."
   },
   {
     "name": "Creamy Daily",
     "address": "49 Rue Sainte-Anne, 75002 Paris",
-    "lat": null,
-    "lng": null,
+ "name": "Creamy Daily",
+  "lat": 48.86732812123635,
+  "lng": 2.335738984537043,
     "my_rating": 4.3,
     "price": null,
     "tags": ["matcha", "work-friendly", "plugs", "2e"],
@@ -42,8 +43,8 @@
   {
     "name": "Vague Coffee",
     "address": "76 Rue Boursault, 75017 Paris",
-    "lat": null,
-    "lng": null,
+    "lat": 48.88650501368761,
+  "lng": 2.317701013407483,
     "my_rating": 4.1,
     "price": null,
     "tags": ["matcha", "iced", "limited-laptops", "17e"],
@@ -52,8 +53,8 @@
   {
     "name": "Torré Coffee Shop",
     "address": "15 Boulevard de la Tour-Maubourg, 75007 Paris",
-    "lat": null,
-    "lng": null,
+     "lat": 48.86095875559854,
+  "lng": 2.3105832443437095,
     "my_rating": 4,
     "price": "€€€",
     "tags": ["matcha", "7e"],
@@ -62,8 +63,8 @@
   {
     "name": "Sisters Coffee",
     "address": "17 Rue Boulard, 75014 Paris",
-    "lat": null,
-    "lng": null,
+     "lat": 48.83410373701344,
+  "lng": 2.329179415474666,
     "my_rating": 5,
     "price": null,
     "tags": ["matcha", "wifi", "plugs", "AC", "iced", "14e", "work-friendly"],
@@ -72,8 +73,8 @@
   {
     "name": "Un Ami",
     "address": "95 Rue Didot, 75014 Paris",
-    "lat": null,
-    "lng": null,
+    "lat": 48.82872933848323,
+  "lng": 2.316622571138588,
     "my_rating": 4.4,
     "price": null,
     "tags": ["matcha", "cozy", "reading", "14e"],
@@ -82,9 +83,9 @@
   {
     "name": "Certified Café",
     "address": "83 Rue du Bac, 75007 Paris",
-    "lat": null,
-    "lng": null,
-    "my_rating": 4,
+     "lat": 48.85422279746277,
+  "lng": 2.3247524289721553,
+    "my_rating": 3.9,
     "price": null,
     "tags": ["matcha", "indoor-seating", "outdoor-seating", "7e"],
     "notes": "Hit-or-miss matcha (great or watery). Plenty of seats, chilled vibe."
@@ -92,8 +93,8 @@
   {
     "name": "Cortado",
     "address": "31 Rue Charlot, 75003 Paris",
-    "lat": null,
-    "lng": null,
+      "lat": 48.862584417909645,
+  "lng": 2.362007544313455,
     "my_rating": 4.2,
     "price": "€€€",
     "tags": ["matcha", "marais", "friends", "no-laptops", "3e"],
@@ -103,8 +104,8 @@
   {
     "name": "Café Nuances (1er)",
     "address": "25 Rue Danielle Casanova, 75001 Paris",
-    "lat": null,
-    "lng": null,
+     "lat": 48.86806396180887,
+  "lng": 2.3313822577273977,
     "my_rating": 4.7,
     "price": "€€€",
     "tags": ["matcha", "to-go", "1er"],
@@ -113,8 +114,8 @@
   {
     "name": "Café Nuances (6e)",
     "address": "22 Rue du Vieux Colombier, 75006 Paris",
-    "lat": null,
-    "lng": null,
+    "lat": 48.85213628233819,
+  "lng": 2.3302424577375214,
     "my_rating": 4.7,
     "price": "€€€",
     "tags": ["matcha", "to-go", "6e"],
