@@ -18,5 +18,177 @@
     "price": "€€€",
     "tags": ["matcha", "ceremonial"],
     "notes": "Go for the affogato and pure matcha"
-  }
+  },
+{
+    "name": "Saint Pearl",
+    "address": "38 Rue des Saints-Pères, 75007 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": null,
+    "tags": ["matcha", "no-laptops", "7e"],
+    "notes": "Hot matcha latte recommended. Ask for extra strong (free). No laptops."
+  },
+  {
+    "name": "Creamy Daily",
+    "address": "49 Rue Sainte-Anne, 75002 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": null,
+    "tags": ["matcha", "work-friendly", "plugs", "2e"],
+    "notes": "Very creamy matcha latte. Laptops + plugs OK."
+  },
+  {
+    "name": "Vague Coffee",
+    "address": "76 Rue Boursault, 75017 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": null,
+    "tags": ["matcha", "iced", "limited-laptops", "17e"],
+    "notes": "Iced matcha: super refreshing; smaller cup, lighter taste. ~2 laptop tables."
+  },
+  {
+    "name": "Torré Coffee Shop",
+    "address": "15 Boulevard de la Tour-Maubourg, 75007 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": "€€€",
+    "tags": ["matcha", "7e"],
+    "notes": "Pricey for matcha, but strong option in the area."
+  },
+  {
+    "name": "Sisters Coffee",
+    "address": "17 Rue Boulard, 75014 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": null,
+    "tags": ["matcha", "wifi", "plugs", "AC", "iced", "14e", "work-friendly"],
+    "notes": "Local gem. Large iced matcha. Homemade cakes change daily. Wi-Fi, plugs, AC."
+  },
+  {
+    "name": "Un Ami",
+    "address": "95 Rue Didot, 75014 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": null,
+    "tags": ["matcha", "cozy", "reading", "14e"],
+    "notes": "Cozy sit-and-read spot. Coffee might outshine the matcha."
+  },
+  {
+    "name": "Certified Café",
+    "address": "83 Rue du Bac, 75007 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": null,
+    "tags": ["matcha", "indoor-seating", "outdoor-seating", "7e"],
+    "notes": "Hit-or-miss matcha (great or watery). Plenty of seats, chilled vibe."
+  },
+  {
+    "name": "Cortado",
+    "address": "31 Rue Charlot, 75003 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": "€€€",
+    "tags": ["matcha", "marais", "friends", "no-laptops", "3e"],
+    "notes": "Solid matcha; nice with pan con tomate. Better for chilling than working."
+  },
+
+  {
+    "name": "Café Nuances (1er)",
+    "address": "25 Rue Danielle Casanova, 75001 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": "€€€",
+    "tags": ["matcha", "to-go", "1er"],
+    "notes": "Expensive but excellent hot matcha; tea quality shines. Rose matcha is a fun twist."
+  },
+  {
+    "name": "Café Nuances (6e)",
+    "address": "22 Rue du Vieux Colombier, 75006 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": "€€€",
+    "tags": ["matcha", "to-go", "6e"],
+    "notes": "Same quality as 1er; not a sit-down spot."
+  },
+
+  {
+    "name": "8lithèque 八梨空间",
+    "address": "3 Rue Victor Considérant, 75014 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": null,
+    "tags": ["matcha", "work-friendly", "late", "14e", "creative"],
+    "notes": "Unique, artsy space; open later than most. Matcha is weaker; coconut option is original."
+  },
+  {
+    "name": "The Coffee (Mazarine)",
+    "address": "33 Rue Mazarine, 75006 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": "€€",
+    "tags": ["matcha", "chain", "6e", "to-go"],
+    "notes": "Reliable Japanese chain. Regular matcha is standard; iced mint matcha is the standout."
+  },
+  {
+    "name": "Noir (Saint-Florentin)",
+    "address": "8 Rue Saint-Florentin, 75001 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": "€€",
+    "tags": ["matcha", "chain", "1er", "to-go"],
+    "notes": "Go for coffee; matcha best hot with oat. Not a work spot. Handy for Sciences Po runs."
+  },
+  {
+    "name": "Wani",
+    "address": "7 ter Rue Saint-Placide, 75006 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": "€€€",
+    "tags": ["matcha", "food", "6e", "premium"],
+    "notes": "Chef-run, stylish, superb food. Excellent matcha but very expensive; peak bobo vibes."
+  },
+  {
+    "name": "AKA Coffee Shop",
+    "address": "25 Rue Mouton-Duvernet, 75014 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": "€€",
+    "tags": ["matcha", "14e"],
+    "notes": "Matcha is light/milky; coffee stronger here."
+  },
+  {
+    "name": "JŌHŌ Coffee",
+    "address": "14 Rue des Écouffes, 75004 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": "€€",
+    "tags": ["matcha", "4e", "good-service"],
+    "notes": "Cute spot in the 4e. Good matcha and coffee; friendly service."
+  },
+  {
+    "name": "Boma",
+    "address": "48 Rue de la Montagne Sainte-Geneviève, 75005 Paris",
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": null,
+    "tags": ["matcha", "5e", "tbc"],
+    "notes": "Not tested yet."
+  }  
 ]
