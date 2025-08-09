@@ -1,23 +1,23 @@
 [
-  {
+ {
     "name": "LIV Coffee Shop",
     "address": "44 Boulevard Henri IV, 75004 Paris",
-    "lat": 48.85265963581207,
-    "lng": 2.367575857517732,
-    "my_rating": 5,
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
     "price": "€€",
-    "tags": ["matcha", "coffee"],
-    "notes": "Most refreshing matcha, work-friendly"
+    "tags": ["matcha", "coffee", "to-go", "4e"],
+    "notes": "New Marais-side spot. Add your tasting notes."
   },
   {
     "name": "Kura-ge (Marais)",
     "address": "2 Rue du Roi de Sicile, 75004 Paris",
-    "lat": 48.85565155310542,
-    "lng": 2.3608607172818097,
-    "my_rating": 4.6,
-    "price": "€€€",
-    "tags": ["matcha", "ceremonial"],
-    "notes": "Go for the affogato and pure matcha"
+    "lat": null,
+    "lng": null,
+    "my_rating": null,
+    "price": "€€",
+    "tags": ["matcha", "ceremonial", "to-go", "4e"],
+    "notes": "Specialty matcha-focused café."
   },
 {
     "name": "Saint Pearl",
