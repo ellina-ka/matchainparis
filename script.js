@@ -58,10 +58,7 @@ function starText(n) {
 }
 
 function googleLink(c) {
-  // Use coords if present; otherwise fall back to address search (always works)
-  if (typeof c.lat === 'number' && typeof c.lng === 'number') {
-    return `https://www.google.com/maps?q=${c.lat},${c.lng}`;
-  }
+  // Always use the address for Google Maps button
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.address)}`;
 }
 
