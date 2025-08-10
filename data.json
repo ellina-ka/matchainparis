@@ -6,8 +6,8 @@
     "lng": 2.367575856752698,
     "my_rating": 4.9,
     "price": "€€",
-    "tags": ["matcha", "coffee", "work-friendly", "4e"],
-    "notes": "New Marais-side spot. Most refreshing matcha."
+    "tags": ["work-friendly", "flavoured"],
+    "notes": "New Marais-side spot. Most refreshing matcha. Generous servings and cookies."
   },
   {
     "name": "Kura-ge (Marais)",
@@ -16,8 +16,8 @@
     "lng": 2.3609250960891277,
     "my_rating": 4.4,
     "price": "€€€",
-    "tags": ["matcha", "ceremonial", "to-go", "4e"],
-    "notes": "Specialty matcha-focused café."
+    "tags": ["ceremonial"],
+    "notes": "Specialty matcha-focused café. Try the pure matcha."
   },
 {
     "name": "Saint Pearl",
@@ -26,7 +26,7 @@
   "lng": 2.3305255711303987,
     "my_rating": 4.8,
     "price": "€€",
-    "tags": ["matcha", "no-laptops", "7e"],
+    "tags": ["no-laptops"],
     "notes": "Hot matcha latte recommended. Ask for extra strong matcha (free). No laptops."
   },
   {
@@ -37,7 +37,7 @@
   "lng": 2.335738984537043,
     "my_rating": 4.3,
     "price": "€€",
-    "tags": ["matcha", "work-friendly", "plugs", "2e"],
+    "tags": ["work-friendly", "flavoured"],
     "notes": "Very creamy matcha latte. Laptops + plugs OK."
   },
   {
@@ -47,7 +47,7 @@
   "lng": 2.317701013407483,
     "my_rating": 4.1,
     "price": "€€",
-    "tags": ["matcha", "iced", "limited-laptops", "17e"],
+    "tags": ["work-friendly"],
     "notes": "Iced matcha: super refreshing; smaller cup, lighter taste. ~2 laptop tables."
   },
   {
@@ -57,7 +57,7 @@
   "lng": 2.3105832443437095,
     "my_rating": 4,
     "price": "€€€",
-    "tags": ["matcha", "7e"],
+    "tags": ["flavoured"],
     "notes": "Pricey for matcha, but strong option in the area."
   },
   {
@@ -67,7 +67,7 @@
   "lng": 2.329179415474666,
     "my_rating": 5,
     "price": "€€",
-    "tags": ["matcha", "wifi", "plugs", "AC", "iced", "14e", "work-friendly"],
+    "tags": ["work-friendly"],
     "notes": "Local gem. Large iced matcha. Homemade cakes change daily. Wi-Fi, plugs, AC."
   },
   {
@@ -77,7 +77,7 @@
   "lng": 2.316622571138588,
     "my_rating": 4.4,
     "price": "€€",
-    "tags": ["matcha", "cozy", "reading", "14e"],
+    "tags": [],
     "notes": "Cozy sit-and-read spot. Coffee might outshine the matcha."
   },
   {
@@ -87,7 +87,7 @@
   "lng": 2.3247524289721553,
     "my_rating": 3.9,
     "price": "€€",
-    "tags": ["matcha", "indoor-seating", "outdoor-seating", "7e"],
+    "tags": ["work-friendly"],
     "notes": "Hit-or-miss matcha (great or watery). Plenty of seats, chilled vibe."
   },
   {
@@ -97,7 +97,7 @@
   "lng": 2.362007544313455,
     "my_rating": 4.2,
     "price": "€€€",
-    "tags": ["matcha", "marais", "friends", "no-laptops", "3e"],
+    "tags": ["flavoured", "no-laptops"],
     "notes": "Solid matcha; nice with pan con tomate. Better for chilling than working."
   },
 
@@ -108,7 +108,7 @@
   "lng": 2.3313822577273977,
     "my_rating": 4.7,
     "price": "€€€",
-    "tags": ["matcha", "to-go", "1er"],
+    "tags": ["to-go"],
     "notes": "Expensive but excellent hot matcha; tea quality shines. Rose matcha is a fun twist."
   },
   {
@@ -118,7 +118,7 @@
   "lng": 2.3302424577375214,
     "my_rating": 4.7,
     "price": "€€€",
-    "tags": ["matcha", "to-go", "6e"],
+    "tags": ["to-go"],
     "notes": "Same quality as Nuances 1er; not a sit-down spot."
   },
 
@@ -129,7 +129,7 @@
     "lng": 2.3310536071917736,
     "my_rating": 4.1,
     "price": "€€",
-    "tags": ["matcha", "work-friendly", "late", "14e", "creative"],
+    "tags": ["work-friendly", "flavoured"],
     "notes": "Unique, artsy space; open later than most. Matcha is weaker; coconut option is original."
   },
   {
@@ -139,7 +139,7 @@
     "lng": 2.3384418191782403,
     "my_rating": 4.5,
     "price": "€€",
-    "tags": ["matcha", "chain", "6e", "to-go"],
+    "tags": ["flavoured", "to-go"],
     "notes": "Reliable Japanese chain. Regular matcha is standard; iced mint matcha is the standout."
   },
   {
@@ -149,7 +149,7 @@
     "lng": 2.326452653657398,
     "my_rating": 4.1,
     "price": "€€",
-    "tags": ["matcha", "chain", "7e", "to-go"],
+    "tags": ["to-go"],
     "notes": "Go for coffee; matcha best hot with oat. Not a work spot. Handy for Sciences Po runs."
   },
   {
@@ -159,7 +159,7 @@
     "lng": 2.3247465923435096,
     "my_rating": 3.8,
     "price": "€€€",
-    "tags": ["matcha", "food", "6e", "premium"],
+    "tags": ["ceremonial","no-laptops"],
     "notes": "Chef-run, stylish, superb food. Good matcha but very expensive; peak bobo vibes."
   },
   {
@@ -169,7 +169,7 @@
     "lng": 2.32774738092576,
     "my_rating": 4.1,
     "price": "€€",
-    "tags": ["matcha", "14e"],
+    "tags": ["work-friendly"],
     "notes": "Matcha is light/milky; coffee stronger here."
   },
   {
@@ -179,7 +179,7 @@
     "lng": 2.358863481301901,
     "my_rating": 4.8,
     "price": "€€",
-    "tags": ["matcha", "4e", "good-service"],
+    "tags": ["flavoured"],
     "notes": "Cute spot in the 4e. Good matcha and coffee; friendly service."
   },
   {
@@ -189,7 +189,17 @@
     "lng": 2.3438190520326225,
     "my_rating": 4.5,
     "price": "€€",
-    "tags": ["matcha", "5e", "latte art"],
+    "tags": ["to-go"],
     "notes": "Well balanced matcha. Cute place, but small. Nice latte art."
-  }  
+  },
+  {
+    "name": "Boma",
+    "address": "48 Rue de la Montagne Ste Geneviève, 75005 Paris",
+    "lat": 48.84783111241156,
+    "lng": 2.3483508126698185,
+    "my_rating": 4.6,
+    "price": "€€€",
+    "tags": ["work-friendly"],
+    "notes": "Very aesthetic place with lots of seats. Matcha is smaller, desserts are excellent."
+  }
 ]
