@@ -96,24 +96,55 @@ function renderList(items) {
 
 function applyFilters() {
   const q = el.search.value.trim().toLowerCase();
-  state.filtered = state.cafes.filter(c => {
+
+  // Filter
+  let items = state.cafes.filter(c => {
     if (state.topOnly && (c.my_rating ?? 0) < 4.6) return false;
+    if (state.hideUnrated && typeof c.my_rating !== 'number') return false;
     if (!q) return true;
     return (
       c.name.toLowerCase().includes(q) ||
       c.address.toLowerCase().includes(q) ||
-      (c.tags||[]).some(t => t.toLowerCase().includes(q))
+      (c.tags || []).some(t => t.toLowerCase().includes(q))
     );
   });
+
+  // Sort
+  if (state.sortBy === 'name') {
+    items.sort((a, b) => a.name.localeCompare(b.name, 'fr', { sensitivity: 'base' }));
+  } else { // default: rating
+    items.sort((a, b) => {
+      const ra = typeof a.my_rating === 'number' ? a.my_rating : -1;
+      const rb = typeof b.my_rating === 'number' ? b.my_rating : -1;
+      if (rb !== ra) return rb - ra;
+      return a.name.localeCompare(b.name, 'fr', { sensitivity: 'base' });
+    });
+  }
+
+  state.filtered = items;
   renderList(state.filtered);
   renderMarkers(state.filtered);
 }
+
 
 async function boot() {
   document.getElementById('year').textContent = new Date().getFullYear();
   el.list = document.getElementById('list');
   el.search = document.getElementById('search');
   el.topToggle = document.getElementById('topToggle');
+  el.sortBy = document.getElementById('sortBy'); // dropdown for sorting
+el.hideUnrated = document.getElementById('hideUnrated'); // checkbox
+
+// Listeners for new controls
+el.sortBy?.addEventListener('change', () => {
+  state.sortBy = el.sortBy.value;
+  applyFilters();
+});
+el.hideUnrated?.addEventListener('change', () => {
+  state.hideUnrated = el.hideUnrated.checked;
+  applyFilters();
+});
+
 
   initMap();
 
