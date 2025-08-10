@@ -3,14 +3,19 @@ const state = {
   filtered: [],
   map: null,
   markers: [],
-  topOnly: false
+  topOnly: false,
+  sortBy: "rating",      // NEW
+  hideUnrated: false     // NEW
 };
 
 const el = {
   list: null,
   search: null,
-  topToggle: null
+  topToggle: null,
+  sortBy: null,          // NEW
+  hideUnrated: null      // NEW
 };
+
 
 function initMap() {
   // Centre on Paris
