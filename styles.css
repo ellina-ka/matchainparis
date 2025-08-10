@@ -57,3 +57,33 @@ footer{max-width:960px;margin:16px auto 40px;padding:0 16px;color:var(--muted);f
   color: var(--accent);
 }
 
+
+/* Desktop: list scrolls inside its box; map stays visible */
+@media (min-width: 900px) {
+  .scroll-col {
+    position: sticky;
+    top: 16px;
+    height: calc(100vh - 120px); /* fits viewport minus header */
+  }
+  .scroll-col .card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .scroll-col .list {
+    flex: 1 1 auto;
+    overflow-y: auto;  /* inner scrolling here */
+    min-height: 0;     /* critical so flex child can shrink */
+  }
+
+  .sticky-col {
+    position: sticky;
+    top: 16px;
+    height: calc(100vh - 120px);
+  }
+  .sticky-col .map {
+    height: 100%;
+  }
+}
+
+
