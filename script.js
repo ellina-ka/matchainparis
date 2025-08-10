@@ -5,13 +5,14 @@ const state = {
   map: null,
   markers: [],
   topOnly: false,
-  hideUnrated: false,   // checkbox
-  arr: "all"            // arrondissement filter: "all" or "1".."20"
+  hideUnrated: false,
+  arr: "all",
+  tag: "all" // NEW: selected tag filter
 };
 
 const el = {
   list: null,
-  search: null,
+  tagChips: null,
   topToggle: null,
   hideUnrated: null,
   arrFilter: null
@@ -35,7 +36,7 @@ function renderMarkers(items) {
   clearMarkers();
   const group = [];
   items.forEach((c, idx) => {
-    if (typeof c.lat !== 'number' || typeof c.lng !== 'number') return; // only if we have coords
+    if (typeof c.lat !== 'number' || typeof c.lng !== 'number') return;
     const m = L.marker([c.lat, c.lng]).addTo(state.map)
       .bindPopup(`<strong>${c.name}</strong><br/>${c.address}<br/>My rating: ${c.my_rating ?? "—"}`);
     m.on('click', () => highlightListItem(idx));
@@ -63,12 +64,10 @@ function starText(n) {
 }
 
 function googleLink(c) {
-  // Always navigate by address (your preference)
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.address)}`;
 }
 
 function getArrFromAddress(address) {
-  // Detect 75001..75020 and 75116 -> 16e
   const m = (address || "").match(/75(\d{3})/);
   if (!m) return null;
   const n = parseInt(m[1], 10);
@@ -104,11 +103,28 @@ function renderList(items) {
   });
 }
 
-// ---------- Filter + sort (rating only) ----------
-function applyFilters() {
-  const q = (el.search?.value || '').trim().toLowerCase();
+// ---------- Render tag chips ----------
+function renderTagChips() {
+  const tags = ["work-friendly", "no-laptops", "to-go", "ceremonial", "flavoured"];
+  el.tagChips.innerHTML = '';
+  tags.forEach(tag => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = tag;
+    chip.addEventListener('click', () => {
+      state.tag = (state.tag === tag) ? "all" : tag;
+      renderTagChips();
+      applyFilters();
+    });
+    if (state.tag === tag) {
+      chip.classList.add('active');
+    }
+    el.tagChips.appendChild(chip);
+  });
+}
 
-  // Filter
+// ---------- Filter + sort ----------
+function applyFilters() {
   let items = state.cafes.filter(c => {
     if (state.topOnly && (c.my_rating ?? 0) < 4.6) return false;
     if (state.hideUnrated && typeof c.my_rating !== 'number') return false;
@@ -118,15 +134,15 @@ function applyFilters() {
       if (String(arr) !== String(state.arr)) return false;
     }
 
-    if (!q) return true;
-    return (
-      c.name.toLowerCase().includes(q) ||
-      (c.address || "").toLowerCase().includes(q) ||
-      (c.tags || []).some(t => t.toLowerCase().includes(q))
-    );
+    if (state.tag !== "all") {
+      if (!c.tags || !c.tags.map(t => t.toLowerCase()).includes(state.tag.toLowerCase())) {
+        return false;
+      }
+    }
+
+    return true;
   });
 
-  // Sort by rating (best first), then name; unrated at the end
   items.sort((a, b) => {
     const ra = typeof a.my_rating === 'number' ? a.my_rating : -1;
     const rb = typeof b.my_rating === 'number' ? b.my_rating : -1;
@@ -143,7 +159,7 @@ function applyFilters() {
 async function boot() {
   document.getElementById('year').textContent = new Date().getFullYear();
   el.list = document.getElementById('list');
-  el.search = document.getElementById('search');
+  el.tagChips = document.getElementById('tagChips');
   el.topToggle = document.getElementById('topToggle');
   el.hideUnrated = document.getElementById('hideUnrated');
   el.arrFilter = document.getElementById('arrFilter');
@@ -158,8 +174,8 @@ async function boot() {
     state.cafes = [];
   }
 
-  // Listeners
-  el.search?.addEventListener('input', applyFilters);
+  renderTagChips();
+
   el.topToggle?.addEventListener('click', () => {
     state.topOnly = !state.topOnly;
     el.topToggle.textContent = state.topOnly ? 'Top picks: ON' : 'Top picks';
@@ -170,7 +186,7 @@ async function boot() {
     applyFilters();
   });
   el.arrFilter?.addEventListener('change', () => {
-    state.arr = el.arrFilter.value; // "all" or "1".."20"
+    state.arr = el.arrFilter.value;
     applyFilters();
   });
 
@@ -178,3 +194,4 @@ async function boot() {
 }
 
 boot();
+
