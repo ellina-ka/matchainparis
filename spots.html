@@ -25,15 +25,38 @@
       <div class="scroll-col">
         <div class="card">
           <div class="controls">
-            <input id="search" type="search" placeholder="Search name, area, tag…"/>
-            <select id="sortBy" title="Sort by">
-              <option value="rating">Rating (best first)</option>
-              <option value="name">Name (A–Z)</option>
-            </select>
-            <label style="display:flex;align-items:center;gap:6px;font-size:14px;">
-              <input type="checkbox" id="hideUnrated"/> Hide unrated
-            </label>
-            <button id="topToggle" class="btn" type="button">Top picks</button>
+           <input id="search" type="search" placeholder="Search name, area, tag…"/>
+
+<select id="arrFilter" title="Arrondissement">
+  <option value="all">All arrondissements</option>
+  <option value="1">1er</option>
+  <option value="2">2e</option>
+  <option value="3">3e</option>
+  <option value="4">4e</option>
+  <option value="5">5e</option>
+  <option value="6">6e</option>
+  <option value="7">7e</option>
+  <option value="8">8e</option>
+  <option value="9">9e</option>
+  <option value="10">10e</option>
+  <option value="11">11e</option>
+  <option value="12">12e</option>
+  <option value="13">13e</option>
+  <option value="14">14e</option>
+  <option value="15">15e</option>
+  <option value="16">16e</option>
+  <option value="17">17e</option>
+  <option value="18">18e</option>
+  <option value="19">19e</option>
+  <option value="20">20e</option>
+</select>
+
+<label style="display:flex;align-items:center;gap:6px;font-size:14px;">
+  <input type="checkbox" id="hideUnrated"/> Hide unrated
+</label>
+
+<button id="topToggle" class="btn" type="button">Top picks</button>
+
           </div>
 
           <!-- IMPORTANT: this must exist exactly once -->
