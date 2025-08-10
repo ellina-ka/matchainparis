@@ -23,24 +23,24 @@
   <div class="container">
     <div class="grid">
       <!-- Left: list -->
-      <div>
-        <div class="card">
-          <div class="controls">
-            <input id="search" type="search" placeholder="Search name, area, tag…"/>
-            <button id="topToggle" class="btn" type="button">Top picks</button>
-          </div>
-          <div id="list" class="list"></div>
-        </div>
-      </div>
-
-      <!-- Right: map -->
-      <div>
-        <div id="map" class="map"></div>
-      </div>
+     <!-- Left: list & controls -->
+<div class="scroll-col">
+  <div class="card">
+    <div class="controls">
+      <input id="search" type="search" placeholder="Search name, area, tag…"/>
+      <button id="topToggle" class="btn" type="button">Top picks</button>
     </div>
+    <div id="list" class="list"></div>
+  </div>
+</div>
+
+    <!-- Right: map -->
+<div class="sticky-col">
+  <div id="map" class="map"></div>
+</div>
   </div>
 
-  <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ and a whisk.</footer>
+  <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ and a whisk, by Ellina K-A.</footer>
 
   <script src="script.js?v=3"></script>
 </body>
