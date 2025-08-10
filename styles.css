@@ -148,4 +148,24 @@ select {
 .chip.active { background: var(--card); border-color: var(--accent); color: var(--accent); }
 
 
+/* Search + Filters panel */
+.controls { position: relative; }
+.filters-bar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.filter-panel {
+  position:absolute; left:0; right:0; top:60px;
+  background:#fff; border:1px solid var(--border); border-radius:12px;
+  box-shadow:0 8px 24px rgba(0,0,0,.08); padding:12px; z-index:30;
+}
+.filter-panel h4 { margin:0 0 8px; font-size:14px; color:var(--muted); }
+.filter-panel .group { display:flex; flex-wrap:wrap; gap:12px 18px; }
+.filter-panel label { display:flex; align-items:center; gap:8px; font-size:14px; }
+.filter-actions { margin-top:10px; display:flex; justify-content:space-between; align-items:center; }
+.link-btn { background:none; border:none; padding:0; color:#334155; text-decoration:underline; cursor:pointer; font-size:14px; }
+
+/* Chips for applied filters */
+.chips { display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 4px; }
+.chip { padding:6px 10px; border:1px solid var(--border); border-radius:999px; background:#fff; font-size:13px; cursor:pointer; }
+.chip:hover { border-color:var(--accent); color:var(--accent); }
+
+
 
