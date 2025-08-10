@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Matcha in Paris</title>
+  <title>Matcha Spots in Paris</title>
   <link rel="stylesheet" href="styles.css"/>
   <!-- Leaflet (OpenStreetMap) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
@@ -11,51 +11,47 @@
 </head>
 <body>
   <header>
-<nav class="navbar">
-  <a href="index.html">About</a>
-  <a href="spots.html" class="active">Spots</a>
-</nav>
-
-   <h1 class="page-title">Matcha Spots in Paris 🍵</h1>
-    <p>All the matcha spots in Paris — my ratings, map, and quick links.</p>
+    <nav class="navbar">
+      <a href="index.html">About</a>
+      <a href="spots.html" class="active">Spots</a>
+    </nav>
+    <h1 class="page-title">Matcha Spots in Paris 🍵</h1>
+    <p class="text-muted">All the matcha spots in Paris — my ratings, map, and quick links.</p>
   </header>
 
   <div class="container">
     <div class="grid">
-      <!-- Left: list -->
-     <!-- Left: list & controls -->
-<div class="scroll-col">
-  <div class="card">
-   <div class="controls">
-  <input id="search" type="search" placeholder="Search name, area, tag…"/>
-  <select id="sortBy" title="Sort by">
-    <option value="rating">Rating (best first)</option>
-    <option value="name">Name (A–Z)</option>
-  </select>
-  <label style="display:flex;align-items:center;gap:6px;font-size:14px;">
-    <input type="checkbox" id="hideUnrated"/> Hide unrated
-  </label>
-    <select id="sortBy" title="Sort by">
-  <option value="rating">Rating (best first)</option>
-  <option value="name">Name (A–Z)</option>
-</select>
+      <!-- Left: scrollable list panel -->
+      <div class="scroll-col">
+        <div class="card">
+          <div class="controls">
+            <input id="search" type="search" placeholder="Search name, area, tag…"/>
+            <select id="sortBy" title="Sort by">
+              <option value="rating">Rating (best first)</option>
+              <option value="name">Name (A–Z)</option>
+            </select>
+            <label style="display:flex;align-items:center;gap:6px;font-size:14px;">
+              <input type="checkbox" id="hideUnrated"/> Hide unrated
+            </label>
+            <button id="topToggle" class="btn" type="button">Top picks</button>
+          </div>
 
-<label style="display:flex;align-items:center;gap:6px;font-size:14px;">
-  <input type="checkbox" id="hideUnrated"> Hide unrated
-</label> 
-</div>
-    <div id="list" class="list"></div>
-  </div>
-</div>
+          <!-- IMPORTANT: this must exist exactly once -->
+          <div id="list" class="list"></div>
+        </div>
+      </div>
 
-    <!-- Right: map -->
-<div class="sticky-col">
-  <div id="map" class="map"></div>
-</div>
+      <!-- Right: sticky map -->
+      <div class="sticky-col">
+        <!-- IMPORTANT: this must exist exactly once -->
+        <div id="map" class="map"></div>
+      </div>
+    </div>
   </div>
 
   <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ and a whisk, by Ellina K-A.</footer>
 
-  <script src="script.js?v=3"></script>
+  <!-- Cache-bust so the latest JS loads -->
+  <script src="script.js?v=4"></script>
 </body>
 </html>
