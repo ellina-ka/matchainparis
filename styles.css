@@ -139,5 +139,13 @@ select {
   background: #fff;
 }
 
+/* Tag chips */
+.chips { display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 4px; }
+.chip {
+  padding: 6px 10px; border:1px solid var(--border); border-radius:999px;
+  background:#fff; font-size:13px; cursor:pointer; user-select:none;
+}
+.chip.active { background: var(--card); border-color: var(--accent); color: var(--accent); }
+
 
 
