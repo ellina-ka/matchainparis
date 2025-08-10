@@ -86,4 +86,14 @@ footer{max-width:960px;margin:16px auto 40px;padding:0 16px;color:var(--muted);f
   }
 }
 
+select {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+}
+.controls label input[type="checkbox"] {
+  accent-color: var(--accent);
+}
+
 
