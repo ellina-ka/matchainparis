@@ -121,4 +121,23 @@ select {
   }
 }
 
+/* Controls polish: wrap nicely on small widths */
+.controls {
+  flex-wrap: wrap;
+  align-items: center;
+}
+.controls > * {
+  flex: 0 0 auto;
+}
+.controls label input[type="checkbox"] {
+  accent-color: var(--accent);
+}
+select {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+}
+
+
 
