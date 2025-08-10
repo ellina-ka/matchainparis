@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Matcha Spots in Paris</title>
   <link rel="stylesheet" href="styles.css"/>
-  <!-- Leaflet (OpenStreetMap) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 </head>
@@ -25,13 +24,16 @@
       <div class="scroll-col">
         <div class="card">
           <div class="controls">
-            <!-- Search -->
-            <input id="search" type="search" placeholder="Search name, notes, or tags…"/>
+            <!-- Search + Filters toggle -->
+            <div class="filters-bar">
+              <input id="search" type="search" placeholder="Search name, notes, or tags…"/>
+              <button id="filterToggle" class="btn" type="button">Filters</button>
+            </div>
 
-            <!-- Tag chips (Top picks + work-friendly, no-laptops, to-go, ceremonial, flavoured) -->
-            <div class="chips" id="tagChips"></div>
+            <!-- Applied filters appear here (chips) -->
+            <div id="appliedChips" class="chips"></div>
 
-            <!-- Arrondissement filter -->
+            <!-- Arrondissement + hide unrated -->
             <select id="arrFilter" title="Arrondissement">
               <option value="all">All arrondissements</option>
               <option value="1">1er</option><option value="2">2e</option><option value="3">3e</option>
@@ -43,13 +45,31 @@
               <option value="19">19e</option><option value="20">20e</option>
             </select>
 
-            <!-- Hide unrated toggle -->
             <label style="display:flex;align-items:center;gap:6px;font-size:14px;">
               <input type="checkbox" id="hideUnrated"/> Hide unrated
             </label>
+
+            <!-- The popover panel for picking filters -->
+            <div id="filterPanel" class="filter-panel" hidden>
+              <h4>Filter</h4>
+              <div class="group" style="margin-bottom:8px;">
+                <label><input type="checkbox" id="fTop"/> Top picks (≥ 4.6)</label>
+              </div>
+              <div class="group">
+                <label><input type="checkbox" class="fTag" value="work-friendly"/> work-friendly</label>
+                <label><input type="checkbox" class="fTag" value="no-laptops"/> no-laptops</label>
+                <label><input type="checkbox" class="fTag" value="to-go"/> to-go</label>
+                <label><input type="checkbox" class="fTag" value="ceremonial"/> ceremonial</label>
+                <label><input type="checkbox" class="fTag" value="flavoured"/> flavoured</label>
+              </div>
+              <div class="filter-actions">
+                <button id="clearFilters" class="link-btn" type="button">Clear all</button>
+                <button id="closeFilters" class="btn" type="button">Done</button>
+              </div>
+            </div>
           </div>
 
-          <!-- List of spots -->
+          <!-- List -->
           <div id="list" class="list"></div>
         </div>
       </div>
@@ -62,8 +82,6 @@
   </div>
 
   <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ and a whisk, by Ellina K-A.</footer>
-
-  <!-- Cache-bust so the latest JS loads -->
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=7"></script>
 </body>
 </html>
