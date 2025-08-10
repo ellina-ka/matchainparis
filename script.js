@@ -1,19 +1,24 @@
+// ---------- Config ----------
+const TAGS = ["work-friendly", "no-laptops", "to-go", "ceremonial", "flavoured"];
+const TOP_PICKS_THRESHOLD = 4.8; // you can tweak this
+
 // ---------- State & element refs ----------
 const state = {
   cafes: [],
   filtered: [],
   map: null,
   markers: [],
-  topOnly: false,
-  hideUnrated: false,
-  arr: "all",
-  tag: "all" // NEW: selected tag filter
+  topOnly: false,       // controlled by "Top picks" chip
+  hideUnrated: false,   // checkbox
+  arr: "all",           // arrondissement filter: "all" or "1".."20"
+  selectedTags: [],     // multi-select chips (lowercase strings)
+  q: ""                 // search text
 };
 
 const el = {
   list: null,
   tagChips: null,
-  topToggle: null,
+  search: null,
   hideUnrated: null,
   arrFilter: null
 };
@@ -62,11 +67,9 @@ function starText(n) {
   if (typeof n !== 'number') return '—';
   return `${'★'.repeat(Math.round(n))}${'☆'.repeat(5 - Math.round(n))} ${n.toFixed(1)}`;
 }
-
 function googleLink(c) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.address)}`;
 }
-
 function getArrFromAddress(address) {
   const m = (address || "").match(/75(\d{3})/);
   if (!m) return null;
@@ -103,46 +106,81 @@ function renderList(items) {
   });
 }
 
-// ---------- Render tag chips ----------
+// ---------- Tag chips ----------
 function renderTagChips() {
-  const tags = ["work-friendly", "no-laptops", "to-go", "ceremonial", "flavoured"];
-  el.tagChips.innerHTML = '';
-  tags.forEach(tag => {
+  const container = el.tagChips;
+  container.innerHTML = '';
+
+  // Special "Top picks" chip
+  const topChip = document.createElement('button');
+  topChip.type = 'button';
+  topChip.className = 'chip' + (state.topOnly ? ' active' : '');
+  topChip.textContent = 'Top picks';
+  topChip.title = `Rating ≥ ${TOP_PICKS_THRESHOLD}`;
+  topChip.addEventListener('click', () => {
+    state.topOnly = !state.topOnly;
+    renderTagChips();
+    applyFilters();
+  });
+  container.appendChild(topChip);
+
+  // Category chips (multi-select)
+  TAGS.forEach(tag => {
+    const active = state.selectedTags.includes(tag);
     const chip = document.createElement('button');
-    chip.className = 'chip';
+    chip.type = 'button';
+    chip.className = 'chip' + (active ? ' active' : '');
     chip.textContent = tag;
     chip.addEventListener('click', () => {
-      state.tag = (state.tag === tag) ? "all" : tag;
+      const i = state.selectedTags.indexOf(tag);
+      if (i === -1) state.selectedTags.push(tag);
+      else state.selectedTags.splice(i, 1);
       renderTagChips();
       applyFilters();
     });
-    if (state.tag === tag) {
-      chip.classList.add('active');
-    }
-    el.tagChips.appendChild(chip);
+    container.appendChild(chip);
   });
 }
 
 // ---------- Filter + sort ----------
 function applyFilters() {
+  state.q = (el.search?.value || '').trim().toLowerCase();
+
   let items = state.cafes.filter(c => {
-    if (state.topOnly && (c.my_rating ?? 0) < 4.6) return false;
+    // Top picks threshold
+    if (state.topOnly && (c.my_rating ?? 0) < TOP_PICKS_THRESHOLD) return false;
+
+    // Hide unrated
     if (state.hideUnrated && typeof c.my_rating !== 'number') return false;
 
+    // Arrondissement
     if (state.arr !== "all") {
       const arr = getArrFromAddress(c.address || "");
       if (String(arr) !== String(state.arr)) return false;
     }
 
-    if (state.tag !== "all") {
-      if (!c.tags || !c.tags.map(t => t.toLowerCase()).includes(state.tag.toLowerCase())) {
-        return false;
-      }
+    // Tag chips (OR logic: any selected tag matches)
+    if (state.selectedTags.length) {
+      const ct = (c.tags || []).map(t => (t || '').toLowerCase());
+      const ok = state.selectedTags.some(t => ct.includes(t));
+      if (!ok) return false;
+    }
+
+    // Free text search (name + address + notes)
+    if (state.q) {
+      const hay = [
+        c.name || '',
+        c.address || '',
+        c.notes || '',
+        ...(c.tags || [])
+      ].join(' ').toLowerCase();
+      if (!hay.includes(state.q)) return false;
     }
 
     return true;
   });
 
+  // Sort by rating desc, then name
   items.sort((a, b) => {
     const ra = typeof a.my_rating === 'number' ? a.my_rating : -1;
     const rb = typeof b.my_rating === 'number' ? b.my_rating : -1;
@@ -160,7 +198,7 @@ async function boot() {
   document.getElementById('year').textContent = new Date().getFullYear();
   el.list = document.getElementById('list');
   el.tagChips = document.getElementById('tagChips');
-  el.topToggle = document.getElementById('topToggle');
+  el.search = document.getElementById('search');
   el.hideUnrated = document.getElementById('hideUnrated');
   el.arrFilter = document.getElementById('arrFilter');
 
@@ -176,11 +214,8 @@ async function boot() {
 
   renderTagChips();
 
-  el.topToggle?.addEventListener('click', () => {
-    state.topOnly = !state.topOnly;
-    el.topToggle.textContent = state.topOnly ? 'Top picks: ON' : 'Top picks';
-    applyFilters();
-  });
+  // Listeners
+  el.search?.addEventListener('input', applyFilters);
   el.hideUnrated?.addEventListener('change', () => {
     state.hideUnrated = el.hideUnrated.checked;
     applyFilters();
@@ -194,4 +229,3 @@ async function boot() {
 }
 
 boot();
-
