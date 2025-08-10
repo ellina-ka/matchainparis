@@ -25,7 +25,10 @@
       <div class="scroll-col">
         <div class="card">
           <div class="controls">
-            <!-- Tag filter chips (work-friendly, no-laptops, to-go, ceremonial, flavoured) -->
+            <!-- Search -->
+            <input id="search" type="search" placeholder="Search name, notes, or tags…"/>
+
+            <!-- Tag chips (Top picks + work-friendly, no-laptops, to-go, ceremonial, flavoured) -->
             <div class="chips" id="tagChips"></div>
 
             <!-- Arrondissement filter -->
@@ -44,9 +47,6 @@
             <label style="display:flex;align-items:center;gap:6px;font-size:14px;">
               <input type="checkbox" id="hideUnrated"/> Hide unrated
             </label>
-
-            <!-- Top picks toggle -->
-            <button id="topToggle" class="btn" type="button">Top picks</button>
           </div>
 
           <!-- List of spots -->
@@ -64,6 +64,6 @@
   <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ and a whisk, by Ellina K-A.</footer>
 
   <!-- Cache-bust so the latest JS loads -->
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=6"></script>
 </body>
 </html>
