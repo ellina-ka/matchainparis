@@ -96,4 +96,29 @@ select {
   accent-color: var(--accent);
 }
 
+/* Desktop: list scrolls inside its panel; map stays visible */
+@media (min-width: 900px) {
+  .scroll-col, .sticky-col {
+    position: sticky;
+    top: 16px;
+    height: calc(100vh - 120px); /* adjust if you want the boxes shorter/taller */
+  }
+
+  .scroll-col .card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .scroll-col .list {
+    flex: 1 1 auto;
+    overflow-y: auto;  /* inner scrolling for the list */
+    min-height: 0;     /* critical so the list can shrink inside the card */
+  }
+
+  .sticky-col .map {
+    height: 100%;      /* map fills the sticky column */
+  }
+}
+
 
