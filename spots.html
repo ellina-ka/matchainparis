@@ -25,7 +25,7 @@
       <div class="scroll-col">
         <div class="card">
           <div class="controls">
-            <!-- Tag filter chips -->
+            <!-- Tag filter chips (work-friendly, no-laptops, to-go, ceremonial, flavoured) -->
             <div class="chips" id="tagChips"></div>
 
             <!-- Arrondissement filter -->
@@ -49,14 +49,13 @@
             <button id="topToggle" class="btn" type="button">Top picks</button>
           </div>
 
-          <!-- IMPORTANT: this must exist exactly once -->
+          <!-- List of spots -->
           <div id="list" class="list"></div>
         </div>
       </div>
 
       <!-- Right: sticky map -->
       <div class="sticky-col">
-        <!-- IMPORTANT: this must exist exactly once -->
         <div id="map" class="map"></div>
       </div>
     </div>
@@ -65,6 +64,6 @@
   <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ and a whisk, by Ellina K-A.</footer>
 
   <!-- Cache-bust so the latest JS loads -->
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>
