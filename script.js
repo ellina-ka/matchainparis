@@ -1,6 +1,7 @@
 // ---------- Config ----------
-const TAGS = ["work-friendly", "no-laptops", "to-go", "ceremonial", "flavoured"];
+const TAGS = ["work-friendly", "no-laptops", "to-go", "ceremonial", "flavoured"]; // checkboxes exist in HTML
 const TOP_PICKS_THRESHOLD = 4.6;
+let currentFilterCount = 0; // keeps filter count across language switches
 
 // ---------- State & elements ----------
 const state = {
@@ -27,8 +28,96 @@ const el = {
   fTagBoxes: [],
   appliedChips: null,
   hideUnrated: null,
-  arrFilter: null
+  arrFilter: null,
+  langToggle: null
 };
+
+// ---------- i18n (UI-only; we do NOT touch cafe names/addresses/notes) ----------
+const I18N = {
+  en: {
+    title_spots: "Matcha Spots in Paris 🍵",
+    subtitle_spots: "All the matcha spots in Paris — my ratings, map, and quick links.",
+    search_placeholder: "Search name, notes, or tags…",
+    arr_title: "Arrondissement",
+    hide_unrated: "Hide unrated",
+    filter_heading: "Filter",
+    top_picks_label: "Top picks (≥ 4.6)",
+    clear_all: "Clear all",
+    apply_filters: "Done",
+    my_rating: "My rating",
+    open_in_maps: "Open in Google Maps",
+    no_results: "No results.",
+    filters_btn: "Filters"
+  },
+  fr: {
+    title_spots: "Matcha à Paris 🍵",
+    subtitle_spots: "Toutes les adresses de matcha à Paris — mes notes, la carte et les liens utiles.",
+    search_placeholder: "Rechercher (nom, notes, tags)…",
+    arr_title: "Arrondissement",
+    hide_unrated: "Masquer sans note",
+    filter_heading: "Filtres",
+    top_picks_label: "Top picks (≥ 4.6)",
+    clear_all: "Tout effacer",
+    apply_filters: "Appliquer",
+    my_rating: "Ma note",
+    open_in_maps: "Ouvrir dans Google Maps",
+    no_results: "Aucun résultat.",
+    filters_btn: "Filtres"
+  }
+};
+
+let lang = localStorage.getItem('lang') || (navigator.language?.startsWith('fr') ? 'fr' : 'en');
+function t(key){ return I18N[lang]?.[key] ?? I18N.en[key] ?? key; }
+
+function setLabelTextAfterInput(inputId, text){
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  const label = input.closest('label') || input.parentElement;
+  if (!label) return;
+  if (label.lastChild && label.lastChild.nodeType === Node.TEXT_NODE) {
+    label.lastChild.nodeValue = ' ' + text;
+  } else {
+    label.appendChild(document.createTextNode(' ' + text));
+  }
+}
+
+function applyLangStaticTexts() {
+  document.documentElement.lang = lang;
+
+  const title = document.querySelector('h1.page-title');
+  const subtitle = document.querySelector('p.text-muted');
+  if (title) title.textContent = t('title_spots');
+  if (subtitle) subtitle.textContent = t('subtitle_spots');
+
+  const search = document.getElementById('search');
+  if (search) search.setAttribute('placeholder', t('search_placeholder'));
+
+  const arrSel = document.getElementById('arrFilter');
+  if (arrSel) arrSel.setAttribute('title', t('arr_title'));
+
+  setLabelTextAfterInput('hideUnrated', t('hide_unrated'));
+  // Filter panel texts
+  const panel = document.getElementById('filterPanel');
+  if (panel) {
+    const h = panel.querySelector('h4'); if (h) h.textContent = t('filter_heading');
+    setLabelTextAfterInput('fTop', t('top_picks_label'));
+    const clearBtn = document.getElementById('clearFilters'); if (clearBtn) clearBtn.textContent = t('clear_all');
+    const closeBtn = document.getElementById('closeFilters'); if (closeBtn) closeBtn.textContent = t('apply_filters');
+  }
+
+  const tog = document.getElementById('langToggle');
+  if (tog) tog.textContent = lang === 'en' ? 'FR' : 'EN';
+
+  updateFilterButtonCount(currentFilterCount);
+}
+
+// Show count on "Filters" button (e.g., Filters (3))
+function updateFilterButtonCount(n){
+  currentFilterCount = n;
+  const btn = document.getElementById('filterToggle');
+  if (!btn) return;
+  btn.textContent = n ? `${t('filters_btn')} (${n})` : t('filters_btn');
+}
 
 // ---------- Map ----------
 function initMap() {
@@ -47,7 +136,18 @@ function renderMarkers(items){
     m.on('click',()=>highlightListItem(idx));
     state.markers.push(m); group.push(m);
   });
-  if(group.length){ const g=L.featureGroup(group); state.map.fitBounds(g.getBounds().pad(0.25)); }
+
+  if (group.length === 0) {
+    state.map.setView([48.8566, 2.3522], 12); // reset to Paris default
+    return;
+  }
+  if (group.length === 1) {
+    const p = group[0].getLatLng();
+    state.map.setView(p, Math.max(state.map.getZoom(), 14));
+    return;
+  }
+  const fg = L.featureGroup(group);
+  state.map.fitBounds(fg.getBounds().pad(0.25), { maxZoom: 15 });
 }
 function highlightListItem(idx){
   const cards=document.querySelectorAll('.item'); if(!cards[idx])return;
@@ -65,7 +165,11 @@ function getArrFromAddress(address){
 
 // ---------- List ----------
 function renderList(items){
-  el.list.innerHTML=''; if(!items.length){ el.list.innerHTML='<div class="item">No results.</div>'; return; }
+  el.list.innerHTML='';
+  if (!items.length) {
+    el.list.innerHTML = '<div class="item">' + t('no_results') + '</div>';
+    return;
+  }
   items.forEach((c,i)=>{
     const div=document.createElement('div'); div.className='item card';
     div.innerHTML=`
@@ -73,8 +177,8 @@ function renderList(items){
       <div class="meta">${c.address} • ${c.price || '—'}</div>
       <div style="margin:6px 0">${(c.tags||[]).map(t=>`<span class="badge">${t}</span>`).join('')}</div>
       <div class="row">
-        <div>My rating: <strong>${starText(c.my_rating)}</strong></div>
-        <a class="btn" href="${googleLink(c)}" target="_blank" rel="noreferrer">Open in Google Maps</a>
+        <div>${t('my_rating')}: <strong>${starText(c.my_rating)}</strong></div>
+        <a class="btn" href="${googleLink(c)}" target="_blank" rel="noreferrer">${t('open_in_maps')}</a>
       </div>
       ${c.notes ? `<div style="margin-top:6px;color:#4b5563">${c.notes}</div>` : ''}
     `;
@@ -120,12 +224,6 @@ function renderAppliedChips(){
   updateFilterButtonCount(count);
 }
 
-// Show count on "Filters" button (e.g., Filters (3))
-function updateFilterButtonCount(n){
-  if (!el.filterToggle) return;
-  el.filterToggle.textContent = n ? `Filters (${n})` : 'Filters';
-}
-
 // ---------- Filters logic ----------
 function applyFilters(){
   state.q=(el.search?.value||'').trim().toLowerCase();
@@ -160,15 +258,18 @@ function applyFilters(){
     return a.name.localeCompare(b.name,'fr',{sensitivity:'base'});
   });
 
-  state.filtered=items; renderList(items); renderMarkers(items); renderAppliedChips();
+  state.filtered=items;
+  renderList(items);
+  renderMarkers(items);
+  renderAppliedChips();
 }
 
 function syncPanelFromState(){
-  el.fTop.checked = state.topOnly;
+  if (el.fTop) el.fTop.checked = state.topOnly;
   el.fTagBoxes.forEach(box=>{ box.checked = state.selectedTags.includes(box.value); });
 }
 function updateStateFromPanel(){
-  state.topOnly = el.fTop.checked;
+  state.topOnly = !!el.fTop?.checked;
   state.selectedTags = el.fTagBoxes.filter(b=>b.checked).map(b=>b.value);
 }
 
@@ -189,6 +290,7 @@ async function boot(){
   el.appliedChips=document.getElementById('appliedChips');
   el.hideUnrated=document.getElementById('hideUnrated');
   el.arrFilter=document.getElementById('arrFilter');
+  el.langToggle=document.getElementById('langToggle');
 
   initMap();
 
@@ -196,6 +298,8 @@ async function boot(){
     const res=await fetch('data.json',{cache:'no-store'});
     state.cafes=await res.json();
   }catch(e){ console.error('Failed to load data.json',e); state.cafes=[]; }
+
+  applyLangStaticTexts();
 
   // Listeners
   el.search?.addEventListener('input', applyFilters);
@@ -207,7 +311,12 @@ async function boot(){
   el.clearFilters?.addEventListener('click', ()=>{
     state.topOnly=false; state.selectedTags=[]; syncPanelFromState(); applyFilters();
   });
-  // Apply on checkbox change
+  el.langToggle?.addEventListener('click', () => {
+    lang = (lang === 'en' ? 'fr' : 'en');
+    localStorage.setItem('lang', lang);
+    applyLangStaticTexts();
+    applyFilters();
+  });
   el.fTop?.addEventListener('change', ()=>{ updateStateFromPanel(); applyFilters(); });
   el.fTagBoxes.forEach(b=> b.addEventListener('change', ()=>{ updateStateFromPanel(); applyFilters(); }));
 
