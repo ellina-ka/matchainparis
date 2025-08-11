@@ -47,7 +47,8 @@ const I18N = {
     my_rating: "My rating",
     open_in_maps: "Open in Google Maps",
     no_results: "No results.",
-    filters_btn: "Filters"
+    filters_btn: "Filters",
+    top_picks_chip: "Top picks"
   },
   fr: {
     title_spots: "Matcha à Paris 🍵",
@@ -62,12 +63,41 @@ const I18N = {
     my_rating: "Ma note",
     open_in_maps: "Ouvrir dans Google Maps",
     no_results: "Aucun résultat.",
-    filters_btn: "Filtres"
+    filters_btn: "Filtres",
+    top_picks_chip: "Top Lieux"
   }
 };
 
 let lang = localStorage.getItem('lang') || (navigator.language?.startsWith('fr') ? 'fr' : 'en');
 function t(key){ return I18N[lang]?.[key] ?? I18N.en[key] ?? key; }
+
+// Show labels in FR/EN but keep tag keys stable
+const TAG_LABELS = {
+  en: {
+    "work-friendly": "work-friendly",
+    "no-laptops": "no-laptops",
+    "to-go": "to-go",
+    "ceremonial": "ceremonial",
+    "flavoured": "flavoured"
+  },
+  fr: {
+    "work-friendly": "pour travailler",
+    "no-laptops": "sans ordinateurs",
+    "to-go": "à emporter",
+    "ceremonial": "cérémonial",
+    "flavoured": "aromatisé"
+  }
+};
+
+function tagLabel(key) {
+  return TAG_LABELS[lang]?.[key] || key;
+}
+
+// Prefer FR notes when FR is selected; otherwise EN (or fallback to existing notes)
+function noteText(c) {
+  if (lang === 'fr') return c.notes_fr ?? c.notes ?? "";
+  return c.notes ?? ""; // if you later add notes_en, prefer it here
+}
 
 function setLabelTextAfterInput(inputId, text){
   const input = document.getElementById(inputId);
@@ -79,6 +109,22 @@ function setLabelTextAfterInput(inputId, text){
   } else {
     label.appendChild(document.createTextNode(' ' + text));
   }
+}
+
+// Re-label each tag checkbox in the filter panel
+function updateTagCheckboxLabels() {
+  el.fTagBoxes.forEach(input => {
+    const label = input.closest('label') || input.parentElement;
+    if (!label) return;
+    // Find the first TEXT_NODE after the input; create one if needed.
+    let node = input.nextSibling;
+    while (node && node.nodeType !== Node.TEXT_NODE) node = node.nextSibling;
+    if (node) {
+      node.nodeValue = ' ' + tagLabel(input.value);
+    } else {
+      label.appendChild(document.createTextNode(' ' + tagLabel(input.value)));
+    }
+  });
 }
 
 function applyLangStaticTexts() {
@@ -96,6 +142,7 @@ function applyLangStaticTexts() {
   if (arrSel) arrSel.setAttribute('title', t('arr_title'));
 
   setLabelTextAfterInput('hideUnrated', t('hide_unrated'));
+
   // Filter panel texts
   const panel = document.getElementById('filterPanel');
   if (panel) {
@@ -105,9 +152,14 @@ function applyLangStaticTexts() {
     const closeBtn = document.getElementById('closeFilters'); if (closeBtn) closeBtn.textContent = t('apply_filters');
   }
 
+  // Localize tag checkbox labels
+  updateTagCheckboxLabels();
+
+  // Navbar language toggle shows the other language
   const tog = document.getElementById('langToggle');
   if (tog) tog.textContent = lang === 'en' ? 'FR' : 'EN';
 
+  // Update Filters button text (with count handled elsewhere)
   updateFilterButtonCount(currentFilterCount);
 }
 
@@ -175,12 +227,14 @@ function renderList(items){
     div.innerHTML=`
       <h3>${c.name}</h3>
       <div class="meta">${c.address} • ${c.price || '—'}</div>
-      <div style="margin:6px 0">${(c.tags||[]).map(t=>`<span class="badge">${t}</span>`).join('')}</div>
+      <div style="margin:6px 0">${
+        (c.tags || []).map(t => `<span class="badge">${tagLabel(t)}</span>`).join('')
+      }</div>
       <div class="row">
         <div>${t('my_rating')}: <strong>${starText(c.my_rating)}</strong></div>
         <a class="btn" href="${googleLink(c)}" target="_blank" rel="noreferrer">${t('open_in_maps')}</a>
       </div>
-      ${c.notes ? `<div style="margin-top:6px;color:#4b5563">${c.notes}</div>` : ''}
+      ${noteText(c) ? `<div style="margin-top:6px;color:#4b5563">${noteText(c)}</div>` : ''}
     `;
     div.addEventListener('mouseenter',()=>{ const m=state.markers[i]; if(m) m.openPopup(); });
     el.list.appendChild(div);
@@ -196,7 +250,7 @@ function renderAppliedChips(){
   if (state.topOnly){
     const b = document.createElement('button');
     b.className = 'chip';
-    b.innerHTML = `<span class="x" aria-hidden="true">×</span>Top picks`;
+    b.innerHTML = `<span class="x" aria-hidden="true">×</span>${t('top_picks_chip')}`;
     b.title = 'Remove';
     b.addEventListener('click', ()=>{
       state.topOnly = false;
@@ -210,7 +264,7 @@ function renderAppliedChips(){
   state.selectedTags.forEach(tag=>{
     const b = document.createElement('button');
     b.className = 'chip';
-    b.innerHTML = `<span class="x" aria-hidden="true">×</span>${tag}`;
+    b.innerHTML = `<span class="x" aria-hidden="true">×</span>${tagLabel(tag)}`;
     b.title = 'Remove';
     b.addEventListener('click', ()=>{
       state.selectedTags = state.selectedTags.filter(t=>t!==tag);
@@ -244,7 +298,14 @@ function applyFilters(){
     }
 
     if(state.q){
-      const hay=[c.name||'', c.address||'', c.notes||'', ...(c.tags||[])].join(' ').toLowerCase();
+      const hay = [
+        c.name || '',
+        c.address || '',
+        c.notes || '',
+        c.notes_fr || '',
+        ...(c.tags || []),
+        ...(c.tags || []).map(tagLabel)
+      ].join(' ').toLowerCase();
       if(!hay.includes(state.q)) return false;
     }
     return true;
@@ -299,6 +360,7 @@ async function boot(){
     state.cafes=await res.json();
   }catch(e){ console.error('Failed to load data.json',e); state.cafes=[]; }
 
+  // Initial language application + tag label localization
   applyLangStaticTexts();
 
   // Listeners
@@ -314,8 +376,8 @@ async function boot(){
   el.langToggle?.addEventListener('click', () => {
     lang = (lang === 'en' ? 'fr' : 'en');
     localStorage.setItem('lang', lang);
-    applyLangStaticTexts();
-    applyFilters();
+    applyLangStaticTexts(); // updates UI labels + tag checkbox labels
+    applyFilters();         // re-render list with translated strings
   });
   el.fTop?.addEventListener('change', ()=>{ updateStateFromPanel(); applyFilters(); });
   el.fTagBoxes.forEach(b=> b.addEventListener('change', ()=>{ updateStateFromPanel(); applyFilters(); }));
