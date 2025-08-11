@@ -167,5 +167,44 @@ select {
 .chip { padding:6px 10px; border:1px solid var(--border); border-radius:999px; background:#fff; font-size:13px; cursor:pointer; }
 .chip:hover { border-color:var(--accent); color:var(--accent); }
 
+/* --- Card polish --- */
+.item.card {
+  padding: 16px;                     /* was tighter */
+  border-radius: 14px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.04);
+  margin-bottom: 14px;
+}
+
+/* Titles & meta */
+.item.card h3 {
+  font-size: 18px;
+  margin: 0 0 4px;
+}
+.item .meta {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin-bottom: 8px;
+}
+
+/* Tag badges on each card */
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 999px;
+  background: #eaf1ea;               /* matcha-tinted */
+  color: #2f4d37;
+  border: 1px solid #a8c3ab;
+}
+
+/* Controls spacing */
+.controls { row-gap: 8px; }
+
+/* Applied filter chips (under search) with a little × */
+.chips { display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 4px; }
+.chip { padding: 6px 10px; border:1px solid var(--border); border-radius:999px; background:#fff; font-size:13px; cursor:pointer; }
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+.chip .x { font-weight: 700; margin-right: 6px; line-height: 1; }
+
 
 
