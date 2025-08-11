@@ -206,11 +206,8 @@ select {
 .chip:hover { border-color: var(--accent); color: var(--accent); }
 .chip .x { font-weight: 700; margin-right: 6px; line-height: 1; }
 
-/* Keep Google’s toolbar hidden (optional) */
-.goog-te-banner-frame { display:none !important; }
-.goog-logo-link, .goog-te-gadget-icon { display:none !important; }
-body { top: 0 !important; }
-.link-btn { background:none; border:none; padding:0 8px; font-size:14px; cursor:pointer; }
-.link-btn:hover { color: var(--accent); }
+.link-btn { background:none; border:none; padding:0 8px; font-size:14px; cursor:pointer; text-decoration:none; color: var(--ink); }
+.link-btn:hover { color: var(--accent); text-decoration:none; }
+
 
 
