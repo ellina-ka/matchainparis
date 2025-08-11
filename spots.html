@@ -10,10 +10,14 @@
 </head>
 <body>
   <header>
-    <nav class="navbar">
-      <a href="index.html">About</a>
-      <a href="spots.html" class="active">Spots</a>
-    </nav>
+ <nav class="navbar">
+  <a href="index.html">About</a>
+  <a href="spots.html" class="active">Spots</a>
+  <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+    <button class="link-btn" type="button" onclick="setLang('en')">EN</button>
+    <button class="link-btn" type="button" onclick="setLang('fr')">FR</button>
+  </div>
+</nav>
     <h1 class="page-title">Matcha Spots in Paris 🍵</h1>
     <p class="text-muted">All the matcha spots in Paris — my ratings, map, and quick links.</p>
   </header>
@@ -83,5 +87,27 @@
 
   <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ and a whisk, by Ellina K-A.</footer>
   <script src="script.js?v=7"></script>
+  <!-- Hidden container for Google Translate -->
+<div id="google_translate_element" style="display:none;"></div>
+
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',        // your default content language
+      includedLanguages: 'en,fr',
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+
+  // Click helper: switch language by programmatically changing the hidden select
+  function setLang(lang) {
+    var sel = document.querySelector('.goog-te-combo');
+    if (!sel) return; // widget not ready yet
+    sel.value = lang;
+    sel.dispatchEvent(new Event('change'));
+  }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
