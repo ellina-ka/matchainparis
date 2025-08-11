@@ -201,5 +201,35 @@
     "price": "€€€",
     "tags": ["work-friendly"],
     "notes": "Very aesthetic place with lots of seats. Matcha is smaller, desserts are excellent."
+  },
+ {
+    "name": "The Coffee (Grenelle)",
+    "address": "138 Bd de Grenelle, 75015 Paris",
+    "lat": 48.84883458618164,
+    "lng": 2.2984750215987546,
+    "my_rating": 4.8,
+    "price": "€€",
+    "tags": ["work-friendly","flavoured"],
+    "notes": "Reliable Japanese chain, this outlet has huge seating capacity, plugs and wifi. Try the flavoured matchas; iced mint matcha is the standout."
+  },
+ {
+    "name": "Noir (Concorde)",
+    "address": "8 Rue Saint-Florentin, 75001 Paris",
+    "lat": 48.868300009854934,
+    "lng": 2.3241105490211513,
+    "my_rating": 4.1,
+    "price": "€€",
+    "tags": ["to-go"],
+    "notes": "Go for coffee; matcha best hot with oat. Not a work spot."
+  },
+  {
+    "name": "The Coffee (5e)",
+    "address": "Quai de la Tournelle 61, 75005 Paris",
+    "lat": 48.85115263304114,
+    "lng": 2.3510076631738253,
+    "my_rating": 4.5,
+    "price": "€€",
+    "tags": ["work-friendly","flavoured"],
+    "notes": "Reliable Japanese chain, this outlet has a nice terrace seating capacity. Try the flavoured matchas; iced mint matcha is the standout."
   }
 ]
