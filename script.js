@@ -141,7 +141,7 @@ function applyFilters(){
 
     if(state.selectedTags.length){
       const ct=(c.tags||[]).map(t=>(t||'').toLowerCase());
-      const ok=state.selectedTags.some(t=>ct.includes(t));
+      const ok = state.selectedTags.every(t => ct.includes(t)); // AND logic
       if(!ok) return false;
     }
 
