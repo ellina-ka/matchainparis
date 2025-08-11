@@ -7,7 +7,8 @@
     "my_rating": 4.9,
     "price": "€€",
     "tags": ["work-friendly", "flavoured"],
-    "notes": "New Marais-side spot. Most refreshing matcha. Generous servings and cookies."
+    "notes": "New Marais-side spot. Most refreshing matcha. Generous servings and cookies.",
+  "notes_fr": "Nouvel endroit côté Marais. Matcha des plus rafraîchissants. Boissons et cookies généreux."
   },
   {
     "name": "Kura-ge (Marais)",
@@ -17,7 +18,8 @@
     "my_rating": 4.4,
     "price": "€€€",
     "tags": ["ceremonial"],
-    "notes": "Specialty matcha-focused café. Try the pure matcha."
+    "notes": "Specialty matcha-focused café. Try the pure matcha.",
+   "notes_fr": "Café spécialisé dans le matcha ceremnial. Goûtez le matcha pur."
   },
 {
     "name": "Saint Pearl",
@@ -27,7 +29,8 @@
     "my_rating": 4.8,
     "price": "€€",
     "tags": ["no-laptops"],
-    "notes": "Hot matcha latte recommended. Ask for extra strong matcha (free). No laptops."
+    "notes": "Hot matcha latte recommended. Ask for extra strong matcha (free). No laptops.",
+ "notes_fr": "Matcha latte chaud recommandé. Demandez un matcha extra fort (gratuit). Ordinateurs portables interdits."
   },
   {
     "name": "Creamy Daily",
@@ -68,7 +71,8 @@
     "my_rating": 5,
     "price": "€€",
     "tags": ["work-friendly"],
-    "notes": "Local gem. Large iced matcha. Homemade cakes change daily. Wi-Fi, plugs, AC."
+    "notes": "Local gem. Large iced matcha. Homemade cakes change daily. Wi-Fi, plugs, AC.",
+   "notes_fr": "Pépite locale. Grand matcha glacé. Gâteaux maison qui changent chaque jour. Wi-Fi, prises, clim."
   },
   {
     "name": "Un Ami",
