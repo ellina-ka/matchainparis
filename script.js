@@ -85,20 +85,45 @@ function renderList(items){
 
 // ---------- Applied chips (only selected filters) ----------
 function renderAppliedChips(){
-  const chips=el.appliedChips; chips.innerHTML='';
-  if(state.topOnly){
-    const b=document.createElement('button'); b.className='chip'; b.textContent='Top picks';
-    b.title='Remove'; b.addEventListener('click',()=>{ state.topOnly=false; syncPanelFromState(); applyFilters(); });
-    chips.appendChild(b);
-  }
-  state.selectedTags.forEach(tag=>{
-    const b=document.createElement('button'); b.className='chip'; b.textContent=tag;
-    b.title='Remove'; b.addEventListener('click',()=>{
-      state.selectedTags=state.selectedTags.filter(t=>t!==tag);
-      syncPanelFromState(); applyFilters();
+  const chips = el.appliedChips;
+  chips.innerHTML = '';
+  let count = 0;
+
+  if (state.topOnly){
+    const b = document.createElement('button');
+    b.className = 'chip';
+    b.innerHTML = `<span class="x" aria-hidden="true">×</span>Top picks`;
+    b.title = 'Remove';
+    b.addEventListener('click', ()=>{
+      state.topOnly = false;
+      syncPanelFromState();
+      applyFilters();
     });
     chips.appendChild(b);
+    count++;
+  }
+
+  state.selectedTags.forEach(tag=>{
+    const b = document.createElement('button');
+    b.className = 'chip';
+    b.innerHTML = `<span class="x" aria-hidden="true">×</span>${tag}`;
+    b.title = 'Remove';
+    b.addEventListener('click', ()=>{
+      state.selectedTags = state.selectedTags.filter(t=>t!==tag);
+      syncPanelFromState();
+      applyFilters();
+    });
+    chips.appendChild(b);
+    count++;
   });
+
+  updateFilterButtonCount(count);
+}
+
+// Show count on "Filters" button (e.g., Filters (3))
+function updateFilterButtonCount(n){
+  if (!el.filterToggle) return;
+  el.filterToggle.textContent = n ? `Filters (${n})` : 'Filters';
 }
 
 // ---------- Filters logic ----------
