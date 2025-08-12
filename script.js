@@ -48,7 +48,9 @@ const I18N = {
     open_in_maps: "Open in Google Maps",
     no_results: "No results.",
     filters_btn: "Filters",
-    top_picks_chip: "Top picks"
+    top_picks_chip: "Top picks",
+    nav_about: "About",
+    nav_spots: "Spots"
   },
   fr: {
     title_spots: "Matcha à Paris 🍵",
@@ -64,7 +66,9 @@ const I18N = {
     open_in_maps: "Ouvrir dans Google Maps",
     no_results: "Aucun résultat.",
     filters_btn: "Filtres",
-    top_picks_chip: "Top Lieux"
+    top_picks_chip: "Top Lieux",
+    nav_about: "À propos",
+    nav_spots: "Adresses"
   }
 };
 
@@ -142,6 +146,10 @@ function applyLangStaticTexts() {
   if (arrSel) arrSel.setAttribute('title', t('arr_title'));
 
   setLabelTextAfterInput('hideUnrated', t('hide_unrated'));
+  const navAbout = document.getElementById('navAbout');
+const navSpots = document.getElementById('navSpots');
+if (navAbout) navAbout.textContent = t('nav_about');
+if (navSpots) navSpots.textContent = t('nav_spots');
 
   // Filter panel texts
   const panel = document.getElementById('filterPanel');
