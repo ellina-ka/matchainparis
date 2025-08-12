@@ -5,41 +5,121 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>About — Matcha in Paris</title>
   <link rel="stylesheet" href="styles.css"/>
+
+  <!-- Page-local styles just for the hero/logo & language button -->
+  <style>
+    .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+    .hero-wrap{max-width:960px;margin:0 auto 24px;padding:0 16px;position:relative}
+    .hero-img{width:100%;display:block;border-radius:12px}
+    .hero-logo{position:absolute;left:24px;top:16px;width:min(70%,480px);height:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.1));pointer-events:none}
+    .lang-toggle{margin-left:auto;background:transparent;border:0;font-weight:700;cursor:pointer;padding:8px 10px;color:var(--ink,#1f2937)}
+    .navbar{display:flex;gap:16px;align-items:center}
+  </style>
 </head>
 <body>
   <header style="max-width:960px;margin:24px auto 12px;padding:0 16px">
-<nav class="navbar">
-  <a href="index.html" class="active">About</a>
-  <a href="spots.html">Spots</a>
-</nav>
-
+    <nav class="navbar">
+      <a id="navAbout" href="index.html" class="active">About</a>
+      <a id="navSpots" href="spots.html">Spots</a>
+      <button id="langToggle" class="lang-toggle" type="button" aria-label="Toggle language">FR</button>
+    </nav>
   </header>
-<div style="max-width:600px;margin:0 auto 24px;padding:0 16px">
-  <img src="about-banner.jpg" alt="Matcha latte" style="width:100%;border-radius:12px;display:block">
-</div>
+
+  <!-- Hidden H1 for SEO/accessibility -->
+  <h1 id="aboutTitle" class="sr-only">About — Matcha in Paris</h1>
+
+  <!-- Banner with logo overlaid -->
+  <div class="hero-wrap">
+    <img src="about-banner.jpg" alt="Matcha latte" class="hero-img">
+    <!-- Your transparent PNG logo -->
+    <img src="assets/logo.png" alt="Matcha in Paris logo" class="hero-logo">
+  </div>
 
   <div class="container">
     <div class="card" style="padding:24px">
-     <h1 style="color:var(--accent)">About Matcha in Paris 🍵</h1>
-      <p>
-        Welcome to my hand-poured guide to the matcha corners of Paris.  
-  Every spot here has been sipped, savoured, and judged by me. No algorithms, no sponsorships, just honest cups.  
-  You’ll find tasting notes, candid photos, and live map links so you can follow the trail yourself.
+      <h2 id="h2Heading" style="color:var(--accent)">About Matcha in Paris 🍵</h2>
+      <p id="p1">
+        Welcome to my hand-poured guide to the matcha corners of Paris.
+        Every spot here has been sipped, savoured, and judged by me — no algorithms, no sponsorships, just honest cups.
+        You’ll find tasting notes, candid photos, and live map links so you can follow the trail yourself.
       </p>
-      <p>
-     <strong>Why this exists:</strong> When I went looking for Paris’s best matcha, I couldn’t find a single place that gathered them all with honest reviews.  
-  So I decided to make one.
-</p>
-<p>
-  <strong>Know a hidden gem?</strong> Share it with me:  
-  <a href="mailto:ellinakhrais@gmail.com">ellinakhrais@gmail.com</a>.
-</p>
+      <p id="p2">
+        <strong>Why this exists:</strong> When I went looking for Paris’s best matcha, I couldn’t find a single place
+        that gathered them all with honest reviews. So I decided to make one.
+      </p>
+      <p id="p3">
+        <strong>Know a hidden gem?</strong> Share it with me:
+        <a href="mailto:ellinakhrais@gmail.com">ellinakhrais@gmail.com</a>.
+      </p>
     </div>
   </div>
 
-  <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ in Paris, by Ellina K-A </footer>
+  <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ in Paris, by Ellina K-A</footer>
+
   <script>
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ---- Simple i18n for About page (matches localStorage key used on Spots) ----
+    const I18N_ABOUT = {
+      en: {
+        nav_about: "About",
+        nav_spots: "Spots",
+        toggle_next: "FR",
+        title: "About — Matcha in Paris",
+        h2: "About Matcha in Paris 🍵",
+        p1: `Welcome to my hand-poured guide to the matcha corners of Paris.
+             Every spot here has been sipped, savoured, and judged by me — no algorithms, no sponsorships, just honest cups.
+             You’ll find tasting notes, candid photos, and live map links so you can follow the trail yourself.`,
+        p2: `<strong>Why this exists:</strong> When I went looking for Paris’s best matcha,
+             I couldn’t find a single place that gathered them all with honest reviews. So I decided to make one.`,
+        p3: `<strong>Know a hidden gem?</strong> Share it with me:
+             <a href="mailto:ellinakhrais@gmail.com">ellinakhrais@gmail.com</a>.`
+      },
+      fr: {
+        nav_about: "À propos",
+        nav_spots: "Adresses",
+        toggle_next: "EN",
+        title: "À propos — Matcha à Paris",
+        h2: "À propos de Matcha à Paris 🍵",
+        p1: `Bienvenue dans mon guide artisanal des coins matcha de Paris.
+             Chaque lieu a été goûté et noté par moi — pas d’algorithmes, pas de partenariats, juste des avis honnêtes.
+             Vous trouverez des notes de dégustation, des photos et des liens vers la carte pour y aller facilement.`,
+        p2: `<strong>Pourquoi ce site :</strong> En cherchant le meilleur matcha à Paris,
+             je n’ai trouvé aucun endroit qui les rassemblait avec des avis sincères. Alors je l’ai créé.`,
+        p3: `<strong>Une perle à me conseiller&nbsp;?</strong> Écrivez-moi :
+             <a href="mailto:ellinakhrais@gmail.com">ellinakhrais@gmail.com</a>.`
+      }
+    };
+
+    let lang = localStorage.getItem('lang') || (navigator.language && navigator.language.startsWith('fr') ? 'fr' : 'en');
+
+    function tAbout(key){ return I18N_ABOUT[lang][key]; }
+
+    function applyLangAbout(){
+      document.documentElement.lang = lang;
+      document.title = tAbout('title');
+
+      // Navbar
+      document.getElementById('navAbout').textContent = tAbout('nav_about');
+      document.getElementById('navSpots').textContent = tAbout('nav_spots');
+      document.getElementById('langToggle').textContent = tAbout('toggle_next');
+
+      // Headings + copy
+      document.getElementById('aboutTitle').textContent = tAbout('title');
+      document.getElementById('h2Heading').textContent = tAbout('h2');
+      document.getElementById('p1').innerHTML = tAbout('p1');
+      document.getElementById('p2').innerHTML = tAbout('p2');
+      document.getElementById('p3').innerHTML = tAbout('p3');
+    }
+
+    // Init + toggle
+    applyLangAbout();
+    document.getElementById('langToggle').addEventListener('click', () => {
+      lang = (lang === 'en') ? 'fr' : 'en';
+      localStorage.setItem('lang', lang);
+      applyLangAbout();
+    });
   </script>
 </body>
 </html>
