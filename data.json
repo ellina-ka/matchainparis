@@ -41,7 +41,8 @@
     "my_rating": 4.3,
     "price": "€€",
     "tags": ["work-friendly", "flavoured"],
-    "notes": "Very creamy matcha latte. Laptops + plugs OK."
+    "notes": "Very creamy matcha latte. Laptops + plugs OK.",
+    "notes_fr": "Matcha Latte très crémeux. Ordis + prises OK."
   },
   {
     "name": "Vague Coffee",
@@ -51,7 +52,8 @@
     "my_rating": 4.1,
     "price": "€€",
     "tags": ["work-friendly"],
-    "notes": "Iced matcha: super refreshing; smaller cup, lighter taste. ~2 laptop tables."
+    "notes": "Iced matcha refreshing; smaller cup, lighter taste. ~2 laptop tables.",
+    "notes_fr": "Matcha glacé rafraîchissant ; tasse plus petite, goût plus léger. ~2 tables pour ordinateur portable."
   },
   {
     "name": "Torré Coffee Shop",
@@ -61,7 +63,8 @@
     "my_rating": 4,
     "price": "€€€",
     "tags": ["flavoured"],
-    "notes": "Pricey for matcha, but strong option in the area."
+    "notes": "Pricey for matcha, but strong option in the area.",
+    "notes_fr": "Cher pour du matcha, mais option solide dans le quartier."
   },
   {
     "name": "Sisters Coffee",
@@ -82,7 +85,8 @@
     "my_rating": 4.4,
     "price": "€€",
     "tags": [],
-    "notes": "Cozy sit-and-read spot. Coffee might outshine the matcha."
+    "notes": "Cozy sit-and-read spot. Coffee might outshine the matcha.",
+    "notes_fr": "Lieu cozy pour se poser et lire. Le café est meilleur."
   },
   {
     "name": "Certified Café",
@@ -92,7 +96,8 @@
     "my_rating": 3.9,
     "price": "€€",
     "tags": ["work-friendly"],
-    "notes": "Hit-or-miss matcha (great or watery). Plenty of seats, chilled vibe."
+    "notes": "Hit-or-miss matcha (great or bitter). Plenty of seats indoor and outdoors.",
+    "notes_fr": "Matcha aléatoire (excellent ou amer). Nombreuses places assises dedans et dehors."
   },
   {
     "name": "Cortado",
@@ -102,7 +107,8 @@
     "my_rating": 4.2,
     "price": "€€€",
     "tags": ["flavoured", "no-laptops"],
-    "notes": "Solid matcha; nice with pan con tomate. Better for chilling than working."
+    "notes": "Solid matcha; nice with pan con tomate. Better for chilling than working.",
+   "notes_fr": " Un bon matcha, intéressant avec du pan con tomate. Mieux pour se détendre que pour travailler."
   },
 
   {
@@ -113,7 +119,8 @@
     "my_rating": 4.7,
     "price": "€€€",
     "tags": ["to-go"],
-    "notes": "Expensive but excellent hot matcha; tea quality shines. Rose matcha is a fun twist."
+    "notes": "Expensive but excellent hot matcha; tea quality shines. Rose matcha is a fun twist.",
+   "notes_fr": "Un matcha chaud cher mais excellent ; la qualité du thé est au rendez-vous. Le matcha à la rose est une variante amusante."
   },
   {
     "name": "Café Nuances (6e)",
@@ -123,7 +130,8 @@
     "my_rating": 4.7,
     "price": "€€€",
     "tags": ["to-go"],
-    "notes": "Same quality as Nuances 1er; not a sit-down spot."
+    "notes": "Same quality as Nuances 1er; not a sit-down spot.",
+   "notes_fr": "Même qualités que Nuances 1er. Pas de places assises ici"
   },
 
   {
@@ -134,7 +142,8 @@
     "my_rating": 4.1,
     "price": "€€",
     "tags": ["work-friendly", "flavoured"],
-    "notes": "Unique, artsy space; open later than most. Matcha is weaker; coconut option is original."
+    "notes": "Unique, artsy space; open later than most. Matcha is weaker; coconut option is original.",
+   "notes_fr": "Espace unique et artistique ; ouvert plus tard que la plupart des autres. Le matcha est moins prononcé ; la version à la noix de coco est originale."
   },
   {
     "name": "The Coffee (Mazarine)",
@@ -144,17 +153,19 @@
     "my_rating": 4.5,
     "price": "€€",
     "tags": ["flavoured", "to-go"],
-    "notes": "Reliable Japanese chain. Regular matcha is standard; iced mint matcha is the standout."
+    "notes": "Reliable chain. Regular matcha is standard; iced mint matcha is a fun standout.",
+   "notes_fr": "Chaîne fiable. Le matcha classique est normal ; le matcha glacé à la menthe est une variation intéressante."
   },
   {
     "name": "Noir (Saint-Germain)",
     "address": "9 Rue de Luynes, 75007 Paris",
     "lat": 48.85551625828907,
     "lng": 2.326452653657398,
-    "my_rating": 4.1,
+    "my_rating": 4,
     "price": "€€",
     "tags": ["to-go"],
-    "notes": "Go for coffee; matcha best hot with oat. Not a work spot. Handy for Sciences Po runs."
+    "notes": "Go for coffee; but if you insist on matcha, it's best hot with oat. Not a work spot. Handy for Sciences Po runs.",
+   "notes_fr": "Allez y pour le café ; mais si vous tenez absolument au matcha, il est meilleur chaud au lait d'avoine. Ce n'est pas un endroit propice au travail. Pratique en allant à Sciences Po."
   },
   {
     "name": "Wani",
@@ -164,7 +175,8 @@
     "my_rating": 3.8,
     "price": "€€€",
     "tags": ["ceremonial","no-laptops"],
-    "notes": "Chef-run, stylish, superb food. Good matcha but very expensive; peak bobo vibes."
+    "notes": "Chef-run, stylish, superb food. Good matcha but very expensive; peak bobo vibes.",
+   "notes_fr": "Géré par un chef, élégant, cuisine délicieuse. Bon matcha mais très cher ; ambiance bobo ultime."
   },
   {
     "name": "AKA Coffee Shop",
@@ -174,17 +186,19 @@
     "my_rating": 4.1,
     "price": "€€",
     "tags": ["work-friendly"],
-    "notes": "Matcha is light/milky; coffee stronger here."
+    "notes": "Matcha is light/milky; coffee stronger here.",
+   "notes_fr": "Le Matcha glacé est trop light, le café est meilleur ici."
   },
   {
     "name": "JŌHŌ Coffee",
     "address": "14 Rue des Écouffes, 75004 Paris",
     "lat": 48.856971597505726,
     "lng": 2.358863481301901,
-    "my_rating": 4.8,
+    "my_rating": 4.7,
     "price": "€€",
     "tags": ["flavoured"],
-    "notes": "Cute spot in the 4e. Good matcha and coffee; friendly service."
+    "notes": "Cute spot in the Marais. Good matcha and coffee; friendly service.",
+   "notes_fr": "Endroit mignon dans le Marais. Bon matcha et café; service sympathique."
   },
   {
     "name": "Braun Notes",
@@ -194,7 +208,8 @@
     "my_rating": 4.5,
     "price": "€€",
     "tags": ["to-go"],
-    "notes": "Well balanced matcha. Cute place, but small. Nice latte art."
+    "notes": "Well balanced matcha. Cute place, but small. Nice latte art.",
+   "notes_fr": "Matcha bien équilibré. Lieu charmant, mais petit. Joli latte art."
   },
   {
     "name": "Boma",
@@ -204,7 +219,8 @@
     "my_rating": 4.6,
     "price": "€€€",
     "tags": ["work-friendly"],
-    "notes": "Very aesthetic place with lots of seats. Matcha is smaller, desserts are excellent."
+    "notes": "Very aesthetic place with lots of seats. Matcha is small though, but desserts are excellent.",
+   "notes_fr":"Lieu très esthétique avec de nombreuses places assises. Le Matcha est cependant assez petit. Les desserts sont excellents."
   },
  {
     "name": "The Coffee (Grenelle)",
@@ -214,7 +230,8 @@
     "my_rating": 4.8,
     "price": "€€",
     "tags": ["work-friendly","flavoured"],
-    "notes": "Reliable Japanese chain, this outlet has huge seating capacity, plugs and wifi. Try the flavoured matchas; iced mint matcha is the standout."
+    "notes": "Reliable chain, this outlet has huge seating capacity, plugs and wifi. Try the flavoured matchas; iced mint matcha is the standout.",
+  "notes_fr": "Chaîne fiable, ce lieu offre une grande capacité d'accueil, des prises et le Wi-Fi. Essayez les matchas aromatisés ; le matcha glacé à la menthe est le meilleur à mon goût."
   },
  {
     "name": "Noir (Concorde)",
@@ -224,7 +241,8 @@
     "my_rating": 4.1,
     "price": "€€",
     "tags": ["to-go"],
-    "notes": "Go for coffee; matcha best hot with oat. Not a work spot."
+    "notes": "Go for coffee; matcha best hot with oat. Not a work spot.",
+  "notes_fr": "Allez y pour le café ; mais si vous tenez absolument au matcha, il est meilleur chaud au lait d'avoine. Ce n'est pas un endroit propice au travail."
   },
   {
     "name": "The Coffee (5e)",
@@ -234,6 +252,18 @@
     "my_rating": 4.5,
     "price": "€€",
     "tags": ["work-friendly","flavoured"],
-    "notes": "Reliable Japanese chain, this outlet has a nice terrace seating capacity. Try the flavoured matchas; iced mint matcha is the standout."
+    "notes": "Reliable chain, this outlet has a nice terrace seating capacity. Try the flavoured matchas; iced mint matcha is the standout.",
+   "notes_fr": "Chaîne fiable, ce lieu offre une grande capacité en terrasse. Essayez les matchas aromatisés ; le matcha glacé à la menthe est le meilleur à mon goût."
+  },
+  {
+    "name": "Jugetsudo By Maruyama Nori",
+    "address": "95 Rue de Seine, 75006 Paris",
+    "lat": 48.8518871592684,
+    "lng": 2.3371488998427257,
+    "my_rating": 4.5,
+    "price": "€€€",
+    "tags": ["ceremonial","no-laptops","to-go"],
+    "notes": "Japanese tea house that also offers drinks (mostly to go). Matcha is premium quality, however very expensive.",
+   "notes_fr": "Salon de thé japonais proposant également des boissons (principalement à emporter). Le matcha est de qualité supérieure, mais très cher."
   }
 ]
