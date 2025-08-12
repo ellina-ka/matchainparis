@@ -7,37 +7,54 @@
   <link rel="stylesheet" href="styles.css"/>
 
 <style>
+  :root{
+    /* Tweak these 2 values to taste */
+    --content: 1200px;                 /* overall content width (was 960px) */
+    --logo-height: clamp(200px, 22vw, 320px); /* visible logo height, responsive */
+  }
+
   .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
   .navbar{display:flex;gap:16px;align-items:center}
   .lang-toggle{margin-left:auto;background:transparent;border:0;font-weight:700;cursor:pointer;padding:8px 10px;color:var(--ink,#1f2937)}
 
-  /* Title logo – clip extra transparent pixels at the bottom */
+  /* Title logo – bigger + responsive */
   .logo-hero{
-    max-width:960px;margin:8px auto 6px;padding:0 16px;text-align:center;
-    height:140px;           /* controls visible logo height */
-    overflow:hidden;        /* hides the extra transparent canvas */
+    max-width:var(--content);
+    margin:8px auto 6px;
+    padding:0 16px;
+    text-align:center;
+    height:var(--logo-height);  /* bigger frame now */
+    overflow:hidden;            /* crops off extra transparent canvas */
   }
   .site-logo{
     display:block;margin:0 auto;
-    height:160px;           /* a bit taller than the frame so we crop the bottom */
+    height:calc(100% + 24px);   /* slightly taller than the frame to crop bottom */
     width:auto;
     filter:drop-shadow(0 2px 6px rgba(0,0,0,.08));
   }
 
-  /* Wide banner under the title */
-  .banner-frame{max-width:960px;margin:8px auto 20px;padding:0 16px}
+  /* Wider banner */
+  .banner-frame{max-width:var(--content);margin:8px auto 20px;padding:0 16px}
   .banner-img{
     width:100%;
-    height:clamp(180px,28vw,320px);
+    height:clamp(220px,32vw,420px);
     object-fit:cover; object-position:center 45%;
     border-radius:12px; display:block;
   }
+
+  /* New: constrain the About text to the same wide content width */
+  .container{
+    max-width:var(--content);
+    margin:0 auto;
+    padding:0 16px;
+  }
 </style>
+
 
 </head>
 <body>
-  <header style="max-width:960px;margin:16px auto 8px;padding:0 16px">
+ <header style="max-width:var(--content);margin:16px auto 8px;padding:0 16px">
     <nav class="navbar">
       <a id="navAbout" href="index.html" class="active">About</a>
       <a id="navSpots" href="spots.html">Spots</a>
