@@ -18,21 +18,20 @@
   .navbar{display:flex;gap:16px;align-items:center}
   .lang-toggle{margin-left:auto;background:transparent;border:0;font-weight:700;cursor:pointer;padding:8px 10px;color:var(--ink,#1f2937)}
 
-  /* Title logo – bigger + responsive */
-  .logo-hero{
-    max-width:var(--content);
-    margin:8px auto 6px;
-    padding:0 16px;
-    text-align:center;
-    height:var(--logo-height);  /* bigger frame now */
-    overflow:hidden;            /* crops off extra transparent canvas */
-  }
-  .site-logo{
-    display:block;margin:0 auto;
-    height:calc(100% + 24px);   /* slightly taller than the frame to crop bottom */
-    width:auto;
-    filter:drop-shadow(0 2px 6px rgba(0,0,0,.08));
-  }
+ /* Title logo — size by width, keep natural height */
+.logo-hero{
+  max-width: var(--content);
+  margin: 12px auto 8px;
+  padding: 0 16px;
+  text-align: center;
+  /* no fixed height, no overflow */
+}
+.site-logo{
+  width: clamp(280px, 36vw, 520px);  /* adjust these numbers if you want */
+  height: auto;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.08));
+}
+
 
   /* Wider banner */
   .banner-frame{max-width:var(--content);margin:8px auto 20px;padding:0 16px}
