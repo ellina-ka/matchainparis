@@ -53,7 +53,7 @@ const I18N = {
     nav_spots: "Spots"
   },
   fr: {
-    title_spots: "Matcha à Paris 🍵",
+    title_spots: "Un matcha à Paris 🍵",
     subtitle_spots: "Toutes les adresses de matcha à Paris — mes notes, la carte et les liens utiles.",
     search_placeholder: "Rechercher (nom, notes, tags)…",
     arr_title: "Arrondissement",
