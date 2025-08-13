@@ -260,10 +260,32 @@
     "address": "95 Rue de Seine, 75006 Paris",
     "lat": 48.8518871592684,
     "lng": 2.3371488998427257,
-    "my_rating": 4.5,
+    "my_rating": 4.4,
     "price": "€€€",
     "tags": ["ceremonial","no-laptops","to-go"],
     "notes": "Japanese tea house that also offers drinks (mostly to go). Matcha is premium quality, however very expensive.",
    "notes_fr": "Salon de thé japonais proposant également des boissons (principalement à emporter). Le matcha est de qualité supérieure, mais très cher."
+  },
+ {
+    "name": "Mood Coffee",
+    "address": "66 Av. Kléber, 75116 Paris",
+    "lat": 48.86811475595761,
+    "lng": 2.2905446546763946,
+    "my_rating": 4.2,
+    "price": "€€€",
+    "tags": ["work-friendly"],
+    "notes": "Ergonomic, stylish, with plugs and wifi. Matcha latte is of good quality however very small. Solid option given the area.",
+   "notes_fr": "Ergonomique, élégant, avec prises et du Wi-Fi. Le matcha est de bonne qualité, mais très petite portion. Un choix solide compte tenu du quartier."
+  },
+  {
+    "name": "Parallel Coffee",
+    "address": "3 Rue de la Renaissance, 75008 Paris",
+    "lat": 48.86741763594367,
+    "lng": 2.3027453113261886,
+    "my_rating": 4.2,
+    "price": "€€€",
+    "tags": ["work-friendly","flavoured"],
+    "notes": "Tables with plugs and wifi, ideal for work. Matcha latte is basic, and strawberry matcha might be better. Expensive, but solid given the area.",
+   "notes_fr": "Tables avec prises et Wi-Fi, idéales pour travailler. Le matcha latte est basique, et le matcha à la fraise serait peut-être meilleur. Cher, mais correct compte tenu du quartier."
   }
 ]
