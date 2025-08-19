@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Suggestions — Matcha in Paris</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header-bar">
+    <nav class="navbar">
+      <a href="index.html">About</a>
+      <a href="spots.html">Spots</a>
+      <a class="active" href="suggest.html">Suggest</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1 class="page-title">Suggest / Contact</h1>
+    <p class="text-muted">Know a great matcha spot? Found a bug? Want to collaborate? Send it here.</p>
+
+    <div class="card">
+      <!-- Replace FORM_ACTION with your Formspree endpoint (see Config) -->
+      <form action="https://formspree.io/f/mpwlgdyb" method="POST">
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <label style="flex:1 1 220px">Your name
+            <input name="from_name" required style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px">
+          </label>
+          <label style="flex:1 1 220px">Email
+            <input type="email" name="from_email" required style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px">
+          </label>
+        </div>
+
+        <label style="display:block;margin-top:12px">Topic
+          <select name="topic" required style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px">
+            <option value="submit-spot">Submit a spot</option>
+            <option value="bug">Bug / improvement</option>
+            <option value="collab">Business collaboration</option>
+          </select>
+        </label>
+
+        <div id="spotFields" style="margin-top:12px">
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <label style="flex:1 1 260px">Place name
+              <input name="place_name" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px">
+            </label>
+            <label style="flex:2 1 320px">Address
+              <input name="place_address" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px">
+            </label>
+          </div>
+          <label style="display:block;margin-top:8px">Google Maps link (optional)
+            <input name="gmap_url" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px">
+          </label>
+        </div>
+
+        <label style="display:block;margin-top:12px">Message / details
+          <textarea name="message" rows="5" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px"></textarea>
+        </label>
+
+        <div style="display:flex;gap:12px;align-items:center;margin-top:12px">
+          <label style="display:flex;align-items:center;gap:6px;font-size:14px;">
+            <input type="checkbox" name="newsletter_optin" value="yes">
+            Also subscribe to my weekly tip
+          </label>
+        </div>
+
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" type="submit">Send</button>
+          <a class="btn" href="mailto:hello@matchainparis.com">Prefer email?</a>
+        </div>
+        <input type="hidden" name="_subject" value="New message from matchainparis.com">
+        <input type="text" name="_gotcha" style="display:none"> <!-- spam honeypot -->
+      </form>
+    </div>
+  </div>
+
+  <footer>© <span id="year"></span> matchainparis.com</footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Show/hide spot fields based on topic
+    const topic = document.querySelector('select[name="topic"]');
+    const spotFields = document.getElementById('spotFields');
+    function toggleSpotFields(){ spotFields.style.display = topic.value === 'submit-spot' ? 'block' : 'none'; }
+    topic.addEventListener('change', toggleSpotFields); toggleSpotFields();
+  </script>
+</body>
+</html>
