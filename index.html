@@ -57,6 +57,7 @@
     <nav class="navbar">
       <a id="navAbout" href="index.html" class="active">About</a>
       <a id="navSpots" href="spots.html">Spots</a>
+      <a href="suggest.html">Suggest</a>
       <button id="langToggle" class="lang-toggle" type="button" aria-label="Toggle language">FR</button>
     </nav>
   </header>
@@ -88,71 +89,71 @@
       </p>
       <p id="p3">
         <strong>Know a hidden gem?</strong> Share it with me:
-        <a href="mailto:contact.matchainparis@gmail.com">contact.matchainparis@gmail.com</a>.
+       <a href="suggest.html">Submit it here</a>.
       </p>
     </div>
   </div>
 
   <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ in Paris, by Ellina K-A</footer>
 
-  <script>
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ---- i18n for About page (same localStorage key as Spots) ----
-    const I18N_ABOUT = {
-      en: {
-        nav_about: "About",
-        nav_spots: "Spots",
-        toggle_next: "FR",
-        title: "About — Matcha in Paris",
-        h2: "About Matcha in Paris 🍵",
-        p1: `Welcome to my hand-poured guide to the matcha corners of Paris.
-             Every spot here has been sipped, savoured, and judged by me. No algorithms, no sponsorships, just honest cups.
-             You’ll find tasting notes, candid photos, and live map links so you can follow the trail yourself.`,
-        p2: `<strong>Why this exists:</strong> When I went looking for Paris’s best matcha,
-             I couldn’t find a single place that gathered them all with honest reviews. So I decided to make one.`,
-        p3: `<strong>Know a hidden gem?</strong> Share it with me:
-             <a href="mailto:contact.matchainparis@gmail.com">contact.matchainparis@gmail.com</a>.`
-      },
-      fr: {
-        nav_about: "À propos",
-        nav_spots: "Adresses",
-        toggle_next: "EN",
-        title: "À propos — Matcha à Paris",
-        h2: "À propos de Matcha à Paris 🍵",
-        p1: `Bienvenue dans mon guide artisanal des coins matcha de Paris.
-             Chaque lieu a été goûté et noté par moi. Pas d’algorithmes, pas de partenariats, juste des avis honnêtes.
-             Vous trouverez des notes de dégustation, des photos et des liens vers la carte pour y aller facilement.`,
-        p2: `<strong>Pourquoi ce site :</strong> En cherchant le meilleur matcha à Paris,
-             je n’ai trouvé aucun endroit qui les rassemblait avec des avis sincères. Alors je l’ai créé.`,
-        p3: `<strong>Une perle à me conseiller&nbsp;?</strong> Écrivez-moi :
-            <a href="mailto:contact.matchainparis@gmail.com">contact.matchainparis@gmail.com</a>.`
-      }
-    };
-
-    let lang = localStorage.getItem('lang') || (navigator.language && navigator.language.startsWith('fr') ? 'fr' : 'en');
-    function tAbout(key){ return I18N_ABOUT[lang][key]; }
-
-    function applyLangAbout(){
-      document.documentElement.lang = lang;
-      document.title = tAbout('title');
-      document.getElementById('navAbout').textContent = tAbout('nav_about');
-      document.getElementById('navSpots').textContent = tAbout('nav_spots');
-      document.getElementById('langToggle').textContent = tAbout('toggle_next');
-      document.getElementById('aboutTitle').textContent = tAbout('title');
-      document.getElementById('h2Heading').textContent = tAbout('h2');
-      document.getElementById('p1').innerHTML = tAbout('p1');
-      document.getElementById('p2').innerHTML = tAbout('p2');
-      document.getElementById('p3').innerHTML = tAbout('p3');
+  // ---- i18n for About page (same localStorage key as Spots) ----
+  const I18N_ABOUT = {
+    en: {
+      nav_about: "About",
+      nav_spots: "Spots",
+      toggle_next: "FR",
+      title: "About — Matcha in Paris",
+      h2: "About Matcha in Paris 🍵",
+      p1: `Welcome to my hand-poured guide to the matcha corners of Paris.
+           Every spot here has been sipped, savoured, and judged by me. No algorithms, no sponsorships, just honest cups.
+           You’ll find tasting notes, candid photos, and live map links so you can follow the trail yourself.`,
+      p2: `<strong>Why this exists:</strong> When I went looking for Paris’s best matcha,
+           I couldn’t find a single place that gathered them all with honest reviews. So I decided to make one.`,
+      p3: `<strong>Know a hidden gem?</strong> Share it with me:
+           <a href="suggest.html">Submit it here</a>.`
+    },
+    fr: {
+      nav_about: "À propos",
+      nav_spots: "Adresses",
+      toggle_next: "EN",
+      title: "À propos — Matcha à Paris",
+      h2: "À propos de Matcha à Paris 🍵",
+      p1: `Bienvenue dans mon guide artisanal des coins matcha de Paris.
+           Chaque lieu a été goûté et noté par moi. Pas d’algorithmes, pas de partenariats, juste des avis honnêtes.
+           Vous trouverez des notes de dégustation, des photos et des liens vers la carte pour y aller facilement.`,
+      p2: `<strong>Pourquoi ce site :</strong> En cherchant le meilleur matcha à Paris,
+           je n’ai trouvé aucun endroit qui les rassemblait avec des avis sincères. Alors je l’ai créé.`,
+      p3: `<strong>Une perle à me conseiller&nbsp;?</strong> Écrivez-moi :
+           <a href="suggest.html">Soumettre ici</a>.`
     }
+  };
 
+  let lang = localStorage.getItem('lang') || (navigator.language && navigator.language.startsWith('fr') ? 'fr' : 'en');
+  function tAbout(key){ return I18N_ABOUT[lang][key]; }
+
+  function applyLangAbout(){
+    document.documentElement.lang = lang;
+    document.title = tAbout('title');
+    document.getElementById('navAbout').textContent = tAbout('nav_about');
+    document.getElementById('navSpots').textContent = tAbout('nav_spots');
+    document.getElementById('langToggle').textContent = tAbout('toggle_next');
+    document.getElementById('aboutTitle').textContent = tAbout('title');
+    document.getElementById('h2Heading').textContent = tAbout('h2');
+    document.getElementById('p1').innerHTML = tAbout('p1');
+    document.getElementById('p2').innerHTML = tAbout('p2');
+    document.getElementById('p3').innerHTML = tAbout('p3');
+  }
+
+  applyLangAbout();
+  document.getElementById('langToggle').addEventListener('click', () => {
+    lang = (lang === 'en') ? 'fr' : 'en';
+    localStorage.setItem('lang', lang);
     applyLangAbout();
-    document.getElementById('langToggle').addEventListener('click', () => {
-      lang = (lang === 'en') ? 'fr' : 'en';
-      localStorage.setItem('lang', lang);
-      applyLangAbout();
-    });
-  </script>
+  });
+</script>
 </body>
 </html>
