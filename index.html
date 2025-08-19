@@ -78,9 +78,18 @@
 
 
   <!-- Smaller, horizontal banner just under the title -->
-  <div class="banner-frame">
-    <img src="about-banner.jpg" alt="Matcha latte" class="banner-img">
-  </div>
+ <!-- Smaller, horizontal banner just under the title -->
+<div class="banner-frame">
+  <img
+    src="about-banner.jpg"
+    alt="Matcha latte"
+    class="banner-img"
+    width="1600" height="900"          <!-- any reasonable real dims / aspect -->
+    loading="eager"                    <!-- force above-the-fold priority -->
+    fetchpriority="high"               <!-- hint to fetch sooner -->
+    decoding="async"                   <!-- paint sooner -->
+  >
+</div>
 
   <div class="container">
     <div class="card" style="padding:24px">
