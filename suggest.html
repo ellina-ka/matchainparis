@@ -60,7 +60,7 @@
         <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px">
           <label style="flex:1 1 320px">Email
             <input class="form-input" type="email" name="from_email" id="emailField" placeholder="you@example.com">
-            <div class="hint" id="emailHint">(optional — required for business or newsletter)</div>
+            <div class="hint" id="emailHint">(optional — Required for business or newsletter)</div>
           </label>
         </div>
 
@@ -145,8 +145,8 @@
       const mustHaveEmail = (currentTopic() === 'collab') || newsletterOpt.checked;
       emailField.required = mustHaveEmail;
       emailHint.textContent = mustHaveEmail
-        ? '(required for business or newsletter)'
-        : '(optional — required for business or newsletter)';
+        ? '(Required for business or newsletter)'
+        : '(optional — Required for business or newsletter)';
     }
 
     // Wire events
