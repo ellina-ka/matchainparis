@@ -77,12 +77,22 @@
   <footer>© <span id="year"></span> matchainparis.com</footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    // Show/hide spot fields based on topic
-    const topic = document.querySelector('select[name="topic"]');
-    const spotFields = document.getElementById('spotFields');
-    function toggleSpotFields(){ spotFields.style.display = topic.value === 'submit-spot' ? 'block' : 'none'; }
-    topic.addEventListener('change', toggleSpotFields); toggleSpotFields();
-  </script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const topic = document.querySelector('select[name="topic"]');
+  const spotFields = document.getElementById('spotFields');
+  const spotName = document.querySelector('input[name="place_name"]');
+  const spotAddr = document.querySelector('input[name="place_address"]');
+
+  function toggleSpotFields(){
+    const isSpot = topic.value === 'submit-spot';
+    spotFields.style.display = isSpot ? 'block' : 'none';
+    // Only require these when submitting a spot
+    spotName.required = isSpot;
+    spotAddr.required = isSpot;
+  }
+  topic.addEventListener('change', toggleSpotFields);
+  toggleSpotFields();
+</script>
 </body>
 </html>
