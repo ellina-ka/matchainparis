@@ -3,22 +3,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title> Contact — Matcha in Paris</title>
+  <title>Contact — Matcha in Paris</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Page-scoped polish (won't affect other pages) */
-    .btn-primary {
-      background: var(--accent, #274e13);
-      color: #fff;
-      border: 1px solid var(--accent, #274e13);
+    /* Page-only tweaks */
+    .center{ text-align:center; }
+    .card-xl{ padding:22px; }
+    .hint{ color: var(--muted); font-size: 12px; }
+    /* Green primary button */
+    #sendBtn.btn{ background:#2f5d3a; color:#fff; border-color:#2f5d3a; }
+    #sendBtn.btn[disabled]{ opacity:.75; cursor:progress; }
+    /* Success card */
+    .success-card{
+      background:#ffffff;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:22px;
+      text-align:center;
+      box-shadow:0 1px 0 rgba(0,0,0,.04);
     }
-    .btn-primary:hover { filter: brightness(0.95); }
-    .hint { font-size: 12px; color: var(--muted, #6b7280); }
-    .center { text-align: center; }
-    /* make the segmented topics pop a bit more */
-    .seg-group label[data-color="green"].active  { background:#e6f4ea; border-color:#a8c3ab; color:#234d33; }
-    .seg-group label[data-color="teal"].active   { background:#e6f3f2; border-color:#9ad1c8; color:#1f4e4a; }
-    .seg-group label[data-color="amber"].active  { background:#fff7e6; border-color:#f3d197; color:#6b4b16; }
+    .success-card h3{ margin:0 0 6px; }
+    .seg-group{ display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 6px; }
+    .seg-group input{ display:none; }
+    .seg-group label{
+      padding:8px 12px; border:1px solid var(--border); border-radius:999px;
+      cursor:pointer; user-select:none; background:#fff;
+    }
+    .seg-group label.active{ border-color:#2f5d3a; color:#2f5d3a; background:#eef5ef; }
+    /* Inputs */
+    .form-input, .form-textarea{
+      width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;
+      background:#fff;
+    }
   </style>
 </head>
 <body>
@@ -38,31 +54,36 @@
   <div class="container">
     <p class="text-muted center">Know a spot, found a bug, or want to collaborate? Tell me below ☕️</p>
 
-    <div class="card card-xl">
-      <!-- Formspree backend -->
-      <form action="https://formspree.io/f/mpwlgdyb" method="POST">
+    <!-- Success state (hidden by default) -->
+    <div id="successCard" class="success-card" style="display:none">
+      <h3>Thanks! 💌</h3>
+      <p>Your message was sent successfully. I’ll review it soon.</p>
+      <button id="anotherBtn" class="btn">Submit another</button>
+    </div>
+
+    <div id="formCard" class="card card-xl">
+      <!-- We’ll submit via fetch to avoid leaving your site -->
+      <form id="contactForm" action="https://formspree.io/f/mpwlgdyb" method="POST" novalidate>
         <!-- Topic first -->
         <div>
           <strong>Topic</strong>
           <div class="seg-group" role="radiogroup" aria-label="Topic">
             <input id="t-spot" type="radio" name="topic" value="submit-spot" checked>
-            <label for="t-spot" data-color="green">Submit a spot</label>
+            <label for="t-spot">Submit a spot</label>
 
             <input id="t-bug" type="radio" name="topic" value="bug">
-            <label for="t-bug" data-color="teal">Bug / improvement</label>
+            <label for="t-bug">Bug / improvement</label>
 
             <input id="t-collab" type="radio" name="topic" value="collab">
-            <label for="t-collab" data-color="amber">Business collaboration</label>
+            <label for="t-collab">Business collaboration</label>
           </div>
         </div>
 
-        <!-- Email only (optional unless business/newsletter) -->
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px">
-          <label style="flex:1 1 320px">Email
-            <input class="form-input" type="email" name="from_email" id="emailField" placeholder="you@example.com">
-            <div class="hint" id="emailHint">(optional — Required for business or newsletter)</div>
-          </label>
-        </div>
+        <!-- Email (optional unless business/newsletter) -->
+        <label style="display:block;margin-top:10px">Email
+          <span class="hint">(optional — required for business or newsletter)</span>
+          <input class="form-input" type="email" name="from_email" id="emailField" placeholder="you@example.com">
+        </label>
 
         <!-- Spot-only fields -->
         <div id="spotFields" style="margin-top:12px">
@@ -75,7 +96,7 @@
             </label>
           </div>
           <label style="display:block;margin-top:8px">Google Maps link (optional)
-            <input class="form-input" name="gmap_url" placeholder="https://maps.google.com/...">
+            <input class="form-input" name="gmap_url" placeholder="https://maps.google.com/…">
           </label>
         </div>
 
@@ -87,14 +108,14 @@
         <!-- Newsletter opt-in -->
         <div style="display:flex;gap:12px;align-items:center;margin-top:12px">
           <label style="display:flex;align-items:center;gap:6px;font-size:14px;">
-            <input type="checkbox" id="newsletterOpt" name="newsletter_optin" value="yes">
+            <input type="checkbox" id="newsletterOptin" name="newsletter_optin" value="yes">
             Also subscribe to my weekly tip
           </label>
         </div>
 
         <!-- Submit -->
         <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn btn-primary" type="submit" id="sendBtn">Send</button>
+          <button id="sendBtn" class="btn" type="submit">Send</button>
         </div>
 
         <!-- Formspree metadata -->
@@ -111,59 +132,90 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Elements
-    const topicRadios   = Array.from(document.querySelectorAll('input[name="topic"]'));
-    const labels        = Array.from(document.querySelectorAll('.seg-group label'));
-    const spotFields    = document.getElementById('spotFields');
-    const placeName     = document.getElementById('placeName');
-    const placeAddress  = document.getElementById('placeAddress');
-    const emailField    = document.getElementById('emailField');
-    const emailHint     = document.getElementById('emailHint');
-    const newsletterOpt = document.getElementById('newsletterOpt');
-    const sendBtn       = document.getElementById('sendBtn');
+    const form = document.getElementById('contactForm');
+    const formCard = document.getElementById('formCard');
+    const successCard = document.getElementById('successCard');
+    const anotherBtn = document.getElementById('anotherBtn');
+    const emailField = document.getElementById('emailField');
+    const newsletterOptin = document.getElementById('newsletterOptin');
+    const topicRadios = Array.from(document.querySelectorAll('input[name="topic"]'));
+    const labels = Array.from(document.querySelectorAll('.seg-group label'));
+    const spotFields = document.getElementById('spotFields');
+    const placeName = document.getElementById('placeName');
+    const placeAddress = document.getElementById('placeAddress');
+    const sendBtn = document.getElementById('sendBtn');
 
     function currentTopic(){
       const r = topicRadios.find(r => r.checked);
       return r ? r.value : 'submit-spot';
     }
 
-    function updateActiveChips(){
-      labels.forEach(l => {
-        const forId = l.getAttribute('for');
-        const input = document.getElementById(forId);
-        l.classList.toggle('active', !!input?.checked);
-      });
-    }
+    function updateTopicUI(){
+      // visual active state
+      labels.forEach(l => l.classList.toggle('active', document.getElementById(l.getAttribute('for')).checked));
 
-    function updateVisibilityAndRequirements(){
-      // Spot-only section
+      // spot section
       const isSpot = currentTopic() === 'submit-spot';
       spotFields.style.display = isSpot ? 'block' : 'none';
       placeName.required = isSpot;
       placeAddress.required = isSpot;
 
-      // Email becomes required for business OR newsletter
-      const mustHaveEmail = (currentTopic() === 'collab') || newsletterOpt.checked;
-      emailField.required = mustHaveEmail;
-      emailHint.textContent = mustHaveEmail
-        ? '(Required for business or newsletter)'
-        : '(optional — Required for business or newsletter)';
+      // email required only for business OR newsletter opt-in
+      const needEmail = currentTopic() === 'collab' || newsletterOptin.checked;
+      emailField.required = needEmail;
     }
 
-    // Wire events
-    topicRadios.forEach(r => r.addEventListener('change', () => {
-      updateActiveChips();
-      updateVisibilityAndRequirements();
-    }));
-    newsletterOpt.addEventListener('change', updateVisibilityAndRequirements);
+    topicRadios.forEach(r => r.addEventListener('change', updateTopicUI));
+    newsletterOptin.addEventListener('change', updateTopicUI);
+    updateTopicUI(); // initial
 
-    // Initial
-    updateActiveChips();
-    updateVisibilityAndRequirements();
+    // Intercept submit and post with fetch to stay on-page
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-    // Optional: simple "Sending…" state
-    document.querySelector('form')?.addEventListener('submit', () => {
+      // simple client validation for email rule
+      if ((currentTopic() === 'collab' || newsletterOptin.checked) && !emailField.value) {
+        emailField.focus();
+        emailField.reportValidity?.();
+        return;
+      }
+
       sendBtn.disabled = true;
+      const original = sendBtn.textContent;
       sendBtn.textContent = 'Sending…';
+
+      try{
+        const data = new FormData(form);
+        const resp = await fetch(form.action, {
+          method:'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (resp.ok) {
+          form.reset();
+          updateTopicUI();
+          formCard.style.display = 'none';
+          successCard.style.display = 'block';
+        } else {
+          // best-effort parse error
+          const err = await resp.json().catch(()=>({}));
+          alert('Sorry, something went wrong. Please try again.\n' + (err?.error || ''));
+        }
+      }catch(err){
+        alert('Network error. Please try again.');
+      }finally{
+        sendBtn.disabled = false;
+        sendBtn.textContent = original;
+      }
+    });
+
+    anotherBtn.addEventListener('click', () => {
+      successCard.style.display = 'none';
+      formCard.style.display = 'block';
+      // default topic back to Submit a spot
+      document.getElementById('t-spot').checked = true;
+      updateTopicUI();
     });
   </script>
 </body>
