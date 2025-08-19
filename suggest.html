@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Suggestions — Matcha in Paris</title>
+  <title>Suggest / Contact — Matcha in Paris</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,48 +15,63 @@
     </nav>
   </header>
 
-  <div class="container">
-    <h1 class="page-title">Suggest / Contact</h1>
-    <p class="text-muted">Know a great matcha spot? Found a bug? Want to collaborate? Send it here.</p>
+  <!-- Handwritten logo -->
+  <div class="logo-hero">
+    <img src="assets/logo.png" alt="Matcha in Paris" class="site-logo">
+  </div>
 
-    <div class="card">
-      <!-- Replace FORM_ACTION with your Formspree endpoint (see Config) -->
+  <div class="container">
+    <p class="text-muted center">Know a spot, found a bug, or want to collaborate? Tell me below ☕️</p>
+
+    <div class="card card-xl">
+      <!-- Formspree backend -->
       <form action="https://formspree.io/f/mpwlgdyb" method="POST">
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <label style="flex:1 1 220px">Your name
-            <input name="from_name" required style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px">
+        <!-- Topic first -->
+        <div>
+          <strong>Topic</strong>
+          <div class="seg-group" role="radiogroup" aria-label="Topic">
+            <input id="t-spot" type="radio" name="topic" value="submit-spot" checked>
+            <label for="t-spot" data-color="green">Submit a spot</label>
+
+            <input id="t-bug" type="radio" name="topic" value="bug">
+            <label for="t-bug" data-color="teal">Bug / improvement</label>
+
+            <input id="t-collab" type="radio" name="topic" value="collab">
+            <label for="t-collab" data-color="amber">Business collaboration</label>
+          </div>
+        </div>
+
+        <!-- Name & Email -->
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px">
+          <label style="flex:1 1 240px">Your name
+            <input class="form-input" name="from_name" required>
           </label>
-          <label style="flex:1 1 220px">Email
-            <input type="email" name="from_email" required style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px">
+          <label style="flex:1 1 240px">Email <span class="hint">(required for business)</span>
+            <input class="form-input" type="email" name="from_email" id="emailField">
           </label>
         </div>
 
-        <label style="display:block;margin-top:12px">Topic
-          <select name="topic" required style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px">
-            <option value="submit-spot">Submit a spot</option>
-            <option value="bug">Bug / improvement</option>
-            <option value="collab">Business collaboration</option>
-          </select>
-        </label>
-
+        <!-- Spot-only fields -->
         <div id="spotFields" style="margin-top:12px">
           <div style="display:flex;gap:12px;flex-wrap:wrap">
             <label style="flex:1 1 260px">Place name
-              <input name="place_name" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px">
+              <input class="form-input" name="place_name" id="placeName">
             </label>
             <label style="flex:2 1 320px">Address
-              <input name="place_address" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px">
+              <input class="form-input" name="place_address" id="placeAddress">
             </label>
           </div>
           <label style="display:block;margin-top:8px">Google Maps link (optional)
-            <input name="gmap_url" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px">
+            <input class="form-input" name="gmap_url">
           </label>
         </div>
 
+        <!-- Message -->
         <label style="display:block;margin-top:12px">Message / details
-          <textarea name="message" rows="5" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:10px"></textarea>
+          <textarea class="form-textarea" name="message" rows="6" placeholder="Tell me what’s useful for readers…"></textarea>
         </label>
 
+        <!-- Newsletter opt-in -->
         <div style="display:flex;gap:12px;align-items:center;margin-top:12px">
           <label style="display:flex;align-items:center;gap:6px;font-size:14px;">
             <input type="checkbox" name="newsletter_optin" value="yes">
@@ -64,10 +79,13 @@
           </label>
         </div>
 
-        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+        <!-- Submit -->
+        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
           <button class="btn" type="submit">Send</button>
           <a class="btn" href="mailto:contact.matchainparis@gmail.com">Prefer email?</a>
         </div>
+
+        <!-- Formspree metadata -->
         <input type="hidden" name="_subject" value="New message from matchainparis.com">
         <input type="text" name="_gotcha" style="display:none"> <!-- spam honeypot -->
       </form>
@@ -77,22 +95,38 @@
   <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ in Paris, by Ellina K-A</footer>
 
   <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  const topic = document.querySelector('select[name="topic"]');
-  const spotFields = document.getElementById('spotFields');
-  const spotName = document.querySelector('input[name="place_name"]');
-  const spotAddr = document.querySelector('input[name="place_address"]');
+    // Elements
+    const topicRadios = Array.from(document.querySelectorAll('input[name="topic"]'));
+    const labels = Array.from(document.querySelectorAll('.seg-group label'));
+    const spotFields = document.getElementById('spotFields');
+    const placeName = document.getElementById('placeName');
+    const placeAddress = document.getElementById('placeAddress');
+    const emailField = document.getElementById('emailField');
 
-  function toggleSpotFields(){
-    const isSpot = topic.value === 'submit-spot';
-    spotFields.style.display = isSpot ? 'block' : 'none';
-    // Only require these when submitting a spot
-    spotName.required = isSpot;
-    spotAddr.required = isSpot;
-  }
-  topic.addEventListener('change', toggleSpotFields);
-  toggleSpotFields();
-</script>
+    function currentTopic(){
+      const r = topicRadios.find(r => r.checked);
+      return r ? r.value : 'submit-spot';
+    }
+
+    function updateTopicUI(){
+      // visual active state
+      labels.forEach(l => l.classList.toggle('active', document.getElementById(l.getAttribute('for')).checked));
+
+      // spot section
+      const isSpot = currentTopic() === 'submit-spot';
+      spotFields.style.display = isSpot ? 'block' : 'none';
+      placeName.required = isSpot;
+      placeAddress.required = isSpot;
+
+      // email required only for business
+      emailField.required = currentTopic() === 'collab';
+    }
+
+    topicRadios.forEach(r => r.addEventListener('change', updateTopicUI));
+    updateTopicUI(); // initial
+  </script>
 </body>
 </html>
