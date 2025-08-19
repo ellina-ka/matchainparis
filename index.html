@@ -6,54 +6,57 @@
   <title>About — Matcha in Paris</title>
   <link rel="stylesheet" href="styles.css"/>
 
-<style>
-  :root{
-    /* Tweak these 2 values to taste */
-    --content: 1200px;                 /* overall content width (was 960px) */
-    --logo-height: clamp(200px, 22vw, 320px); /* visible logo height, responsive */
-  }
+  <!-- Preload the hero so it downloads immediately -->
+  <link rel="preload" as="image" href="about-banner.jpg">
 
-  .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  <style>
+    :root{
+      --content: 1200px;
+      --logo-height: clamp(200px, 22vw, 320px);
+    }
 
-  .navbar{display:flex;gap:16px;align-items:center}
-  .lang-toggle{margin-left:auto;background:transparent;border:0;font-weight:700;cursor:pointer;padding:8px 10px;color:var(--ink,#1f2937)}
+    .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
- /* Title logo — size by width, keep natural height */
-.logo-hero{
-  max-width: var(--content);
-  margin: 12px auto 8px;
-  padding: 0 16px;
-  text-align: center;
-  /* no fixed height, no overflow */
-}
-.site-logo{
-  width: clamp(280px, 36vw, 520px);  /* adjust these numbers if you want */
-  height: auto;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,.08));
-}
+    .navbar{display:flex;gap:16px;align-items:center}
+    .lang-toggle{margin-left:auto;background:transparent;border:0;font-weight:700;cursor:pointer;padding:8px 10px;color:var(--ink,#1f2937)}
 
+    /* Title logo wrapper */
+    .logo-hero{
+      max-width: var(--content);
+      margin: 12px auto 8px;
+      padding: 0 16px;
+      text-align: center;
+    }
+    .site-logo{
+      width: clamp(280px, 36vw, 520px);
+      height: auto;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.08));
+    }
 
-  /* Wider banner */
-  .banner-frame{max-width:var(--content);margin:8px auto 20px;padding:0 16px}
-  .banner-img{
-    width:100%;
-    height:clamp(220px,32vw,420px);
-    object-fit:cover; object-position:center 45%;
-    border-radius:12px; display:block;
-  }
+    /* Wider banner */
+    .banner-frame{max-width:var(--content);margin:8px auto 20px;padding:0 16px}
 
-  /* New: constrain the About text to the same wide content width */
-  .container{
-    max-width:var(--content);
-    margin:0 auto;
-    padding:0 16px;
-  }
-</style>
+    /* IMPORTANT: use intrinsic aspect ratio instead of clamp height */
+    .banner-img{
+      width:100%;
+      height:auto;               /* let aspect-ratio control height */
+      aspect-ratio: 16 / 9;      /* matches width/height attributes */
+      object-fit:cover;
+      object-position:center 45%;
+      border-radius:12px; display:block;
+      background:#dfe8d6;        /* subtle placeholder color before image paints */
+    }
 
-
+    /* About content width */
+    .container{
+      max-width:var(--content);
+      margin:0 auto;
+      padding:0 16px;
+    }
+  </style>
 </head>
 <body>
- <header style="max-width:var(--content);margin:16px auto 8px;padding:0 16px">
+  <header style="max-width:var(--content);margin:16px auto 8px;padding:0 16px">
     <nav class="navbar">
       <a id="navAbout" href="index.html" class="active">About</a>
       <a id="navSpots" href="spots.html">Spots</a>
@@ -65,31 +68,25 @@
   <!-- Hidden H1 for SEO -->
   <h1 id="aboutTitle" class="sr-only">About — Matcha in Paris</h1>
 
-  <!-- Big handwritten logo above -->
-<!-- Big handwritten logo above -->
-<div class="logo-hero">
-  <img
-    src="assets/logo.png"
-    alt="Matcha in Paris logo"
-    class="site-logo"
-    width="1099" height="227"
-    loading="eager" decoding="async" fetchpriority="high">
-</div>
+  <!-- Handwritten logo -->
+  <div class="logo-hero">
+    <img
+      src="assets/logo.png"
+      alt="Matcha in Paris logo"
+      class="site-logo"
+      width="1099" height="227"
+      loading="eager" decoding="async" fetchpriority="high">
+  </div>
 
-
-  <!-- Smaller, horizontal banner just under the title -->
- <!-- Smaller, horizontal banner just under the title -->
-<div class="banner-frame">
-  <img
-    src="about-banner.jpg"
-    alt="Matcha latte"
-    class="banner-img"
-    width="1600" height="900"          <!-- any reasonable real dims / aspect -->
-    loading="eager"                    <!-- force above-the-fold priority -->
-    fetchpriority="high"               <!-- hint to fetch sooner -->
-    decoding="async"                   <!-- paint sooner -->
-  >
-</div>
+  <!-- Hero banner (no comments inside tag) -->
+  <div class="banner-frame">
+    <img
+      src="about-banner.jpg"
+      alt="Matcha latte"
+      class="banner-img"
+      width="1600" height="900"
+      loading="eager" fetchpriority="high" decoding="async">
+  </div>
 
   <div class="container">
     <div class="card" style="padding:24px">
@@ -105,71 +102,71 @@
       </p>
       <p id="p3">
         <strong>Know a hidden gem?</strong> Share it with me:
-       <a href="suggest.html">Submit it here</a>.
+        <a href="suggest.html">Submit it here</a>.
       </p>
     </div>
   </div>
 
   <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ in Paris, by Ellina K-A</footer>
 
-<script>
-  // Year
-  document.getElementById('year').textContent = new Date().getFullYear();
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  // ---- i18n for About page (same localStorage key as Spots) ----
-  const I18N_ABOUT = {
-    en: {
-      nav_about: "About",
-      nav_spots: "Spots",
-      toggle_next: "FR",
-      title: "About — Matcha in Paris",
-      h2: "About Matcha in Paris 🍵",
-      p1: `Welcome to my hand-poured guide to the matcha corners of Paris.
-           Every spot here has been sipped, savoured, and judged by me. No algorithms, no sponsorships, just honest cups.
-           You’ll find tasting notes, candid photos, and live map links so you can follow the trail yourself.`,
-      p2: `<strong>Why this exists:</strong> When I went looking for Paris’s best matcha,
-           I couldn’t find a single place that gathered them all with honest reviews. So I decided to make one.`,
-      p3: `<strong>Know a hidden gem?</strong> Share it with me:
-           <a href="suggest.html">Submit it here</a>.`
-    },
-    fr: {
-      nav_about: "À propos",
-      nav_spots: "Adresses",
-      toggle_next: "EN",
-      title: "À propos — Matcha à Paris",
-      h2: "À propos de Matcha à Paris 🍵",
-      p1: `Bienvenue dans mon guide artisanal des coins matcha de Paris.
-           Chaque lieu a été goûté et noté par moi. Pas d’algorithmes, pas de partenariats, juste des avis honnêtes.
-           Vous trouverez des notes de dégustation, des photos et des liens vers la carte pour y aller facilement.`,
-      p2: `<strong>Pourquoi ce site :</strong> En cherchant le meilleur matcha à Paris,
-           je n’ai trouvé aucun endroit qui les rassemblait avec des avis sincères. Alors je l’ai créé.`,
-      p3: `<strong>Une perle à me conseiller&nbsp;?</strong> Écrivez-moi :
-           <a href="suggest.html">Soumettre ici</a>.`
+    // i18n
+    const I18N_ABOUT = {
+      en: {
+        nav_about: "About",
+        nav_spots: "Spots",
+        toggle_next: "FR",
+        title: "About — Matcha in Paris",
+        h2: "About Matcha in Paris 🍵",
+        p1: `Welcome to my hand-poured guide to the matcha corners of Paris.
+             Every spot here has been sipped, savoured, and judged by me. No algorithms, no sponsorships, just honest cups.
+             You’ll find tasting notes, candid photos, and live map links so you can follow the trail yourself.`,
+        p2: `<strong>Why this exists:</strong> When I went looking for Paris’s best matcha,
+             I couldn’t find a single place that gathered them all with honest reviews. So I decided to make one.`,
+        p3: `<strong>Know a hidden gem?</strong> Share it with me:
+             <a href="suggest.html">Submit it here</a>.`
+      },
+      fr: {
+        nav_about: "À propos",
+        nav_spots: "Adresses",
+        toggle_next: "EN",
+        title: "À propos — Matcha à Paris",
+        h2: "À propos de Matcha à Paris 🍵",
+        p1: `Bienvenue dans mon guide artisanal des coins matcha de Paris.
+             Chaque lieu a été goûté et noté par moi. Pas d’algorithmes, pas de partenariats, juste des avis honnêtes.
+             Vous trouverez des notes de dégustation, des photos et des liens vers la carte pour y aller facilement.`,
+        p2: `<strong>Pourquoi ce site :</strong> En cherchant le meilleur matcha à Paris,
+             je n’ai trouvé aucun endroit qui les rassemblait avec des avis sincères. Alors je l’ai créé.`,
+        p3: `<strong>Une perle à me conseiller&nbsp;?</strong> Écrivez-moi :
+             <a href="suggest.html">Soumettre ici</a>.`
+      }
+    };
+
+    let lang = localStorage.getItem('lang') || (navigator.language && navigator.language.startsWith('fr') ? 'fr' : 'en');
+    function tAbout(key){ return I18N_ABOUT[lang][key]; }
+
+    function applyLangAbout(){
+      document.documentElement.lang = lang;
+      document.title = tAbout('title');
+      document.getElementById('navAbout').textContent = tAbout('nav_about');
+      document.getElementById('navSpots').textContent = tAbout('nav_spots');
+      document.getElementById('langToggle').textContent = tAbout('toggle_next');
+      document.getElementById('aboutTitle').textContent = tAbout('title');
+      document.getElementById('h2Heading').textContent = tAbout('h2');
+      document.getElementById('p1').innerHTML = tAbout('p1');
+      document.getElementById('p2').innerHTML = tAbout('p2');
+      document.getElementById('p3').innerHTML = tAbout('p3');
     }
-  };
 
-  let lang = localStorage.getItem('lang') || (navigator.language && navigator.language.startsWith('fr') ? 'fr' : 'en');
-  function tAbout(key){ return I18N_ABOUT[lang][key]; }
-
-  function applyLangAbout(){
-    document.documentElement.lang = lang;
-    document.title = tAbout('title');
-    document.getElementById('navAbout').textContent = tAbout('nav_about');
-    document.getElementById('navSpots').textContent = tAbout('nav_spots');
-    document.getElementById('langToggle').textContent = tAbout('toggle_next');
-    document.getElementById('aboutTitle').textContent = tAbout('title');
-    document.getElementById('h2Heading').textContent = tAbout('h2');
-    document.getElementById('p1').innerHTML = tAbout('p1');
-    document.getElementById('p2').innerHTML = tAbout('p2');
-    document.getElementById('p3').innerHTML = tAbout('p3');
-  }
-
-  applyLangAbout();
-  document.getElementById('langToggle').addEventListener('click', () => {
-    lang = (lang === 'en') ? 'fr' : 'en';
-    localStorage.setItem('lang', lang);
     applyLangAbout();
-  });
-</script>
+    document.getElementById('langToggle').addEventListener('click', () => {
+      lang = (lang === 'en') ? 'fr' : 'en';
+      localStorage.setItem('lang', lang);
+      applyLangAbout();
+    });
+  </script>
 </body>
 </html>
