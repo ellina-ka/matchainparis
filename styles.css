@@ -249,5 +249,32 @@ select {
   .page-logo { width: min(92%, 380px); margin-top: 8px; }
 }
 
+/* --- Shared logo banner (reuse across pages) --- */
+.logo-hero{max-width:960px;margin:12px auto 8px;padding:0 16px;text-align:center}
+.site-logo{width:clamp(260px,36vw,520px);height:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.08))}
 
+/* Bigger card option */
+.card.card-xl{padding:24px;border-radius:16px}
+
+/* Segmented (pills) radio group for Topic */
+.seg-group{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.seg-group input{position:absolute;opacity:0;pointer-events:none}
+.seg-group label{
+  padding:10px 14px;border:1px solid var(--border);border-radius:999px;
+  background:#fff;font-size:14px;cursor:pointer;user-select:none;
+  transition:transform .05s ease, box-shadow .2s ease, border-color .2s ease,color .2s ease,background .2s ease;
+}
+.seg-group label:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.seg-group label.active{border-color:var(--accent);color:var(--accent);background:#eaf1ea}
+
+/* Optional accents per topic */
+.seg-group label[data-color="teal"].active{background:#e6f4f1;color:#136f63;border-color:#9fd5cc}
+.seg-group label[data-color="amber"].active{background:#fff4d6;color:#8a5a00;border-color:#f7d58a}
+
+/* Inputs look consistent */
+.form-input, .form-select, .form-textarea{
+  width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;background:#fff
+}
+.hint{font-size:12px;color:var(--muted)}
+.center{text-align:center}
 
