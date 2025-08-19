@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title> Contact — Matcha in Paris</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Page-scoped polish (won't affect other pages) */
+    .btn-primary {
+      background: var(--accent, #274e13);
+      color: #fff;
+      border: 1px solid var(--accent, #274e13);
+    }
+    .btn-primary:hover { filter: brightness(0.95); }
+    .hint { font-size: 12px; color: var(--muted, #6b7280); }
+    .center { text-align: center; }
+    /* make the segmented topics pop a bit more */
+    .seg-group label[data-color="green"].active  { background:#e6f4ea; border-color:#a8c3ab; color:#234d33; }
+    .seg-group label[data-color="teal"].active   { background:#e6f3f2; border-color:#9ad1c8; color:#1f4e4a; }
+    .seg-group label[data-color="amber"].active  { background:#fff7e6; border-color:#f3d197; color:#6b4b16; }
+  </style>
 </head>
 <body>
   <header class="header-bar">
@@ -41,13 +56,11 @@
           </div>
         </div>
 
-        <!-- Name & Email -->
+        <!-- Email only (optional unless business/newsletter) -->
         <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px">
-          <label style="flex:1 1 240px">Your name
-            <input class="form-input" name="from_name" required>
-          </label>
-          <label style="flex:1 1 240px">Email <span class="hint">(required for business)</span>
-            <input class="form-input" type="email" name="from_email" id="emailField">
+          <label style="flex:1 1 320px">Email
+            <input class="form-input" type="email" name="from_email" id="emailField" placeholder="you@example.com">
+            <div class="hint" id="emailHint">(optional — required for business or newsletter)</div>
           </label>
         </div>
 
@@ -62,7 +75,7 @@
             </label>
           </div>
           <label style="display:block;margin-top:8px">Google Maps link (optional)
-            <input class="form-input" name="gmap_url">
+            <input class="form-input" name="gmap_url" placeholder="https://maps.google.com/...">
           </label>
         </div>
 
@@ -74,15 +87,14 @@
         <!-- Newsletter opt-in -->
         <div style="display:flex;gap:12px;align-items:center;margin-top:12px">
           <label style="display:flex;align-items:center;gap:6px;font-size:14px;">
-            <input type="checkbox" name="newsletter_optin" value="yes">
+            <input type="checkbox" id="newsletterOpt" name="newsletter_optin" value="yes">
             Also subscribe to my weekly tip
           </label>
         </div>
 
         <!-- Submit -->
         <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn" type="submit">Send</button>
-          <a class="btn" href="mailto:contact.matchainparis@gmail.com">Prefer email?</a>
+          <button class="btn btn-primary" type="submit" id="sendBtn">Send</button>
         </div>
 
         <!-- Formspree metadata -->
@@ -99,34 +111,60 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Elements
-    const topicRadios = Array.from(document.querySelectorAll('input[name="topic"]'));
-    const labels = Array.from(document.querySelectorAll('.seg-group label'));
-    const spotFields = document.getElementById('spotFields');
-    const placeName = document.getElementById('placeName');
-    const placeAddress = document.getElementById('placeAddress');
-    const emailField = document.getElementById('emailField');
+    const topicRadios   = Array.from(document.querySelectorAll('input[name="topic"]'));
+    const labels        = Array.from(document.querySelectorAll('.seg-group label'));
+    const spotFields    = document.getElementById('spotFields');
+    const placeName     = document.getElementById('placeName');
+    const placeAddress  = document.getElementById('placeAddress');
+    const emailField    = document.getElementById('emailField');
+    const emailHint     = document.getElementById('emailHint');
+    const newsletterOpt = document.getElementById('newsletterOpt');
+    const sendBtn       = document.getElementById('sendBtn');
 
     function currentTopic(){
       const r = topicRadios.find(r => r.checked);
       return r ? r.value : 'submit-spot';
     }
 
-    function updateTopicUI(){
-      // visual active state
-      labels.forEach(l => l.classList.toggle('active', document.getElementById(l.getAttribute('for')).checked));
+    function updateActiveChips(){
+      labels.forEach(l => {
+        const forId = l.getAttribute('for');
+        const input = document.getElementById(forId);
+        l.classList.toggle('active', !!input?.checked);
+      });
+    }
 
-      // spot section
+    function updateVisibilityAndRequirements(){
+      // Spot-only section
       const isSpot = currentTopic() === 'submit-spot';
       spotFields.style.display = isSpot ? 'block' : 'none';
       placeName.required = isSpot;
       placeAddress.required = isSpot;
 
-      // email required only for business
-      emailField.required = currentTopic() === 'collab';
+      // Email becomes required for business OR newsletter
+      const mustHaveEmail = (currentTopic() === 'collab') || newsletterOpt.checked;
+      emailField.required = mustHaveEmail;
+      emailHint.textContent = mustHaveEmail
+        ? '(required for business or newsletter)'
+        : '(optional — required for business or newsletter)';
     }
 
-    topicRadios.forEach(r => r.addEventListener('change', updateTopicUI));
-    updateTopicUI(); // initial
+    // Wire events
+    topicRadios.forEach(r => r.addEventListener('change', () => {
+      updateActiveChips();
+      updateVisibilityAndRequirements();
+    }));
+    newsletterOpt.addEventListener('change', updateVisibilityAndRequirements);
+
+    // Initial
+    updateActiveChips();
+    updateVisibilityAndRequirements();
+
+    // Optional: simple "Sending…" state
+    document.querySelector('form')?.addEventListener('submit', () => {
+      sendBtn.disabled = true;
+      sendBtn.textContent = 'Sending…';
+    });
   </script>
 </body>
 </html>
