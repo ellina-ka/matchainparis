@@ -36,15 +36,15 @@
     /* Wider banner */
     .banner-frame{max-width:var(--content);margin:8px auto 20px;padding:0 16px}
 
-    /* IMPORTANT: use intrinsic aspect ratio instead of clamp height */
+    /* ↓↓↓ KEY CHANGE: cap height, keep full width, crop nicely */
     .banner-img{
       width:100%;
-      height:auto;               /* let aspect-ratio control height */
-      aspect-ratio: 16 / 9;      /* matches width/height attributes */
-      object-fit:cover;
+      height: clamp(200px, 26vmin, 360px); /* tweak middle/max to taste */
+      object-fit: cover;
       object-position:center 45%;
-      border-radius:12px; display:block;
-      background:#dfe8d6;        /* subtle placeholder color before image paints */
+      border-radius:12px;
+      display:block;
+      background:#dfe8d6; /* subtle placeholder color before image paints */
     }
 
     /* About content width */
@@ -78,7 +78,7 @@
       loading="eager" decoding="async" fetchpriority="high">
   </div>
 
-  <!-- Hero banner (no comments inside tag) -->
+  <!-- Hero banner -->
   <div class="banner-frame">
     <img
       src="about-banner.jpg"
