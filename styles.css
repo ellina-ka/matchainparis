@@ -308,5 +308,15 @@ select {
 /* When scrolling to #map, keep it below the navbar */
 #map { scroll-margin-top: 80px; }  /* tweak if your header height changes */
 
+/* --- FINAL MOBILE SIZE FOR FILTER/JUMP BUTTONS --- */
+@media (max-width: 899px) {
+  #filterToggle,
+  #jumpMap {
+    padding: 6px 10px !important;  /* tighten */
+    font-size: 13px !important;
+    border-width: 1px !important;
+    line-height: 1.2 !important;
+  }
+}
 
 
