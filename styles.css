@@ -345,4 +345,6 @@ select {
   }
 }
 
+@media (min-width: 900px) { #jumpMap { display: none; } }
+
 
