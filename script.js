@@ -50,7 +50,8 @@ const I18N = {
     filters_btn: "Filters",
     top_picks_chip: "Top picks",
     nav_about: "About",
-    nav_spots: "Spots"
+    nav_spots: "Spots",
+    jump_map: "Jump to map" 
   },
   fr: {
     title_spots: "Un matcha à Paris 🍵",
@@ -68,7 +69,8 @@ const I18N = {
     filters_btn: "Filtres",
     top_picks_chip: "Top Lieux",
     nav_about: "À propos",
-    nav_spots: "Adresses"
+    nav_spots: "Adresses",
+    jump_map: "Aller à la carte" 
   }
 };
 
@@ -166,6 +168,10 @@ if (navSpots) navSpots.textContent = t('nav_spots');
   // Navbar language toggle shows the other language
   const tog = document.getElementById('langToggle');
   if (tog) tog.textContent = lang === 'en' ? 'FR' : 'EN';
+
+   // NEW: localize Jump to map
+  const jm = document.getElementById('jumpToMap');
+  if (jm) jm.textContent = t('jump_map');
 
   // Update Filters button text (with count handled elsewhere)
   updateFilterButtonCount(currentFilterCount);
@@ -395,6 +401,14 @@ async function boot(){
     if(!state.panelOpen) return;
     const inside = el.filterPanel.contains(e.target) || el.filterToggle.contains(e.target);
     if(!inside) closePanel();
+  });
+  // Smooth scroll to map on mobile
+  document.getElementById('jumpToMap')?.addEventListener('click', (e) => {
+    const mapEl = document.getElementById('map');
+    if (!mapEl) return;
+    e.preventDefault();
+    document.activeElement?.blur?.(); // close mobile keyboard if search focused
+    mapEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
   applyFilters();
