@@ -305,13 +305,15 @@ select {
 }
 
 /* Make the Filters button larger on mobile */
+/* Keep Filters button normal size on mobile */
 @media (max-width: 899px) {
   #filterToggle {
-    padding: 12px 16px;       /* bigger tap target */
-    font-size: 16px;
-    border-width: 2px;
+    padding: 8px 10px;   /* default-ish */
+    font-size: 14px;
+    border-width: 1px;
   }
 }
+
 
 /* When scrolling to #map, keep it below the navbar */
 #map { scroll-margin-top: 80px; }  /* tweak if your header height changes */
