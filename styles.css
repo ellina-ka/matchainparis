@@ -347,4 +347,24 @@ select {
 
 @media (min-width: 900px) { #jumpMap { display: none; } }
 
+/* Base green style for the Jump-to-map button (keeps same look on desktop) */
+#jumpMap.btn {
+  background: #2f5d3a;
+  color: #fff;
+  border-color: #2f5d3a;
+}
+#jumpMap.btn:hover { filter: brightness(0.95); }
+
+/* Make it compact only on mobile */
+@media (max-width: 899px) {
+  #jumpMap {
+    padding: 6px 10px;     /* smaller */
+    font-size: 13px;
+    line-height: 1.2;
+    border-width: 1px;
+    border-radius: 999px;  /* pill */
+    flex: 0 0 auto;
+    width: auto;
+  }
+}
 
