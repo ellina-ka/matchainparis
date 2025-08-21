@@ -6,13 +6,15 @@
   <title>Contact — Matcha in Paris</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Page-only tweaks */
+    /* Page-only tweaks (kept minimal; layout width remains in styles.css) */
     .center{ text-align:center; }
     .card-xl{ padding:22px; }
     .hint{ color: var(--muted); font-size: 12px; }
+
     /* Green primary button */
     #sendBtn.btn{ background:#2f5d3a; color:#fff; border-color:#2f5d3a; }
     #sendBtn.btn[disabled]{ opacity:.75; cursor:progress; }
+
     /* Success card */
     .success-card{
       background:#ffffff;
@@ -23,13 +25,17 @@
       box-shadow:0 1px 0 rgba(0,0,0,.04);
     }
     .success-card h3{ margin:0 0 6px; }
+
+    /* Segmented group */
     .seg-group{ display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 6px; }
     .seg-group input{ display:none; }
     .seg-group label{
       padding:8px 12px; border:1px solid var(--border); border-radius:999px;
       cursor:pointer; user-select:none; background:#fff;
+      transition: border-color .2s ease, color .2s ease, background .2s ease;
     }
     .seg-group label.active{ border-color:#2f5d3a; color:#2f5d3a; background:#eef5ef; }
+
     /* Inputs */
     .form-input, .form-textarea{
       width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;
@@ -40,74 +46,76 @@
 <body>
   <header class="header-bar">
     <nav class="navbar">
-      <a href="index.html">About</a>
-      <a href="spots.html">Spots</a>
-      <a class="active" href="suggest.html">Contact</a>
+      <a id="navAbout" href="index.html">About</a>
+      <a id="navSpots" href="spots.html">Spots</a>
+      <a id="navContact" class="active" href="suggest.html">Contact</a>
+      <button id="langToggle" class="lang-toggle" type="button" aria-label="Toggle language">FR</button>
     </nav>
   </header>
 
   <!-- Handwritten logo -->
   <div class="logo-hero">
-    <img src="assets/logo.png" alt="Matcha in Paris" class="site-logo">
+    <img src="assets/logo.png" alt="Matcha in Paris" class="site-logo" width="1099" height="227">
   </div>
 
   <div class="container">
-    <p class="text-muted center">Know a spot, found a bug, or want to collaborate? Tell me below ☕️</p>
+    <p id="tagline" class="text-muted center">
+      Know a spot, found a bug, or want to collaborate? Tell me below ☕️
+    </p>
 
     <!-- Success state (hidden by default) -->
     <div id="successCard" class="success-card" style="display:none">
-      <h3>Thanks! 💌</h3>
-      <p>Your message was sent successfully. I’ll review it soon.</p>
+      <h3 id="successTitle">Thanks! 💌</h3>
+      <p id="successBody">Your message was sent successfully. I’ll review it soon.</p>
       <button id="anotherBtn" class="btn">Submit another</button>
     </div>
 
     <div id="formCard" class="card card-xl">
-      <!-- We’ll submit via fetch to avoid leaving your site -->
+      <!-- Submit via fetch to avoid leaving your site -->
       <form id="contactForm" action="https://formspree.io/f/mpwlgdyb" method="POST" novalidate>
         <!-- Topic first -->
         <div>
-          <strong>Topic</strong>
+          <strong id="topicTitle">Topic</strong>
           <div class="seg-group" role="radiogroup" aria-label="Topic">
             <input id="t-spot" type="radio" name="topic" value="submit-spot" checked>
-            <label for="t-spot">Submit a spot</label>
+            <label id="lblSpot" for="t-spot">Submit a spot</label>
 
             <input id="t-bug" type="radio" name="topic" value="bug">
-            <label for="t-bug">Bug / improvement</label>
+            <label id="lblBug" for="t-bug">Bug / improvement</label>
 
             <input id="t-collab" type="radio" name="topic" value="collab">
-            <label for="t-collab">Business collaboration</label>
+            <label id="lblCollab" for="t-collab">Business collaboration</label>
           </div>
         </div>
 
         <!-- Email (optional unless business/newsletter) -->
-        <label style="display:block;margin-top:10px">Email
-          <span class="hint">(optional — required for business or newsletter)</span>
-          <input class="form-input" type="email" name="from_email" id="emailField" placeholder="you@example.com">
+        <label style="display:block;margin-top:10px" for="emailField" id="lblEmail">
+          Email <span id="emailHint" class="hint">(optional — required for business or newsletter)</span>
         </label>
+        <input class="form-input" type="email" name="from_email" id="emailField" placeholder="you@example.com" autocomplete="email">
 
         <!-- Spot-only fields -->
         <div id="spotFields" style="margin-top:12px">
           <div style="display:flex;gap:12px;flex-wrap:wrap">
-            <label style="flex:1 1 260px">Place name
-              <input class="form-input" name="place_name" id="placeName">
-            </label>
-            <label style="flex:2 1 320px">Address
-              <input class="form-input" name="place_address" id="placeAddress">
-            </label>
+            <label style="flex:1 1 260px" for="placeName" id="lblPlace">Place name</label>
+            <input class="form-input" name="place_name" id="placeName">
+
+            <label style="flex:1 1 260px" for="placeAddress" id="lblAddress" hidden>Address</label>
+            <input class="form-input" name="place_address" id="placeAddress" style="flex:2 1 320px">
           </div>
-          <label style="display:block;margin-top:8px">Google Maps link  <span class="hint">(optional)</span>
-            <input class="form-input" name="gmap_url" placeholder="https://maps.google.com/…">
+          <label style="display:block;margin-top:8px" for="gmapUrl" id="lblGmap">
+            Google Maps link <span id="gmapHint" class="hint">(optional)</span>
           </label>
+          <input id="gmapUrl" class="form-input" name="gmap_url" placeholder="https://maps.google.com/…">
         </div>
 
         <!-- Message -->
-        <label style="display:block;margin-top:12px">Message / details
-          <textarea class="form-textarea" name="message" rows="6" placeholder="Tell me what’s useful for readers…"></textarea>
-        </label>
+        <label style="display:block;margin-top:12px" for="messageBox" id="lblMessage">Message / details</label>
+        <textarea id="messageBox" class="form-textarea" name="message" rows="6" placeholder="Tell me what’s useful for readers…"></textarea>
 
         <!-- Newsletter opt-in -->
         <div style="display:flex;gap:12px;align-items:center;margin-top:12px">
-          <label style="display:flex;align-items:center;gap:6px;font-size:14px;">
+          <label id="lblOptin" style="display:flex;align-items:center;gap:6px;font-size:14px;">
             <input type="checkbox" id="newsletterOptin" name="newsletter_optin" value="yes">
             Also subscribe to my weekly tip
           </label>
@@ -131,7 +139,120 @@
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Elements
+    // i18n strings
+    const I18N_SUGGEST = {
+      en: {
+        title: "Contact — Matcha in Paris",
+        nav_about: "About",
+        nav_spots: "Spots",
+        nav_contact: "Contact",
+        toggle_next: "FR",
+        tagline: "Know a spot, found a bug, or want to collaborate? Tell me below ☕️",
+        topic: "Topic",
+        spot: "Submit a spot",
+        bug: "Bug / improvement",
+        collab: "Business collaboration",
+        email_label: "Email",
+        email_hint: "(optional — required for business or newsletter)",
+        email_ph: "you@example.com",
+        place: "Place name",
+        address: "Address",
+        gmap: "Google Maps link",
+        gmap_hint: "(optional)",
+        message: "Message / details",
+        message_ph: "Tell me what’s useful for readers…",
+        optin: "Also subscribe to my weekly tip",
+        send: "Send",
+        sending: "Sending…",
+        success_title: "Thanks! 💌",
+        success_body: "Your message was sent successfully. I’ll review it soon.",
+        another: "Submit another",
+        email_required_msg: "Email is required for business or newsletter."
+      },
+      fr: {
+        title: "Contact — Matcha à Paris",
+        nav_about: "À propos",
+        nav_spots: "Adresses",
+        nav_contact: "Contact",
+        toggle_next: "EN",
+        tagline: "Vous connaissez une adresse, avez trouvé un bug, ou souhaitez collaborer ? Dites-moi tout ☕️",
+        topic: "Sujet",
+        spot: "Proposer une adresse",
+        bug: "Bug / amélioration",
+        collab: "Collaboration (pro)",
+        email_label: "Email",
+        email_hint: "(facultatif — requis pour collaboration ou newsletter)",
+        email_ph: "vous@exemple.com",
+        place: "Nom du lieu",
+        address: "Adresse",
+        gmap: "Lien Google Maps",
+        gmap_hint: "(facultatif)",
+        message: "Message / détails",
+        message_ph: "Dites-moi ce qui sera utile aux lecteurs…",
+        optin: "S’abonner aussi à mon astuce hebdo",
+        send: "Envoyer",
+        sending: "Envoi…",
+        success_title: "Merci ! 💌",
+        success_body: "Votre message a bien été envoyé. Je le lirai très vite.",
+        another: "Envoyer un autre",
+        email_required_msg: "L’email est requis pour les collaborations ou la newsletter."
+      }
+    };
+
+    let lang = localStorage.getItem('lang') || (navigator.language?.startsWith('fr') ? 'fr' : 'en');
+    function t(key){ return I18N_SUGGEST[lang][key]; }
+
+    function applyLangSuggest(){
+      document.documentElement.lang = lang;
+      document.title = t('title');
+
+      // Navbar + toggle
+      document.getElementById('navAbout').textContent = t('nav_about');
+      document.getElementById('navSpots').textContent = t('nav_spots');
+      document.getElementById('navContact').textContent = t('nav_contact');
+      document.getElementById('langToggle').textContent = t('toggle_next');
+
+      // Tagline
+      document.getElementById('tagline').textContent = t('tagline');
+
+      // Topic & segmented labels
+      document.getElementById('topicTitle').textContent = t('topic');
+      document.getElementById('lblSpot').textContent = t('spot');
+      document.getElementById('lblBug').textContent = t('bug');
+      document.getElementById('lblCollab').textContent = t('collab');
+
+      // Email
+      document.getElementById('lblEmail').firstChild.nodeValue = t('email_label') + ' ';
+      document.getElementById('emailHint').textContent = t('email_hint');
+      document.getElementById('emailField').placeholder = t('email_ph');
+
+      // Spot fields
+      document.getElementById('lblPlace').textContent = t('place');
+      document.getElementById('lblAddress').textContent = t('address');
+      document.getElementById('lblGmap').firstChild.nodeValue = t('gmap') + ' ';
+      document.getElementById('gmapHint').textContent = t('gmap_hint');
+
+      // Message
+      document.getElementById('lblMessage').textContent = t('message');
+      document.getElementById('messageBox').placeholder = t('message_ph');
+
+      // Opt-in
+      document.getElementById('lblOptin').lastChild.nodeValue = ' ' + t('optin');
+
+      // Buttons / success
+      document.getElementById('sendBtn').textContent = t('send');
+      document.getElementById('successTitle').textContent = t('success_title');
+      document.getElementById('successBody').textContent = t('success_body');
+      document.getElementById('anotherBtn').textContent = t('another');
+    }
+
+    document.getElementById('langToggle').addEventListener('click', () => {
+      lang = (lang === 'en') ? 'fr' : 'en';
+      localStorage.setItem('lang', lang);
+      applyLangSuggest();
+    });
+
+    // Elements for logic
     const form = document.getElementById('contactForm');
     const formCard = document.getElementById('formCard');
     const successCard = document.getElementById('successCard');
@@ -167,7 +288,6 @@
 
     topicRadios.forEach(r => r.addEventListener('change', updateTopicUI));
     newsletterOptin.addEventListener('change', updateTopicUI);
-    updateTopicUI(); // initial
 
     // Intercept submit and post with fetch to stay on-page
     form.addEventListener('submit', async (e) => {
@@ -175,6 +295,7 @@
 
       // simple client validation for email rule
       if ((currentTopic() === 'collab' || newsletterOptin.checked) && !emailField.value) {
+        alert(I18N_SUGGEST[lang].email_required_msg);
         emailField.focus();
         emailField.reportValidity?.();
         return;
@@ -182,7 +303,7 @@
 
       sendBtn.disabled = true;
       const original = sendBtn.textContent;
-      sendBtn.textContent = 'Sending…';
+      sendBtn.textContent = I18N_SUGGEST[lang].sending;
 
       try{
         const data = new FormData(form);
@@ -198,7 +319,6 @@
           formCard.style.display = 'none';
           successCard.style.display = 'block';
         } else {
-          // best-effort parse error
           const err = await resp.json().catch(()=>({}));
           alert('Sorry, something went wrong. Please try again.\n' + (err?.error || ''));
         }
@@ -217,6 +337,10 @@
       document.getElementById('t-spot').checked = true;
       updateTopicUI();
     });
+
+    // Initial paint
+    applyLangSuggest();
+    updateTopicUI();
   </script>
 </body>
 </html>
