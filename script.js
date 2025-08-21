@@ -29,7 +29,8 @@ const el = {
   appliedChips: null,
   hideUnrated: null,
   arrFilter: null,
-  langToggle: null
+  langToggle: null,
+  jumpMap: null        // <-- one consistent id
 };
 
 // ---------- i18n (UI-only; we do NOT touch cafe names/addresses/notes) ----------
@@ -51,7 +52,7 @@ const I18N = {
     top_picks_chip: "Top picks",
     nav_about: "About",
     nav_spots: "Spots",
-    jump_map: "Jump to map" 
+    jump_map: "Jump to map"
   },
   fr: {
     title_spots: "Un matcha à Paris 🍵",
@@ -70,7 +71,7 @@ const I18N = {
     top_picks_chip: "Top Lieux",
     nav_about: "À propos",
     nav_spots: "Adresses",
-    jump_map: "Aller à la carte" 
+    jump_map: "Aller à la carte"
   }
 };
 
@@ -102,7 +103,7 @@ function tagLabel(key) {
 // Prefer FR notes when FR is selected; otherwise EN (or fallback to existing notes)
 function noteText(c) {
   if (lang === 'fr') return c.notes_fr ?? c.notes ?? "";
-  return c.notes ?? ""; // if you later add notes_en, prefer it here
+  return c.notes ?? "";
 }
 
 function setLabelTextAfterInput(inputId, text){
@@ -122,7 +123,6 @@ function updateTagCheckboxLabels() {
   el.fTagBoxes.forEach(input => {
     const label = input.closest('label') || input.parentElement;
     if (!label) return;
-    // Find the first TEXT_NODE after the input; create one if needed.
     let node = input.nextSibling;
     while (node && node.nodeType !== Node.TEXT_NODE) node = node.nextSibling;
     if (node) {
@@ -148,10 +148,11 @@ function applyLangStaticTexts() {
   if (arrSel) arrSel.setAttribute('title', t('arr_title'));
 
   setLabelTextAfterInput('hideUnrated', t('hide_unrated'));
+
   const navAbout = document.getElementById('navAbout');
-const navSpots = document.getElementById('navSpots');
-if (navAbout) navAbout.textContent = t('nav_about');
-if (navSpots) navSpots.textContent = t('nav_spots');
+  const navSpots = document.getElementById('navSpots');
+  if (navAbout) navAbout.textContent = t('nav_about');
+  if (navSpots) navSpots.textContent = t('nav_spots');
 
   // Filter panel texts
   const panel = document.getElementById('filterPanel');
@@ -169,8 +170,8 @@ if (navSpots) navSpots.textContent = t('nav_spots');
   const tog = document.getElementById('langToggle');
   if (tog) tog.textContent = lang === 'en' ? 'FR' : 'EN';
 
-   // NEW: localize Jump to map
-  const jm = document.getElementById('jumpToMap');
+  // Localize "Jump to map" button
+  const jm = document.getElementById('jumpMap');
   if (jm) jm.textContent = t('jump_map');
 
   // Update Filters button text (with count handled elsewhere)
@@ -198,7 +199,7 @@ function renderMarkers(items){
   items.forEach((c,idx)=>{
     if (typeof c.lat!=='number'||typeof c.lng!=='number') return;
     const m=L.marker([c.lat,c.lng]).addTo(state.map)
-      .bindPopup(`<strong>${c.name}</strong><br/>${c.address}<br/>My rating: ${c.my_rating ?? "—"}`);
+      .bindPopup(`<strong>${c.name}</strong><br/>${c.address}<br/>${t('my_rating')}: ${c.my_rating ?? "—"}`);
     m.on('click',()=>highlightListItem(idx));
     state.markers.push(m); group.push(m);
   });
@@ -366,6 +367,7 @@ async function boot(){
   el.hideUnrated=document.getElementById('hideUnrated');
   el.arrFilter=document.getElementById('arrFilter');
   el.langToggle=document.getElementById('langToggle');
+  el.jumpMap=document.getElementById('jumpMap'); // <-- grab it once
 
   initMap();
 
@@ -393,6 +395,17 @@ async function boot(){
     applyLangStaticTexts(); // updates UI labels + tag checkbox labels
     applyFilters();         // re-render list with translated strings
   });
+
+  // One jump-to-map handler (with offset so it doesn't hide under navbar)
+  el.jumpMap?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const mapEl = document.getElementById('map');
+    if (!mapEl) return;
+    document.activeElement?.blur?.(); // close mobile keyboard if search focused
+    const y = mapEl.getBoundingClientRect().top + window.pageYOffset - 80; // ~navbar height
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  });
+
   el.fTop?.addEventListener('change', ()=>{ updateStateFromPanel(); applyFilters(); });
   el.fTagBoxes.forEach(b=> b.addEventListener('change', ()=>{ updateStateFromPanel(); applyFilters(); }));
 
@@ -401,14 +414,6 @@ async function boot(){
     if(!state.panelOpen) return;
     const inside = el.filterPanel.contains(e.target) || el.filterToggle.contains(e.target);
     if(!inside) closePanel();
-  });
-  // Smooth scroll to map on mobile
-  document.getElementById('jumpToMap')?.addEventListener('click', (e) => {
-    const mapEl = document.getElementById('map');
-    if (!mapEl) return;
-    e.preventDefault();
-    document.activeElement?.blur?.(); // close mobile keyboard if search focused
-    mapEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
   applyFilters();
