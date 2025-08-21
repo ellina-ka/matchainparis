@@ -333,3 +333,16 @@ select {
 
 @media (min-width: 900px) { #jumpMap { display: none; } }
 
+/* Compact Jump-to-Map on mobile only */
+@media (max-width: 899px) {
+  #jumpMap {
+    padding: 6px 10px !important;
+    font-size: 13px !important;
+    line-height: 1.2 !important;
+    border-width: 1px !important;
+    flex: 0 0 auto !important; /* don't stretch */
+    width: auto !important;    /* no full-width */
+  }
+}
+
+
