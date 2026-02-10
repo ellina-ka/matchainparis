@@ -18,6 +18,7 @@
   <style>
     :root{
       --content: 1200px;
+      --banner-max: 1080px;
       --logo-height: clamp(200px, 22vw, 320px);
     }
 
@@ -47,17 +48,15 @@
 
     /* Wider banner */
     .banner-frame{
-      max-width:var(--content);
+      max-width:calc(var(--banner-max) + 32px);
       margin:8px auto 20px;
       padding:0 16px
     }
 
-    /* Cap height, keep full width, crop nicely */
+    /* Keep full image visible without cropping */
     .banner-img{
       width:100%;
-      height: clamp(200px, 26vmin, 360px);
-      object-fit: cover;
-      object-position:center 45%;
+      height:auto;
       border-radius:12px;
       display:block;
       background:#dfe8d6;
@@ -65,7 +64,7 @@
 
     /* About content width */
     .container{
-      max-width:var(--content);
+      max-width:calc(var(--banner-max) + 32px);
       margin:0 auto;
       padding:0 16px;
     }
