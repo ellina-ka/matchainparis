@@ -1,14 +1,17 @@
 [
- {
+  {
     "name": "LIV Coffee Shop",
     "address": "44 Boulevard Henri IV, 75004 Paris",
     "lat": 48.852645516635896,
     "lng": 2.367575856752698,
     "my_rating": 4.9,
     "price": "€€",
-    "tags": ["work-friendly", "flavoured"],
+    "tags": [
+      "work-friendly",
+      "flavoured"
+    ],
     "notes": "New Marais-side spot. Most refreshing matcha. Generous servings and cookies.",
-  "notes_fr": "Nouvel endroit côté Marais. Matcha des plus rafraîchissants. Boissons et cookies généreux."
+    "notes_fr": "Nouvel endroit côté Marais. Matcha des plus rafraîchissants. Boissons et cookies généreux."
   },
   {
     "name": "Kura-ge (Marais)",
@@ -17,30 +20,36 @@
     "lng": 2.3609250960891277,
     "my_rating": 4.4,
     "price": "€€€",
-    "tags": ["ceremonial"],
+    "tags": [
+      "ceremonial"
+    ],
     "notes": "Specialty matcha-focused café. Try the pure matcha.",
-   "notes_fr": "Café spécialisé dans le matcha ceremnial. Goûtez le matcha pur."
+    "notes_fr": "Café spécialisé dans le matcha ceremnial. Goûtez le matcha pur."
   },
-{
+  {
     "name": "Saint Pearl",
     "address": "38 Rue des Saints-Pères, 75007 Paris",
     "lat": 48.85508933264042,
-  "lng": 2.3305255711303987,
+    "lng": 2.3305255711303987,
     "my_rating": 4.8,
     "price": "€€",
-    "tags": ["no-laptops"],
+    "tags": [
+      "no-laptops"
+    ],
     "notes": "Hot matcha latte recommended. Ask for extra strong matcha (free). No laptops.",
- "notes_fr": "Matcha latte chaud recommandé. Demandez un matcha extra fort (gratuit). Ordinateurs portables interdits."
+    "notes_fr": "Matcha latte chaud recommandé. Demandez un matcha extra fort (gratuit). Ordinateurs portables interdits."
   },
   {
     "name": "Creamy Daily",
     "address": "49 Rue Sainte-Anne, 75002 Paris",
- "name": "Creamy Daily",
-  "lat": 48.86732812123635,
-  "lng": 2.335738984537043,
+    "lat": 48.86732812123635,
+    "lng": 2.335738984537043,
     "my_rating": 4.3,
     "price": "€€",
-    "tags": ["work-friendly", "flavoured"],
+    "tags": [
+      "work-friendly",
+      "flavoured"
+    ],
     "notes": "Very creamy matcha latte. Laptops + plugs OK.",
     "notes_fr": "Matcha Latte très crémeux. Ordis + prises OK."
   },
@@ -48,40 +57,46 @@
     "name": "Vague Coffee",
     "address": "76 Rue Boursault, 75017 Paris",
     "lat": 48.88650501368761,
-  "lng": 2.317701013407483,
+    "lng": 2.317701013407483,
     "my_rating": 4.1,
     "price": "€€",
-    "tags": ["work-friendly"],
+    "tags": [
+      "work-friendly"
+    ],
     "notes": "Iced matcha refreshing; smaller cup, lighter taste. ~2 laptop tables.",
     "notes_fr": "Matcha glacé rafraîchissant ; tasse plus petite, goût plus léger. ~2 tables pour ordinateur portable."
   },
   {
     "name": "Torré Coffee Shop",
     "address": "15 Boulevard de la Tour-Maubourg, 75007 Paris",
-     "lat": 48.86095875559854,
-  "lng": 2.3105832443437095,
+    "lat": 48.86095875559854,
+    "lng": 2.3105832443437095,
     "my_rating": 4,
     "price": "€€€",
-    "tags": ["flavoured"],
+    "tags": [
+      "flavoured"
+    ],
     "notes": "Pricey for matcha, but strong option in the area.",
     "notes_fr": "Cher pour du matcha, mais option solide dans le quartier."
   },
   {
     "name": "Sisters Coffee",
     "address": "17 Rue Boulard, 75014 Paris",
-     "lat": 48.83410373701344,
-  "lng": 2.329179415474666,
+    "lat": 48.83410373701344,
+    "lng": 2.329179415474666,
     "my_rating": 5,
     "price": "€€",
-    "tags": ["work-friendly"],
+    "tags": [
+      "work-friendly"
+    ],
     "notes": "Local gem. Large iced matcha. Homemade cakes change daily. Wi-Fi, plugs, AC.",
-   "notes_fr": "Pépite locale. Grand matcha glacé. Gâteaux maison qui changent chaque jour. Wi-Fi, prises, clim."
+    "notes_fr": "Pépite locale. Grand matcha glacé. Gâteaux maison qui changent chaque jour. Wi-Fi, prises, clim."
   },
   {
     "name": "Un Ami",
     "address": "95 Rue Didot, 75014 Paris",
     "lat": 48.82872933848323,
-  "lng": 2.316622571138588,
+    "lng": 2.316622571138588,
     "my_rating": 4.4,
     "price": "€€",
     "tags": [],
@@ -91,49 +106,56 @@
   {
     "name": "Certified Café",
     "address": "83 Rue du Bac, 75007 Paris",
-     "lat": 48.85422279746277,
-  "lng": 2.3247524289721553,
+    "lat": 48.85422279746277,
+    "lng": 2.3247524289721553,
     "my_rating": 3.9,
     "price": "€€",
-    "tags": ["work-friendly"],
+    "tags": [
+      "work-friendly"
+    ],
     "notes": "Hit-or-miss matcha (great or bitter). Plenty of seats indoor and outdoors.",
     "notes_fr": "Matcha aléatoire (excellent ou amer). Nombreuses places assises dedans et dehors."
   },
   {
     "name": "Cortado",
     "address": "31 Rue Charlot, 75003 Paris",
-      "lat": 48.862584417909645,
-  "lng": 2.362007544313455,
+    "lat": 48.862584417909645,
+    "lng": 2.362007544313455,
     "my_rating": 4.2,
     "price": "€€€",
-    "tags": ["flavoured", "no-laptops"],
+    "tags": [
+      "flavoured",
+      "no-laptops"
+    ],
     "notes": "Solid matcha; nice with pan con tomate. Better for chilling than working.",
-   "notes_fr": " Un bon matcha, intéressant avec du pan con tomate. Mieux pour se détendre que pour travailler."
+    "notes_fr": " Un bon matcha, intéressant avec du pan con tomate. Mieux pour se détendre que pour travailler."
   },
-
   {
     "name": "Café Nuances (1er)",
     "address": "25 Rue Danielle Casanova, 75001 Paris",
-     "lat": 48.86806396180887,
-  "lng": 2.3313822577273977,
+    "lat": 48.86806396180887,
+    "lng": 2.3313822577273977,
     "my_rating": 4.7,
     "price": "€€€",
-    "tags": ["to-go"],
+    "tags": [
+      "to-go"
+    ],
     "notes": "Expensive but excellent hot matcha; tea quality shines. Rose matcha is a fun twist.",
-   "notes_fr": "Un matcha chaud cher mais excellent ; la qualité du thé est au rendez-vous. Le matcha à la rose est une variante amusante."
+    "notes_fr": "Un matcha chaud cher mais excellent ; la qualité du thé est au rendez-vous. Le matcha à la rose est une variante amusante."
   },
   {
     "name": "Café Nuances (6e)",
     "address": "22 Rue du Vieux Colombier, 75006 Paris",
     "lat": 48.85213628233819,
-  "lng": 2.3302424577375214,
+    "lng": 2.3302424577375214,
     "my_rating": 4.7,
     "price": "€€€",
-    "tags": ["to-go"],
+    "tags": [
+      "to-go"
+    ],
     "notes": "Same quality as Nuances 1er; not a sit-down spot.",
-   "notes_fr": "Même qualités que Nuances 1er. Pas de places assises ici"
+    "notes_fr": "Même qualités que Nuances 1er. Pas de places assises ici"
   },
-
   {
     "name": "8lithèque 八梨空间",
     "address": "3 Rue Victor Considérant, 75014 Paris",
@@ -141,9 +163,12 @@
     "lng": 2.3310536071917736,
     "my_rating": 4.1,
     "price": "€€",
-    "tags": ["work-friendly", "flavoured"],
+    "tags": [
+      "work-friendly",
+      "flavoured"
+    ],
     "notes": "Unique, artsy space; open later than most. Matcha is weaker; coconut option is original.",
-   "notes_fr": "Espace unique et artistique ; ouvert plus tard que la plupart des autres. Le matcha est moins prononcé ; la version à la noix de coco est originale."
+    "notes_fr": "Espace unique et artistique ; ouvert plus tard que la plupart des autres. Le matcha est moins prononcé ; la version à la noix de coco est originale."
   },
   {
     "name": "The Coffee (Mazarine)",
@@ -152,9 +177,12 @@
     "lng": 2.3384418191782403,
     "my_rating": 4.5,
     "price": "€€",
-    "tags": ["flavoured", "to-go"],
+    "tags": [
+      "flavoured",
+      "to-go"
+    ],
     "notes": "Reliable chain. Regular matcha is standard; iced mint matcha is a fun standout.",
-   "notes_fr": "Chaîne fiable. Le matcha classique est normal ; le matcha glacé à la menthe est une variation intéressante."
+    "notes_fr": "Chaîne fiable. Le matcha classique est normal ; le matcha glacé à la menthe est une variation intéressante."
   },
   {
     "name": "Noir (Saint-Germain)",
@@ -163,9 +191,11 @@
     "lng": 2.326452653657398,
     "my_rating": 4,
     "price": "€€",
-    "tags": ["to-go"],
+    "tags": [
+      "to-go"
+    ],
     "notes": "Go for coffee; but if you insist on matcha, it's best hot with oat. Not a work spot. Handy for Sciences Po runs.",
-   "notes_fr": "Allez y pour le café ; mais si vous tenez absolument au matcha, il est meilleur chaud au lait d'avoine. Ce n'est pas un endroit propice au travail. Pratique en allant à Sciences Po."
+    "notes_fr": "Allez y pour le café ; mais si vous tenez absolument au matcha, il est meilleur chaud au lait d'avoine. Ce n'est pas un endroit propice au travail. Pratique en allant à Sciences Po."
   },
   {
     "name": "Wani",
@@ -174,9 +204,12 @@
     "lng": 2.3247465923435096,
     "my_rating": 3.8,
     "price": "€€€",
-    "tags": ["ceremonial","no-laptops"],
+    "tags": [
+      "ceremonial",
+      "no-laptops"
+    ],
     "notes": "Chef-run, stylish, superb food. Good matcha but very expensive; peak bobo vibes.",
-   "notes_fr": "Géré par un chef, élégant, cuisine délicieuse. Bon matcha mais très cher ; ambiance bobo ultime."
+    "notes_fr": "Géré par un chef, élégant, cuisine délicieuse. Bon matcha mais très cher ; ambiance bobo ultime."
   },
   {
     "name": "AKA Coffee Shop",
@@ -185,9 +218,11 @@
     "lng": 2.32774738092576,
     "my_rating": 4.1,
     "price": "€€",
-    "tags": ["work-friendly"],
+    "tags": [
+      "work-friendly"
+    ],
     "notes": "Matcha is light/milky; coffee stronger here.",
-   "notes_fr": "Le Matcha glacé est trop light, le café est meilleur ici."
+    "notes_fr": "Le Matcha glacé est trop light, le café est meilleur ici."
   },
   {
     "name": "JŌHŌ Coffee",
@@ -196,9 +231,11 @@
     "lng": 2.358863481301901,
     "my_rating": 4.7,
     "price": "€€",
-    "tags": ["flavoured"],
+    "tags": [
+      "flavoured"
+    ],
     "notes": "Cute spot in the Marais. Good matcha and coffee; friendly service.",
-   "notes_fr": "Endroit mignon dans le Marais. Bon matcha et café; service sympathique."
+    "notes_fr": "Endroit mignon dans le Marais. Bon matcha et café; service sympathique."
   },
   {
     "name": "Braun Notes",
@@ -207,9 +244,11 @@
     "lng": 2.3438190520326225,
     "my_rating": 4.5,
     "price": "€€",
-    "tags": ["to-go"],
+    "tags": [
+      "to-go"
+    ],
     "notes": "Well balanced matcha. Cute place, but small. Nice latte art.",
-   "notes_fr": "Matcha bien équilibré. Lieu charmant, mais petit. Joli latte art."
+    "notes_fr": "Matcha bien équilibré. Lieu charmant, mais petit. Joli latte art."
   },
   {
     "name": "Boma",
@@ -218,31 +257,38 @@
     "lng": 2.3483508126698185,
     "my_rating": 4.6,
     "price": "€€€",
-    "tags": ["work-friendly"],
+    "tags": [
+      "work-friendly"
+    ],
     "notes": "Very aesthetic place with lots of seats. Matcha is small though, but desserts are excellent.",
-   "notes_fr":"Lieu très esthétique avec de nombreuses places assises. Le Matcha est cependant assez petit. Les desserts sont excellents."
+    "notes_fr": "Lieu très esthétique avec de nombreuses places assises. Le Matcha est cependant assez petit. Les desserts sont excellents."
   },
- {
+  {
     "name": "The Coffee (Grenelle)",
     "address": "138 Bd de Grenelle, 75015 Paris",
     "lat": 48.84883458618164,
     "lng": 2.2984750215987546,
     "my_rating": 4.8,
     "price": "€€",
-    "tags": ["work-friendly","flavoured"],
+    "tags": [
+      "work-friendly",
+      "flavoured"
+    ],
     "notes": "Reliable chain, this outlet has huge seating capacity, plugs and wifi. Try the flavoured matchas; iced mint matcha is the standout.",
-  "notes_fr": "Chaîne fiable, ce lieu offre une grande capacité d'accueil, des prises et le Wi-Fi. Essayez les matchas aromatisés ; le matcha glacé à la menthe est le meilleur à mon goût."
+    "notes_fr": "Chaîne fiable, ce lieu offre une grande capacité d'accueil, des prises et le Wi-Fi. Essayez les matchas aromatisés ; le matcha glacé à la menthe est le meilleur à mon goût."
   },
- {
+  {
     "name": "Noir (Concorde)",
     "address": "8 Rue Saint-Florentin, 75001 Paris",
     "lat": 48.868300009854934,
     "lng": 2.3241105490211513,
     "my_rating": 4.1,
     "price": "€€",
-    "tags": ["to-go"],
+    "tags": [
+      "to-go"
+    ],
     "notes": "Go for coffee; matcha best hot with oat. Not a work spot.",
-  "notes_fr": "Allez y pour le café ; mais si vous tenez absolument au matcha, il est meilleur chaud au lait d'avoine. Ce n'est pas un endroit propice au travail."
+    "notes_fr": "Allez y pour le café ; mais si vous tenez absolument au matcha, il est meilleur chaud au lait d'avoine. Ce n'est pas un endroit propice au travail."
   },
   {
     "name": "The Coffee (5e)",
@@ -251,9 +297,12 @@
     "lng": 2.3510076631738253,
     "my_rating": 4.5,
     "price": "€€",
-    "tags": ["work-friendly","flavoured"],
+    "tags": [
+      "work-friendly",
+      "flavoured"
+    ],
     "notes": "Reliable chain, this outlet has a nice terrace seating capacity. Try the flavoured matchas; iced mint matcha is the standout.",
-   "notes_fr": "Chaîne fiable, ce lieu offre une grande capacité en terrasse. Essayez les matchas aromatisés ; le matcha glacé à la menthe est le meilleur à mon goût."
+    "notes_fr": "Chaîne fiable, ce lieu offre une grande capacité en terrasse. Essayez les matchas aromatisés ; le matcha glacé à la menthe est le meilleur à mon goût."
   },
   {
     "name": "Jugetsudo By Maruyama Nori",
@@ -262,20 +311,26 @@
     "lng": 2.3371488998427257,
     "my_rating": 4.4,
     "price": "€€€",
-    "tags": ["ceremonial","no-laptops","to-go"],
+    "tags": [
+      "ceremonial",
+      "no-laptops",
+      "to-go"
+    ],
     "notes": "Japanese tea house that also offers drinks (mostly to go). Matcha is premium quality, however very expensive.",
-   "notes_fr": "Salon de thé japonais proposant également des boissons (principalement à emporter). Le matcha est de qualité supérieure, mais très cher."
+    "notes_fr": "Salon de thé japonais proposant également des boissons (principalement à emporter). Le matcha est de qualité supérieure, mais très cher."
   },
- {
+  {
     "name": "Mood Coffee",
     "address": "66 Av. Kléber, 75116 Paris",
     "lat": 48.86811475595761,
     "lng": 2.2905446546763946,
     "my_rating": 4.2,
     "price": "€€€",
-    "tags": ["work-friendly"],
+    "tags": [
+      "work-friendly"
+    ],
     "notes": "Ergonomic, stylish, with plugs and wifi. Matcha latte is of good quality however very small. Solid option given the area.",
-   "notes_fr": "Ergonomique, élégant, avec prises et du Wi-Fi. Le matcha est de bonne qualité, mais très petite portion. Un choix solide compte tenu du quartier."
+    "notes_fr": "Ergonomique, élégant, avec prises et du Wi-Fi. Le matcha est de bonne qualité, mais très petite portion. Un choix solide compte tenu du quartier."
   },
   {
     "name": "Parallel Coffee",
@@ -284,9 +339,12 @@
     "lng": 2.3027453113261886,
     "my_rating": 4.2,
     "price": "€€€",
-    "tags": ["work-friendly","flavoured"],
+    "tags": [
+      "work-friendly",
+      "flavoured"
+    ],
     "notes": "Tables with plugs and wifi, ideal for work. Matcha latte is basic, and strawberry matcha might be better. Expensive, but solid given the area.",
-   "notes_fr": "Tables avec prises et Wi-Fi, idéales pour travailler. Le matcha latte est basique, et le matcha à la fraise serait peut-être meilleur. Cher, mais correct compte tenu du quartier."
+    "notes_fr": "Tables avec prises et Wi-Fi, idéales pour travailler. Le matcha latte est basique, et le matcha à la fraise serait peut-être meilleur. Cher, mais correct compte tenu du quartier."
   },
   {
     "name": "Matcha Social Club",
@@ -294,11 +352,13 @@
     "lat": 48.8676,
     "lng": 2.3361,
     "my_rating": null,
-    "source": "community",
     "price": "€€",
-    "tags": ["to-go"],
+    "tags": [
+      "to-go"
+    ],
     "notes": "Community tip: Well-balanced for true matcha lovers, and the ice cream is delicious too. Take-away only.",
-   "notes_fr": "Suggestion communauté : bien dosé pour les vrais kiffeurs de matcha, la glace y est délicieuse également. À emporter uniquement."
+    "notes_fr": "Suggestion communauté : bien dosé pour les vrais kiffeurs de matcha, la glace y est délicieuse également. À emporter uniquement.",
+    "source": "community"
   },
   {
     "name": "Now Reformer",
@@ -308,8 +368,26 @@
     "my_rating": null,
     "source": "community",
     "price": "€€€",
-    "tags": ["to-go", "flavoured"],
+    "tags": [
+      "to-go",
+      "flavoured"
+    ],
     "notes": "Community tip: They serve a collagen + protein + adaptogen matcha from the Reformed brand — loved it.",
-   "notes_fr": "Suggestion communauté : ils servent un matcha enrichi en collagène + protéines + adaptogènes de la marque Reformed — adoré."
+    "notes_fr": "Suggestion communauté : ils servent un matcha enrichi en collagène + protéines + adaptogènes de la marque Reformed — adoré."
+  },
+  {
+    "name": "Rose Claire",
+    "address": "11 rue henri michaux 75013 Paris",
+    "lat": 48.8218,
+    "lng": 2.3576,
+    "my_rating": 4.8,
+    "price": "€€",
+    "tags": [
+      "work-friendly",
+      "ceremonial",
+      "flavoured"
+    ],
+    "notes": "Excellent service and a work-friendly place. Ceremonial matcha and flavoured matcha are both available.",
+    "notes_fr": "Excellent service et lieu propice au travail. Matcha cérémonial et matchas aromatisés disponibles."
   }
 ]
