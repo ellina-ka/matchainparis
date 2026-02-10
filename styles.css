@@ -368,3 +368,25 @@ select {
   }
 }
 
+
+.item.card.community {
+  border-color: #cfd4dc;
+  background: #f8fafc;
+}
+
+.badge-community {
+  background: #eef1f5;
+  color: #475569;
+  border-color: #cbd5e1;
+}
+
+.contribute-cta {
+  background: #eef5ef;
+  border: 1px dashed #9eb7a2;
+  color: #2f4d37;
+}
+
+.contribute-cta a {
+  color: #2f5d3a;
+  font-weight: 700;
+}

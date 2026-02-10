@@ -52,7 +52,12 @@ const I18N = {
     top_picks_chip: "Top picks",
     nav_about: "About",
     nav_spots: "Spots",
-    jump_map: "Jump to map"
+    jump_map: "Jump to map",
+    source_community: "Community suggestion",
+    source_me: "Reviewed by me",
+    community_unreviewed: "Not reviewed by me yet",
+    contribute_cta: "Know a great matcha spot?",
+    contribute_link: "Submit it via Contact"
   },
   fr: {
     title_spots: "Un matcha à Paris 🍵",
@@ -71,7 +76,12 @@ const I18N = {
     top_picks_chip: "Top Lieux",
     nav_about: "À propos",
     nav_spots: "Adresses",
-    jump_map: "Aller à la carte"
+    jump_map: "Aller à la carte",
+    source_community: "Suggestion communauté",
+    source_me: "Testé par moi",
+    community_unreviewed: "Pas encore testé par moi",
+    contribute_cta: "Vous connaissez un bon spot matcha ?",
+    contribute_link: "Partagez-le via Contact"
   }
 };
 
@@ -194,12 +204,27 @@ function initMap() {
   }).addTo(state.map);
 }
 function clearMarkers(){ state.markers.forEach(m=>state.map.removeLayer(m)); state.markers=[]; }
+
+const communityIcon = L.icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+function isCommunitySpot(c){
+  return c.source === 'community';
+}
+
 function renderMarkers(items){
   clearMarkers(); const group=[];
   items.forEach((c,idx)=>{
     if (typeof c.lat!=='number'||typeof c.lng!=='number') return;
-    const m=L.marker([c.lat,c.lng]).addTo(state.map)
-      .bindPopup(`<strong>${c.name}</strong><br/>${c.address}<br/>${t('my_rating')}: ${c.my_rating ?? "—"}`);
+    const sourceLine = isCommunitySpot(c) ? t('source_community') : t('source_me');
+    const m=L.marker([c.lat,c.lng], { icon: isCommunitySpot(c) ? communityIcon : new L.Icon.Default() }).addTo(state.map)
+      .bindPopup(`<strong>${c.name}</strong><br/>${c.address}<br/>${sourceLine}<br/>${t('my_rating')}: ${c.my_rating ?? "—"}`);
     m.on('click',()=>highlightListItem(idx));
     state.markers.push(m); group.push(m);
   });
@@ -238,15 +263,22 @@ function renderList(items){
     return;
   }
   items.forEach((c,i)=>{
-    const div=document.createElement('div'); div.className='item card';
+    const div=document.createElement('div');
+    div.className=`item card ${isCommunitySpot(c) ? 'community' : ''}`;
+    const ratingLine = isCommunitySpot(c) && typeof c.my_rating !== 'number'
+      ? `<div>${t('community_unreviewed')}</div>`
+      : `<div>${t('my_rating')}: <strong>${starText(c.my_rating)}</strong></div>`;
+    const sourceBadge = isCommunitySpot(c)
+      ? `<span class="badge badge-community">${t('source_community')}</span>`
+      : '';
     div.innerHTML=`
       <h3>${c.name}</h3>
       <div class="meta">${c.address} • ${c.price || '—'}</div>
       <div style="margin:6px 0">${
         (c.tags || []).map(t => `<span class="badge">${tagLabel(t)}</span>`).join('')
-      }</div>
+      } ${sourceBadge}</div>
       <div class="row">
-        <div>${t('my_rating')}: <strong>${starText(c.my_rating)}</strong></div>
+        ${ratingLine}
         <a class="btn" href="${googleLink(c)}" target="_blank" rel="noreferrer">${t('open_in_maps')}</a>
       </div>
       ${noteText(c) ? `<div style="margin-top:6px;color:#4b5563">${noteText(c)}</div>` : ''}
@@ -254,6 +286,11 @@ function renderList(items){
     div.addEventListener('mouseenter',()=>{ const m=state.markers[i]; if(m) m.openPopup(); });
     el.list.appendChild(div);
   });
+
+  const cta = document.createElement('div');
+  cta.className = 'item contribute-cta';
+  cta.innerHTML = `<strong>${t('contribute_cta')}</strong> <a href="suggest.html">${t('contribute_link')}</a>`;
+  el.list.appendChild(cta);
 }
 
 // ---------- Applied chips (only selected filters) ----------

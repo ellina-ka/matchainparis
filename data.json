@@ -287,5 +287,29 @@
     "tags": ["work-friendly","flavoured"],
     "notes": "Tables with plugs and wifi, ideal for work. Matcha latte is basic, and strawberry matcha might be better. Expensive, but solid given the area.",
    "notes_fr": "Tables avec prises et Wi-Fi, idéales pour travailler. Le matcha latte est basique, et le matcha à la fraise serait peut-être meilleur. Cher, mais correct compte tenu du quartier."
+  },
+  {
+    "name": "Matcha Social Club",
+    "address": "39 Rue des Petits Champs, 75001 Paris",
+    "lat": 48.8676,
+    "lng": 2.3361,
+    "my_rating": null,
+    "source": "community",
+    "price": "€€",
+    "tags": ["to-go"],
+    "notes": "Community tip: Well-balanced for true matcha lovers, and the ice cream is delicious too. Take-away only.",
+   "notes_fr": "Suggestion communauté : bien dosé pour les vrais kiffeurs de matcha, la glace y est délicieuse également. À emporter uniquement."
+  },
+  {
+    "name": "Now Reformer",
+    "address": "6 Rue de la Michodière, 75002 Paris",
+    "lat": 48.8697,
+    "lng": 2.3315,
+    "my_rating": null,
+    "source": "community",
+    "price": "€€€",
+    "tags": ["to-go", "flavoured"],
+    "notes": "Community tip: They serve a collagen + protein + adaptogen matcha from the Reformed brand — loved it.",
+   "notes_fr": "Suggestion communauté : ils servent un matcha enrichi en collagène + protéines + adaptogènes de la marque Reformed — adoré."
   }
 ]
