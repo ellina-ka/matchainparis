@@ -299,5 +299,17 @@
     "tags": ["to-go"],
     "notes": "Community tip: Well-balanced for true matcha lovers, and the ice cream is delicious too. Take-away only.",
    "notes_fr": "Suggestion communauté : bien dosé pour les vrais kiffeurs de matcha, la glace y est délicieuse également. À emporter uniquement."
+  },
+  {
+    "name": "Now Reformer",
+    "address": "6 Rue de la Michodière, 75002 Paris",
+    "lat": 48.8697,
+    "lng": 2.3315,
+    "my_rating": null,
+    "source": "community",
+    "price": "€€€",
+    "tags": ["to-go", "flavoured"],
+    "notes": "Community tip: They serve a collagen + protein + adaptogen matcha from the Reformed brand — loved it.",
+   "notes_fr": "Suggestion communauté : ils servent un matcha enrichi en collagène + protéines + adaptogènes de la marque Reformed — adoré."
   }
 ]
