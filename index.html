@@ -26,7 +26,6 @@
   <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
   <link rel="manifest" href="/assets/favicon/site.webmanifest" />
 
-  <!-- Preload the hero so it downloads immediately -->
   <link rel="preload" as="image" href="/assets/matchabanner.jpg" />
 
   <style>
@@ -125,10 +124,8 @@
     </nav>
   </header>
 
-  <!-- Hidden H1 for SEO -->
   <h1 id="aboutTitle" class="sr-only">About — Matcha in Paris</h1>
 
-  <!-- Handwritten logo -->
   <div class="logo-hero">
     <img
       src="assets/logo.png"
@@ -138,7 +135,12 @@
       loading="eager" decoding="async" fetchpriority="high">
   </div>
 
-  <!-- Hero banner -->
+  <section class="hero-intro" aria-labelledby="aboutHeading">
+    <p class="hero-kicker">Independent Paris Matcha Guide</p>
+    <h2 id="aboutHeading" class="hero-title">A hand-poured map of Paris’s best matcha moments.</h2>
+    <p class="hero-subtitle">Taste notes, honest ratings, and no paid placements—just cafés worth your walk.</p>
+  </section>
+
   <div class="banner-frame">
     <img
       src="/assets/matchabanner.jpg"
@@ -148,8 +150,8 @@
   </div>
 
   <div class="container">
-    <div class="card" style="padding:24px">
-      <h2 id="h2Heading" style="color:var(--accent)">About Matcha in Paris 🍵</h2>
+    <div class="card card-xl">
+      <h2 id="h2Heading">About Matcha in Paris 🍵</h2>
       <p id="p1">
         Welcome to my hand-poured guide to the matcha corners of Paris.
         Every spot here has been sipped, savoured, and judged by me — no algorithms, no sponsorships, just honest cups.
@@ -169,10 +171,8 @@
   <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ in Paris, by Ellina K-A</footer>
 
   <script>
-    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // i18n
     const I18N_ABOUT = {
       en: {
         nav_about: "About",
