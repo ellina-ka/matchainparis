@@ -12,58 +12,7 @@
   <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
   <link rel="manifest" href="/assets/favicon/site.webmanifest" />
 
-  <!-- Preload the hero so it downloads immediately -->
   <link rel="preload" as="image" href="/assets/matchabanner.jpg" />
-
-  <style>
-    :root{
-      --content: 1200px;
-      --banner-max: 820px;
-      --logo-height: clamp(200px, 22vw, 320px);
-    }
-
-    .sr-only{
-      position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
-      overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0
-    }
-
-
-    /* Title logo wrapper */
-    .logo-hero{
-      max-width: var(--content);
-      margin: 12px auto 8px;
-      padding: 0 16px;
-      text-align: center;
-    }
-    .site-logo{
-      width: clamp(280px, 36vw, 520px);
-      height: auto;
-      filter: drop-shadow(0 2px 6px rgba(0,0,0,.08));
-    }
-
-    /* Wider banner */
-    .banner-frame{
-      max-width:calc(var(--banner-max) + 32px);
-      margin:8px auto 20px;
-      padding:0 16px
-    }
-
-    /* Keep full image visible without cropping */
-    .banner-img{
-      width:100%;
-      height:auto;
-      border-radius:12px;
-      display:block;
-      background:#dfe8d6;
-    }
-
-    /* About content width */
-    .container{
-      max-width:calc(var(--banner-max) + 32px);
-      margin:0 auto;
-      padding:0 16px;
-    }
-  </style>
 </head>
 <body>
   <header class="header-bar">
@@ -75,10 +24,8 @@
     </nav>
   </header>
 
-  <!-- Hidden H1 for SEO -->
   <h1 id="aboutTitle" class="sr-only">About — Matcha in Paris</h1>
 
-  <!-- Handwritten logo -->
   <div class="logo-hero">
     <img
       src="assets/logo.png"
@@ -88,7 +35,11 @@
       loading="eager" decoding="async" fetchpriority="high">
   </div>
 
-  <!-- Hero banner -->
+  <section class="hero-intro" aria-label="About introduction">
+    <p class="hero-kicker">Independent Paris Matcha Guide</p>
+    <p class="hero-subtitle">Taste notes, honest ratings, and no paid placements—just cafés worth your walk.</p>
+  </section>
+
   <div class="banner-frame">
     <img
       src="/assets/matchabanner.jpg"
@@ -98,8 +49,8 @@
   </div>
 
   <div class="container">
-    <div class="card" style="padding:24px">
-      <h2 id="h2Heading" style="color:var(--accent)">About Matcha in Paris 🍵</h2>
+    <div class="card card-xl">
+      <h2 id="h2Heading">About Matcha in Paris 🍵</h2>
       <p id="p1">
         Welcome to my hand-poured guide to the matcha corners of Paris.
         Every spot here has been sipped, savoured, and judged by me — no algorithms, no sponsorships, just honest cups.
@@ -119,10 +70,8 @@
   <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ in Paris, by Ellina K-A</footer>
 
   <script>
-    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // i18n
     const I18N_ABOUT = {
       en: {
         nav_about: "About",
