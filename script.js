@@ -14,7 +14,9 @@ const state = {
   arr: "all",
   selectedTags: [],     // selected category tags
   q: "",                // search text
-  panelOpen: false
+  panelOpen: false,
+  userLocation: null,
+  locationStatus: 'idle'
 };
 
 const el = {
@@ -30,7 +32,9 @@ const el = {
   hideUnrated: null,
   arrFilter: null,
   langToggle: null,
-  jumpMap: null        // <-- one consistent id
+  jumpMap: null,       // <-- one consistent id
+  useLocation: null,
+  locationStatus: null
 };
 
 // ---------- i18n (UI-only; we do NOT touch cafe names/addresses/notes) ----------
@@ -58,6 +62,11 @@ const I18N = {
     nav_spots: "Spots",
     nav_contact: "Contact",
     jump_map: "Jump to map",
+    use_location: "Use my location",
+    location_requesting: "Requesting your location…",
+    location_denied: "Location permission denied. You can still browse by rating.",
+    location_unavailable: "Location unavailable on this device. Browsing by rating.",
+    location_ready: "Location enabled. Sorting nearby spots first.",
     source_community: "Community suggestion",
     source_me: "Reviewed by me",
     community_unreviewed: "Not reviewed by me yet",
@@ -87,6 +96,11 @@ const I18N = {
     nav_spots: "Adresses",
     nav_contact: "Contact",
     jump_map: "Aller à la carte",
+    use_location: "Utiliser ma position",
+    location_requesting: "Demande de votre position…",
+    location_denied: "Permission de localisation refusée. Tri par note maintenu.",
+    location_unavailable: "Localisation indisponible sur cet appareil. Tri par note maintenu.",
+    location_ready: "Localisation activée. Les spots proches sont affichés en premier.",
     source_community: "Suggestion communauté",
     source_me: "Testé par moi",
     community_unreviewed: "Pas encore testé par moi",
@@ -202,9 +216,11 @@ function applyLangStaticTexts() {
   // Localize "Jump to map" button
   const jm = document.getElementById('jumpMap');
   if (jm) jm.textContent = t('jump_map');
+  if (el.useLocation) el.useLocation.textContent = t('use_location');
 
   // Update Filters button text (with count handled elsewhere)
   updateFilterButtonCount(currentFilterCount);
+  renderLocationStatus();
 }
 
 // Show count on "Filters" button (e.g., Filters (3))
@@ -224,6 +240,73 @@ function initMap() {
 }
 function clearMarkers(){ state.markers.forEach(m=>state.map.removeLayer(m)); state.markers=[]; }
 
+function formatDistance(km){
+  if (typeof km !== 'number' || Number.isNaN(km)) return '';
+  const locale = lang === 'fr' ? 'fr-FR' : 'en-US';
+  const rounded = km < 1
+    ? new Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(km)
+    : new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(km);
+  return lang === 'fr' ? `À ${rounded} km` : `${rounded} km away`;
+}
+
+function getDistanceKm(from, to){
+  if (!from || typeof from.lat !== 'number' || typeof from.lng !== 'number') return null;
+  if (!to || typeof to.lat !== 'number' || typeof to.lng !== 'number') return null;
+  const R = 6371;
+  const dLat = (to.lat - from.lat) * Math.PI / 180;
+  const dLng = (to.lng - from.lng) * Math.PI / 180;
+  const a = Math.sin(dLat / 2) ** 2 +
+    Math.cos(from.lat * Math.PI / 180) *
+    Math.cos(to.lat * Math.PI / 180) *
+    Math.sin(dLng / 2) ** 2;
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+function isMobileViewport(){
+  return window.matchMedia('(max-width: 899px)').matches;
+}
+
+function renderLocationStatus(){
+  if (!el.locationStatus) return;
+  const map = {
+    requesting: t('location_requesting'),
+    denied: t('location_denied'),
+    unavailable: t('location_unavailable'),
+    ready: t('location_ready')
+  };
+  el.locationStatus.textContent = map[state.locationStatus] || '';
+}
+
+function requestUserLocation(){
+  if (!navigator.geolocation) {
+    state.locationStatus = 'unavailable';
+    state.userLocation = null;
+    renderLocationStatus();
+    applyFilters();
+    return;
+  }
+
+  state.locationStatus = 'requesting';
+  renderLocationStatus();
+
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      state.userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      state.locationStatus = 'ready';
+      renderLocationStatus();
+      applyFilters();
+    },
+    (err) => {
+      state.userLocation = null;
+      state.locationStatus = err.code === err.PERMISSION_DENIED ? 'denied' : 'unavailable';
+      renderLocationStatus();
+      applyFilters();
+    },
+    { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 }
+  );
+}
+
 const communityIcon = L.icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png',
   shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
@@ -242,8 +325,9 @@ function renderMarkers(items){
   items.forEach((c,idx)=>{
     if (typeof c.lat!=='number'||typeof c.lng!=='number') return;
     const sourceLine = isCommunitySpot(c) ? t('source_community') : t('source_me');
+    const distanceLine = typeof c._distanceKm === 'number' ? `<br/>${formatDistance(c._distanceKm)}` : '';
     const m=L.marker([c.lat,c.lng], { icon: isCommunitySpot(c) ? communityIcon : new L.Icon.Default() }).addTo(state.map)
-      .bindPopup(`<strong>${c.name}</strong><br/>${c.address}<br/>${sourceLine}<br/>${t('my_rating')}: ${c.my_rating ?? "—"}`);
+      .bindPopup(`<strong>${c.name}</strong><br/>${c.address}<br/>${sourceLine}${distanceLine}<br/>${t('my_rating')}: ${c.my_rating ?? "—"}`);
     m.on('click',()=>highlightListItem(idx));
     state.markers.push(m); group.push(m);
   });
@@ -290,9 +374,13 @@ function renderList(items){
     const sourceBadge = isCommunitySpot(c)
       ? `<span class="badge badge-community">${t('source_community')}</span>`
       : '';
+    const distanceLine = typeof c._distanceKm === 'number'
+      ? `<div class="meta">${formatDistance(c._distanceKm)}</div>`
+      : '';
     div.innerHTML=`
       <h3>${c.name}</h3>
       <div class="meta">${c.address} • ${c.price || '—'}</div>
+      ${distanceLine}
       <div style="margin:6px 0">${
         (c.tags || []).map(t => `<span class="badge">${tagLabel(t)}</span>`).join('')
       } ${sourceBadge}</div>
@@ -382,8 +470,18 @@ function applyFilters(){
     return true;
   });
 
-  // Sort by rating desc, then name
+  items = items.map((c) => {
+    const distanceKm = getDistanceKm(state.userLocation, c);
+    return { ...c, _distanceKm: typeof distanceKm === 'number' ? distanceKm : null };
+  });
+
+  // Mobile default sort with location: distance, then rating, then name
   items.sort((a,b)=>{
+    if (isMobileViewport() && state.userLocation) {
+      const da = typeof a._distanceKm === 'number' ? a._distanceKm : Number.POSITIVE_INFINITY;
+      const db = typeof b._distanceKm === 'number' ? b._distanceKm : Number.POSITIVE_INFINITY;
+      if (da !== db) return da - db;
+    }
     const ra=typeof a.my_rating==='number'?a.my_rating:-1;
     const rb=typeof b.my_rating==='number'?b.my_rating:-1;
     if(rb!==ra) return rb-ra;
@@ -424,6 +522,8 @@ async function boot(){
   el.arrFilter=document.getElementById('arrFilter');
   el.langToggle=document.getElementById('langToggle');
   el.jumpMap=document.getElementById('jumpMap'); // <-- grab it once
+  el.useLocation=document.getElementById('useLocation');
+  el.locationStatus=document.getElementById('locationStatus');
 
   initMap();
 
@@ -451,6 +551,7 @@ async function boot(){
     applyLangStaticTexts(); // updates UI labels + tag checkbox labels
     applyFilters();         // re-render list with translated strings
   });
+  el.useLocation?.addEventListener('click', requestUserLocation);
 
   // One jump-to-map handler (with offset so it doesn't hide under navbar)
   el.jumpMap?.addEventListener('click', (e) => {

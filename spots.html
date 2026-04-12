@@ -86,8 +86,10 @@
           <div class="filters-bar">
             <input id="search" type="search" placeholder="Search name, notes, or tags…"/>
             <button id="filterToggle" class="btn" type="button">Filters</button>
+            <button id="useLocation" class="btn" type="button">Use my location</button>
             <button id="jumpMap" class="btn" type="button">Jump to map</button>
           </div>
+          <div id="locationStatus" class="hint" aria-live="polite"></div>
 
           <div id="appliedChips" class="chips"></div>
 
@@ -136,7 +138,7 @@
 </div>
 
 <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ and a whisk, by Ellina K-A.</footer>
-<script src="script.js?v=8"></script>
+<script src="script.js?v=9"></script>
 <div id="google_translate_element" style="display:none;"></div>
 
 <script>
