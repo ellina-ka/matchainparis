@@ -161,6 +161,7 @@ header { max-width: var(--container); margin: var(--space-6) auto var(--space-3)
 .controls { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin: var(--space-3) 0; position: relative; }
 .filters-bar { display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; width: 100%; }
 .filters-bar input[type="search"] { flex: 1 1 280px; }
+.controls #locationStatus { width: 100%; }
 .controls label input[type="checkbox"] { accent-color: var(--accent); }
 
 .chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-2) 0 var(--space-2); }
@@ -240,8 +241,10 @@ header { max-width: var(--container); margin: var(--space-6) auto var(--space-3)
 .center { text-align: center; }
 .notice { background: #e6f4ea; border: 1px solid #a8c3ab; color: #234d33; padding: 12px 14px; border-radius: var(--radius-md); margin: 0 auto 14px; }
 .btn-map,
-#jumpMap.btn { background: var(--accent); color: #fff; border-color: var(--accent); }
+#jumpMap.btn,
+#useLocation.btn { background: var(--accent); color: #fff; border-color: var(--accent); }
 #jumpMap.btn:hover { filter: brightness(0.95); }
+#useLocation.btn:hover { filter: brightness(0.95); }
 
 footer { max-width: var(--container); margin: var(--space-4) auto var(--space-10); padding: 0 var(--space-4); color: var(--text-muted); font-size: var(--text-sm); }
 
@@ -269,13 +272,15 @@ footer { max-width: var(--container); margin: var(--space-4) auto var(--space-10
 
 @media (max-width: 899px) {
   #filterToggle,
-  #jumpMap {
+  #jumpMap,
+  #useLocation {
     padding: 6px 10px;
     font-size: 13px;
     line-height: 1.2;
     border-width: 1px;
   }
-  #jumpMap {
+  #jumpMap,
+  #useLocation {
     border-radius: var(--radius-pill);
     flex: 0 0 auto;
     width: auto;
