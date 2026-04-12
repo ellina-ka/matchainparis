@@ -62,7 +62,7 @@
   <nav class="navbar">
     <a id="navAbout" href="index.html">About</a>
     <a id="navSpots" href="spots.html" class="active">Spots</a>
-    <a href="suggest.html">Contact</a>
+    <a id="navContact" href="suggest.html">Contact</a>
     <button id="langToggle" class="lang-toggle" type="button" aria-label="Toggle language">FR</button>
   </nav>
 </header>
@@ -73,9 +73,9 @@
   <img src="assets/logo.png" alt="Matcha in Paris logo" class="page-logo">
 </div>
 <section class="hero-intro">
-  <p class="hero-kicker">City Matcha Index</p>
-  <h2 class="hero-title">All matcha spots in Paris, rated and mapped.</h2>
-  <p class="hero-subtitle">Use filters to find your vibe, then jump straight to the map.</p>
+  <p id="spotsKicker" class="hero-kicker">City Matcha Index</p>
+  <h2 id="spotsSubtitle" class="hero-title">All matcha spots in Paris, rated and mapped.</h2>
+  <p id="spotsSubline" class="hero-subtitle">Use filters to find your vibe, then jump straight to the map.</p>
 </section>
 
 <div class="container">
@@ -92,7 +92,7 @@
           <div id="appliedChips" class="chips"></div>
 
           <select id="arrFilter" title="Arrondissement">
-            <option value="all">All arrondissements</option>
+            <option id="arrAllOption" value="all">All arrondissements</option>
             <option value="1">1er</option><option value="2">2e</option><option value="3">3e</option>
             <option value="4">4e</option><option value="5">5e</option><option value="6">6e</option>
             <option value="7">7e</option><option value="8">8e</option><option value="9">9e</option>
