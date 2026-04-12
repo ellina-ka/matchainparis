@@ -85,11 +85,13 @@
         <div class="controls">
           <div class="filters-bar">
             <input id="search" type="search" placeholder="Search name, notes, or tags…"/>
+            <button id="nearMe" class="btn" type="button">Near me</button>
             <button id="filterToggle" class="btn" type="button">Filters</button>
             <button id="jumpMap" class="btn" type="button">Jump to map</button>
           </div>
 
           <div id="appliedChips" class="chips"></div>
+          <p id="resultsSummary" class="hint" aria-live="polite"></p>
 
           <select id="arrFilter" title="Arrondissement">
             <option id="arrAllOption" value="all">All arrondissements</option>

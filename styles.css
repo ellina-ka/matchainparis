@@ -268,7 +268,13 @@ footer { max-width: var(--container); margin: var(--space-4) auto var(--space-10
 }
 
 @media (max-width: 899px) {
+  .filters-bar #search { order: 1; }
+  .filters-bar #nearMe { order: 2; }
+  .filters-bar #filterToggle { order: 3; }
+  .filters-bar #jumpMap { order: 4; }
+
   #filterToggle,
+  #nearMe,
   #jumpMap {
     padding: 6px 10px;
     font-size: 13px;
@@ -283,6 +289,10 @@ footer { max-width: var(--container); margin: var(--space-4) auto var(--space-10
 }
 
 @media (max-width: 640px) {
+  .logo-hero { margin: var(--space-2) auto 0; }
+  .hero-intro { margin: 0 auto var(--space-3); }
+  .controls { margin: var(--space-2) 0; gap: 0.4rem; }
+  .filters-bar { gap: 0.4rem; }
   .hero-title { font-size: clamp(var(--text-xl), 8vw, var(--text-3xl)); }
   .navbar { gap: 2px; }
 }

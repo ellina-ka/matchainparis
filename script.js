@@ -9,6 +9,7 @@ const state = {
   filtered: [],
   map: null,
   markers: [],
+  userMarker: null,
   topOnly: false,       // Top picks
   hideUnrated: false,
   arr: "all",
@@ -20,6 +21,7 @@ const state = {
 const el = {
   list: null,
   search: null,
+  nearMe: null,
   filterToggle: null,
   filterPanel: null,
   clearFilters: null,
@@ -30,7 +32,8 @@ const el = {
   hideUnrated: null,
   arrFilter: null,
   langToggle: null,
-  jumpMap: null        // <-- one consistent id
+  jumpMap: null,
+  resultsSummary: null
 };
 
 // ---------- i18n (UI-only; we do NOT touch cafe names/addresses/notes) ----------
@@ -53,6 +56,7 @@ const I18N = {
     open_in_maps: "Open in Google Maps",
     no_results: "No results.",
     filters_btn: "Filters",
+    near_me: "Near me",
     top_picks_chip: "Top picks",
     nav_about: "About",
     nav_spots: "Spots",
@@ -62,7 +66,8 @@ const I18N = {
     source_me: "Reviewed by me",
     community_unreviewed: "Not reviewed by me yet",
     contribute_cta: "Know a great matcha spot?",
-    contribute_link: "Submit it via Contact"
+    contribute_link: "Submit it via Contact",
+    spots_shown: (count) => `${count} spot${count === 1 ? '' : 's'} shown`
   },
   fr: {
     page_title: "Adresses — Matcha à Paris",
@@ -82,6 +87,7 @@ const I18N = {
     open_in_maps: "Ouvrir dans Google Maps",
     no_results: "Aucun résultat.",
     filters_btn: "Filtres",
+    near_me: "Près de moi",
     top_picks_chip: "Top Lieux",
     nav_about: "À propos",
     nav_spots: "Adresses",
@@ -91,12 +97,17 @@ const I18N = {
     source_me: "Testé par moi",
     community_unreviewed: "Pas encore testé par moi",
     contribute_cta: "Vous connaissez un bon spot matcha ?",
-    contribute_link: "Partagez-le via Contact"
+    contribute_link: "Partagez-le via Contact",
+    spots_shown: (count) => `${count} adresse${count === 1 ? '' : 's'} affichée${count === 1 ? '' : 's'}`
   }
 };
 
 let lang = localStorage.getItem('lang') || (navigator.language?.startsWith('fr') ? 'fr' : 'en');
 function t(key){ return I18N[lang]?.[key] ?? I18N.en[key] ?? key; }
+function tf(key, ...args) {
+  const value = t(key);
+  return typeof value === 'function' ? value(...args) : value;
+}
 
 // Show labels in FR/EN but keep tag keys stable
 const TAG_LABELS = {
@@ -202,9 +213,12 @@ function applyLangStaticTexts() {
   // Localize "Jump to map" button
   const jm = document.getElementById('jumpMap');
   if (jm) jm.textContent = t('jump_map');
+  const near = document.getElementById('nearMe');
+  if (near) near.textContent = t('near_me');
 
   // Update Filters button text (with count handled elsewhere)
   updateFilterButtonCount(currentFilterCount);
+  updateResultsSummary(state.filtered.length);
 }
 
 // Show count on "Filters" button (e.g., Filters (3))
@@ -213,6 +227,11 @@ function updateFilterButtonCount(n){
   const btn = document.getElementById('filterToggle');
   if (!btn) return;
   btn.textContent = n ? `${t('filters_btn')} (${n})` : t('filters_btn');
+}
+
+function updateResultsSummary(count) {
+  if (!el.resultsSummary) return;
+  el.resultsSummary.textContent = tf('spots_shown', count);
 }
 
 // ---------- Map ----------
@@ -394,6 +413,7 @@ function applyFilters(){
   renderList(items);
   renderMarkers(items);
   renderAppliedChips();
+  updateResultsSummary(items.length);
 }
 
 function syncPanelFromState(){
@@ -413,6 +433,7 @@ async function boot(){
   document.getElementById('year').textContent=new Date().getFullYear();
   el.list=document.getElementById('list');
   el.search=document.getElementById('search');
+  el.nearMe=document.getElementById('nearMe');
   el.filterToggle=document.getElementById('filterToggle');
   el.filterPanel=document.getElementById('filterPanel');
   el.clearFilters=document.getElementById('clearFilters');
@@ -424,6 +445,7 @@ async function boot(){
   el.arrFilter=document.getElementById('arrFilter');
   el.langToggle=document.getElementById('langToggle');
   el.jumpMap=document.getElementById('jumpMap'); // <-- grab it once
+  el.resultsSummary=document.getElementById('resultsSummary');
 
   initMap();
 
@@ -460,6 +482,22 @@ async function boot(){
     document.activeElement?.blur?.(); // close mobile keyboard if search focused
     const y = mapEl.getBoundingClientRect().top + window.pageYOffset - 80; // ~navbar height
     window.scrollTo({ top: y, behavior: 'smooth' });
+  });
+
+  el.nearMe?.addEventListener('click', () => {
+    if (!navigator.geolocation || !state.map) return;
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const userLatLng = [pos.coords.latitude, pos.coords.longitude];
+      state.map.setView(userLatLng, 14);
+      if (state.userMarker) state.map.removeLayer(state.userMarker);
+      state.userMarker = L.circleMarker(userLatLng, {
+        radius: 8,
+        color: '#2f5d3a',
+        weight: 2,
+        fillColor: '#2f5d3a',
+        fillOpacity: 0.2
+      }).addTo(state.map);
+    });
   });
 
   el.fTop?.addEventListener('change', ()=>{ updateStateFromPanel(); applyFilters(); });
