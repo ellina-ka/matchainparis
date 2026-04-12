@@ -36,10 +36,14 @@ const el = {
 // ---------- i18n (UI-only; we do NOT touch cafe names/addresses/notes) ----------
 const I18N = {
   en: {
+    page_title: "Spots — Matcha in Paris",
     title_spots: "Matcha Spots in Paris 🍵",
-    subtitle_spots: "All the matcha spots in Paris — my ratings, map, and quick links.",
+    hero_kicker: "City Matcha Index",
+    hero_title: "All matcha spots in Paris, rated and mapped.",
+    subtitle_spots: "Use filters to find your vibe, then jump straight to the map.",
     search_placeholder: "Search name, notes, or tags…",
     arr_title: "Arrondissement",
+    arr_all: "All arrondissements",
     hide_unrated: "Hide unrated",
     filter_heading: "Filter",
     top_picks_label: "Top picks (≥ 4.6)",
@@ -52,6 +56,7 @@ const I18N = {
     top_picks_chip: "Top picks",
     nav_about: "About",
     nav_spots: "Spots",
+    nav_contact: "Contact",
     jump_map: "Jump to map",
     source_community: "Community suggestion",
     source_me: "Reviewed by me",
@@ -60,10 +65,14 @@ const I18N = {
     contribute_link: "Submit it via Contact"
   },
   fr: {
+    page_title: "Adresses — Matcha à Paris",
     title_spots: "Un matcha à Paris 🍵",
-    subtitle_spots: "Toutes les adresses de matcha à Paris — mes notes, la carte et les liens utiles.",
+    hero_kicker: "Index Matcha de la ville",
+    hero_title: "Toutes les adresses matcha à Paris, notées et cartographiées.",
+    subtitle_spots: "Utilisez les filtres selon vos envies, puis allez directement à la carte.",
     search_placeholder: "Rechercher (nom, notes, tags)…",
     arr_title: "Arrondissement",
+    arr_all: "Tous les arrondissements",
     hide_unrated: "Masquer sans note",
     filter_heading: "Filtres",
     top_picks_label: "Top picks (≥ 4.6)",
@@ -76,6 +85,7 @@ const I18N = {
     top_picks_chip: "Top Lieux",
     nav_about: "À propos",
     nav_spots: "Adresses",
+    nav_contact: "Contact",
     jump_map: "Aller à la carte",
     source_community: "Suggestion communauté",
     source_me: "Testé par moi",
@@ -145,24 +155,33 @@ function updateTagCheckboxLabels() {
 
 function applyLangStaticTexts() {
   document.documentElement.lang = lang;
+  document.title = t('page_title');
 
   const title = document.querySelector('h1.page-title');
-  const subtitle = document.querySelector('p.text-muted');
+  const heroKicker = document.getElementById('spotsKicker');
+  const heroTitle = document.getElementById('spotsSubtitle');
+  const heroSubtitle = document.getElementById('spotsSubline');
   if (title) title.textContent = t('title_spots');
-  if (subtitle) subtitle.textContent = t('subtitle_spots');
+  if (heroKicker) heroKicker.textContent = t('hero_kicker');
+  if (heroTitle) heroTitle.textContent = t('hero_title');
+  if (heroSubtitle) heroSubtitle.textContent = t('subtitle_spots');
 
   const search = document.getElementById('search');
   if (search) search.setAttribute('placeholder', t('search_placeholder'));
 
   const arrSel = document.getElementById('arrFilter');
   if (arrSel) arrSel.setAttribute('title', t('arr_title'));
+  const arrAll = document.getElementById('arrAllOption');
+  if (arrAll) arrAll.textContent = t('arr_all');
 
   setLabelTextAfterInput('hideUnrated', t('hide_unrated'));
 
   const navAbout = document.getElementById('navAbout');
   const navSpots = document.getElementById('navSpots');
+  const navContact = document.getElementById('navContact');
   if (navAbout) navAbout.textContent = t('nav_about');
   if (navSpots) navSpots.textContent = t('nav_spots');
+  if (navContact) navContact.textContent = t('nav_contact');
 
   // Filter panel texts
   const panel = document.getElementById('filterPanel');
