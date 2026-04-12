@@ -79,8 +79,13 @@
 </section>
 
 <div class="container">
+  <div id="mobileModeToggle" class="mobile-mode-toggle" role="tablist" aria-label="View mode" hidden>
+    <button id="modeList" class="mode-btn" type="button" role="tab" aria-selected="true" data-mode="list">List</button>
+    <button id="modeMap" class="mode-btn" type="button" role="tab" aria-selected="false" data-mode="map">Map</button>
+  </div>
+
   <div class="grid">
-    <div class="scroll-col">
+    <div id="listContainer" class="scroll-col">
       <div class="card">
         <div class="controls">
           <div class="filters-bar">
@@ -129,14 +134,14 @@
       </div>
     </div>
 
-    <div class="sticky-col">
+    <div id="mapContainer" class="sticky-col">
       <div id="map" class="map"></div>
     </div>
   </div>
 </div>
 
 <footer>© <span id="year"></span> matchainparis.com • Built with ❤️ and a whisk, by Ellina K-A.</footer>
-<script src="script.js?v=8"></script>
+<script src="script.js?v=9"></script>
 <div id="google_translate_element" style="display:none;"></div>
 
 <script>

@@ -14,7 +14,9 @@ const state = {
   arr: "all",
   selectedTags: [],     // selected category tags
   q: "",                // search text
-  panelOpen: false
+  panelOpen: false,
+  viewMode: localStorage.getItem('spotsViewMode') === 'map' ? 'map' : 'list',
+  listScrollY: 0
 };
 
 const el = {
@@ -30,7 +32,12 @@ const el = {
   hideUnrated: null,
   arrFilter: null,
   langToggle: null,
-  jumpMap: null        // <-- one consistent id
+  jumpMap: null,       // <-- one consistent id
+  mobileModeToggle: null,
+  modeList: null,
+  modeMap: null,
+  listContainer: null,
+  mapContainer: null
 };
 
 // ---------- i18n (UI-only; we do NOT touch cafe names/addresses/notes) ----------
@@ -58,6 +65,9 @@ const I18N = {
     nav_spots: "Spots",
     nav_contact: "Contact",
     jump_map: "Jump to map",
+    mode_list: "List",
+    mode_map: "Map",
+    view_mode_aria: "View mode",
     source_community: "Community suggestion",
     source_me: "Reviewed by me",
     community_unreviewed: "Not reviewed by me yet",
@@ -87,6 +97,9 @@ const I18N = {
     nav_spots: "Adresses",
     nav_contact: "Contact",
     jump_map: "Aller à la carte",
+    mode_list: "Liste",
+    mode_map: "Carte",
+    view_mode_aria: "Mode d'affichage",
     source_community: "Suggestion communauté",
     source_me: "Testé par moi",
     community_unreviewed: "Pas encore testé par moi",
@@ -202,6 +215,14 @@ function applyLangStaticTexts() {
   // Localize "Jump to map" button
   const jm = document.getElementById('jumpMap');
   if (jm) jm.textContent = t('jump_map');
+
+  // Localize mobile List/Map toggle
+  const modeToggle = document.getElementById('mobileModeToggle');
+  const modeList = document.getElementById('modeList');
+  const modeMap = document.getElementById('modeMap');
+  if (modeToggle) modeToggle.setAttribute('aria-label', t('view_mode_aria'));
+  if (modeList) modeList.textContent = t('mode_list');
+  if (modeMap) modeMap.textContent = t('mode_map');
 
   // Update Filters button text (with count handled elsewhere)
   updateFilterButtonCount(currentFilterCount);
@@ -408,6 +429,57 @@ function updateStateFromPanel(){
 function openPanel(){ syncPanelFromState(); el.filterPanel.hidden=false; state.panelOpen=true; }
 function closePanel(){ el.filterPanel.hidden=true; state.panelOpen=false; }
 
+function isMobileViewport() {
+  return window.matchMedia('(max-width: 899px)').matches;
+}
+
+function applyViewMode() {
+  const mode = state.viewMode === 'map' ? 'map' : 'list';
+  const body = document.body;
+  if (!body) return;
+
+  body.classList.remove('view-mode-list', 'view-mode-map');
+
+  if (isMobileViewport()) {
+    body.classList.add(`view-mode-${mode}`);
+    if (el.mobileModeToggle) el.mobileModeToggle.hidden = false;
+  } else if (el.mobileModeToggle) {
+    el.mobileModeToggle.hidden = true;
+  }
+
+  if (el.modeList) {
+    const active = mode === 'list';
+    el.modeList.classList.toggle('is-active', active);
+    el.modeList.setAttribute('aria-selected', String(active));
+  }
+  if (el.modeMap) {
+    const active = mode === 'map';
+    el.modeMap.classList.toggle('is-active', active);
+    el.modeMap.setAttribute('aria-selected', String(active));
+  }
+
+  if (state.map) setTimeout(() => state.map.invalidateSize(), 0);
+}
+
+function switchViewMode(nextMode) {
+  if (nextMode !== 'list' && nextMode !== 'map') return;
+  const prevMode = state.viewMode;
+  if (prevMode === nextMode) return;
+
+  if (isMobileViewport() && prevMode === 'list' && nextMode === 'map') {
+    state.listScrollY = window.scrollY;
+  }
+
+  state.viewMode = nextMode;
+  localStorage.setItem('spotsViewMode', nextMode);
+  applyViewMode();
+
+  if (isMobileViewport() && nextMode === 'list') {
+    const y = Number.isFinite(state.listScrollY) ? state.listScrollY : 0;
+    requestAnimationFrame(() => window.scrollTo({ top: y, behavior: 'auto' }));
+  }
+}
+
 // ---------- Boot ----------
 async function boot(){
   document.getElementById('year').textContent=new Date().getFullYear();
@@ -424,6 +496,11 @@ async function boot(){
   el.arrFilter=document.getElementById('arrFilter');
   el.langToggle=document.getElementById('langToggle');
   el.jumpMap=document.getElementById('jumpMap'); // <-- grab it once
+  el.mobileModeToggle=document.getElementById('mobileModeToggle');
+  el.modeList=document.getElementById('modeList');
+  el.modeMap=document.getElementById('modeMap');
+  el.listContainer=document.getElementById('listContainer');
+  el.mapContainer=document.getElementById('mapContainer');
 
   initMap();
 
@@ -458,9 +535,14 @@ async function boot(){
     const mapEl = document.getElementById('map');
     if (!mapEl) return;
     document.activeElement?.blur?.(); // close mobile keyboard if search focused
+    switchViewMode('map');
     const y = mapEl.getBoundingClientRect().top + window.pageYOffset - 80; // ~navbar height
     window.scrollTo({ top: y, behavior: 'smooth' });
   });
+
+  el.modeList?.addEventListener('click', () => switchViewMode('list'));
+  el.modeMap?.addEventListener('click', () => switchViewMode('map'));
+  window.addEventListener('resize', applyViewMode);
 
   el.fTop?.addEventListener('change', ()=>{ updateStateFromPanel(); applyFilters(); });
   el.fTagBoxes.forEach(b=> b.addEventListener('change', ()=>{ updateStateFromPanel(); applyFilters(); }));
@@ -473,5 +555,6 @@ async function boot(){
   });
 
   applyFilters();
+  applyViewMode();
 }
 boot();
